@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Foodies</string>
+    <string name="vendor_list_button">View Vendors</string>
 </resources>

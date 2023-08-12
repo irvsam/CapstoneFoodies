@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/CapstoneFoodies.iml" filepath="$PROJECT_DIR$/.idea/CapstoneFoodies.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Foodies.iml" filepath="$PROJECT_DIR$/.idea/modules/Foodies.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Foodies.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Foodies.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Foodies.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Foodies.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Foodies.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Foodies.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Foodies.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Foodies.app.unitTest.iml" />
     </modules>
   </component>
 </project>
