@@ -14,7 +14,4 @@ class Review(
 
     //do we need optional other rating types?? cleanliness etc
 )
-{
-    fun createReview() {}
-    fun calcAveRating(){}
-}
+

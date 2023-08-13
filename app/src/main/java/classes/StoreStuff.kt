@@ -5,26 +5,50 @@ import java.sql.Time
 //Store, Menu, MenuItem, DietaryReq
 
 class Store(
+
     val name: String,
     val cuisine: String,
     val menu: Menu,
-    var rating: Int, //made a change to class diagram, could be double?
+    private var rating: Double, //made a change to class diagram, could be double?
     var openTime: Time,
     var closeTime: Time,
     var dietaryReqs: DietaryReq,
     var reviewList: ArrayList<Review>,
 )
 {
+    fun calcAveRating() {
+        if (reviewList.isNotEmpty()) {
+            // Calculate the sum of all ratings
+            var totalRating: Double = 0.0
+            for(review in reviewList){
+                totalRating += review.overAllRating
+            }
 
-    // I actually think calc average rating method should be in the store class not the review class
+            // Calculate the average rating
+            val averageRating = totalRating/ reviewList.size
+            // Update the store's rating
+            rating = averageRating
+        } else {
+            // If there are no reviews, what do we set the rating to??
+
+        }
+    }
 }
 
 
-class Menu() //needs a list of menu items
+class Menu(
+    private var menu: ArrayList<MenuItem>
+)
 {
-    //fun addItem(var item: MenuItem){}
+    fun addItem(item: MenuItem) {
+        // Add an item to the menu
+        menu.add(item)}
 
-    //fun removeItem(var item: MenuItem)
+    fun removeItem(item: MenuItem) {
+        // Remove an item from the menu
+        menu.remove(item)
+    }
+
 }
 
 class MenuItem(
@@ -32,7 +56,11 @@ class MenuItem(
     var price: Double,
     var description: String,
     var inStock: Boolean,
-)
+){
+    fun setStock(boolean: Boolean){
+        inStock=boolean
+    }
+}
 
 enum class DietaryReq(val requirement: String){
     VEGETARIAN("Vegetarian"),
