@@ -1,5 +1,7 @@
-//this one holds all classes linked to a store
+package classes
 
+import java.sql.Time
+//this one holds all classes linked to a store
 
 class Store(
     val name: String,
@@ -8,8 +10,8 @@ class Store(
     var rating: Int, //made a change to class diagram, could be double?
     var openTime: Time, // dont know about Time objects
     var closeTime: Time,
-    var dietaryReqs: DietaryRequirements,
-    var reviewList: ArrayList<Review> ,  //this must be an array of review objects
+    var dietaryReqs: DietaryReq,
+    var reviewList: ArrayList<Review>,  //this must be an array of review objects
 )
 {
 
@@ -19,11 +21,9 @@ class Store(
 
 class Menu() //needs a list of menu items
 {
-    fun addItem(var item: MenuItem){
-    }
+    //fun addItem(var item: MenuItem){}
 
-    fun removeItem(var item:MenuItem)
-
+    //fun removeItem(var item: MenuItem)
 }
 
 class MenuItem(
@@ -34,12 +34,12 @@ class MenuItem(
 )
 
 enum class DietaryReq(val requirement: String){
-    Vegetarian("Vegetarian"),
-    Vegan("Vegan"),
-    Pescatarian("Pescatarian"),
-    Lactose-free("Lactose-free"),
-    Gluten-free("Gluten-free"),
-    Nut-free("Nut-free"),
-    Halaal("Halaal"),
-    Kosher("Kosher"),
+    VEGETARIAN("Vegetarian"),
+    VEGAN("Vegan"),
+    PESCATARIAN("Pescatarian"),
+    LACTOSE_FREE("Lactose-free"),
+    GLUTEN_FREE("Gluten-free"),
+    NUT_FREE("Nut-free"),
+    HALAL("Halal"),
+    KOSHER("Kosher"),
 }
