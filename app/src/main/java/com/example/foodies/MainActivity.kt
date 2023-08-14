@@ -1,6 +1,5 @@
 package com.example.foodies
 
-import VendorListFragment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
