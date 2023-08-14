@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">Foodies</string>
     <string name="vendor_list_button">View Vendors</string>
+    <string name="sign_out">sign out</string>
+    <string name="your_account_details">Your Account Details</string>
+    <string name="pfp_description">change profile picture</string>
+    <string name="name">Name:</string>
+    <string name="users_name">User\'s Name</string>
+    <string name="email_address">E-mail address:</string>
+    <string name="users_email">User\'s e-mail</string>
+    <string name="review_history">Review history:</string>
+    <string name="users_review_history">user\'s review history</string>
 </resources>
