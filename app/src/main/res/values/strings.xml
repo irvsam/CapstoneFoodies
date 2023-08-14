@@ -10,4 +10,8 @@
     <string name="users_email">User\'s e-mail</string>
     <string name="review_history">Review history:</string>
     <string name="users_review_history">user\'s review history</string>
+    <string name="login">Log in</string>
+    <string name="hint_email">email</string>
+    <string name="hint_password">password</string>
+    <string name="cancel">cancel</string>
 </resources>
