@@ -14,4 +14,6 @@
     <string name="hint_email">email</string>
     <string name="hint_password">password</string>
     <string name="cancel">cancel</string>
+    <string name="register_link_text">don\'t have an account? click here to register</string>
+
 </resources>
