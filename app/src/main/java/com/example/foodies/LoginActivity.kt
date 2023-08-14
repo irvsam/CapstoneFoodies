@@ -28,17 +28,28 @@ class LoginActivity : AppCompatActivity() {
 
         // Set the ClickableSpan to the TextView
         val spannableString = SpannableString(registerLinkTextView.text)
-        spannableString.setSpan(clickableSpan, 23, 40, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(clickableSpan, 23, 45, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         registerLinkTextView.text = spannableString
         registerLinkTextView.movementMethod = LinkMovementMethod.getInstance()
 
         // Set click listener for the login button
+        //TODO this should not just let them in but for prototype it might be good enough
         val loginButton = findViewById<Button>(R.id.login_btn)
         loginButton.setOnClickListener {
             // Navigate to MainActivity
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
              // Optional: finish the LoginActivity if you don't want to come back to it using the back button
+        }
+
+        // Set click listener for the continue as guest button
+        //TODO we must make this only allow guest functionality
+        val guestButton = findViewById<Button>(R.id.guestCont_btn)
+        guestButton.setOnClickListener {
+            // Navigate to MainActivity
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            // Optional: finish the LoginActivity if you don't want to come back to it using the back button
         }
     }
 }
