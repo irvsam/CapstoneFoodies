@@ -26,5 +26,11 @@ class VendorListFragment : Fragment() {
             val intent = Intent(requireContext(), LoginActivity::class.java)
             startActivity(intent)
         }
+
+        val accButton = view.findViewById<Button>(R.id.account_button)
+        accButton.setOnClickListener{
+            val intent = Intent(requireContext(), AccountActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
