@@ -10,9 +10,10 @@
         android:id="@+id/login_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="68dp"
         android:text="@string/login"
         android:textSize="30sp"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="@id/email_layout"
         app:layout_constraintRight_toRightOf="@id/email_layout"
         app:layout_constraintTop_toTopOf="parent" />
@@ -50,7 +51,8 @@
             android:id="@+id/password_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:textColorHint="#616161" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
@@ -66,28 +68,31 @@
         app:layout_constraintRight_toRightOf="@id/password_layout"/>
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/guestCont_btn"
         style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:id="@+id/cancel_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/cancel"
-        app:strokeColor="?attr/colorPrimary"
+        android:text="@string/continue_as_guest"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/login_btn"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/login_btn"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:strokeColor="?attr/colorPrimary" />
 
     <TextView
         android:id="@+id/registerLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="12dp"
         android:clickable="true"
         android:focusable="true"
+        android:minHeight="48dp"
         android:text="@string/register_link_text"
         android:textColor="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_btn" />
 
