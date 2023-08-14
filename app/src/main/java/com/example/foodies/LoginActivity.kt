@@ -7,6 +7,7 @@ import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
@@ -30,5 +31,14 @@ class LoginActivity : AppCompatActivity() {
         spannableString.setSpan(clickableSpan, 23, 40, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         registerLinkTextView.text = spannableString
         registerLinkTextView.movementMethod = LinkMovementMethod.getInstance()
+
+        // Set click listener for the login button
+        val loginButton = findViewById<Button>(R.id.login_btn)
+        loginButton.setOnClickListener {
+            // Navigate to MainActivity
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+             // Optional: finish the LoginActivity if you don't want to come back to it using the back button
+        }
     }
 }
