@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bckgrnd"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
@@ -53,6 +54,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:textColorHint="#616161" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
