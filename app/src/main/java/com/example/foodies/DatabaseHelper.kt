@@ -28,7 +28,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     }
 
     private fun seedDatabase(db : SQLiteDatabase) {
-        val values = ContentValues().apply {
+        val cafeValues = ContentValues().apply {
             put("id", 6)
             put("name", "Campus Cafe")
             put("cuisine", "")
@@ -38,12 +38,26 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             put("closeTime", "18:00")
             put("dietaryReq_id", 1)
         }
-        db.insert("vendor", null, values)
+        db.insert("vendor", null, cafeValues)
+
+        // Creating a User for testing:
+        // for ease of testing:
+        // email = 1
+        // password = p
+        val testUserValues = ContentValues().apply {
+            put("id", 1)
+            put("email", "1")
+            put("password", "p")
+            put("rewardPoints", 200)
+        }
+        db.insert("user",null, testUserValues)
     }
 
     private val CREATE_USER_TABLE = """
         CREATE TABLE user (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        email TEXT,
+        password TEXT,
         rewardPoints INTEGER
         )
     """.trimIndent()
