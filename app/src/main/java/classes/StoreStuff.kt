@@ -14,6 +14,7 @@ class Store(
     var closeTime: Time,
     var dietaryReqs: DietaryReq,
     var reviewList: ArrayList<Review>,
+    var image: Int
 )
 {
     fun calcAveRating() {
@@ -33,13 +34,18 @@ class Store(
 
         }
     }
+
+
 }
 
 
-class Menu(
-    private var menu: ArrayList<MenuItem>
-)
-{
+class Menu{
+    private lateinit var menu: ArrayList<MenuItem>
+
+    constructor(){}
+    constructor(m : ArrayList<MenuItem>){
+        menu = m
+    }
     fun addItem(item: MenuItem) {
         // Add an item to the menu
         menu.add(item)}
