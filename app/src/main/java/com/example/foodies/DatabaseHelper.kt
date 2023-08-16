@@ -1,5 +1,6 @@
 package com.example.foodies
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
@@ -12,15 +13,40 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     }
 
     override fun onCreate(db: SQLiteDatabase) {
+        createTables(db)
+        seedDatabase(db)
+    }
+
+    private fun createTables(db: SQLiteDatabase) {
         // Create your tables here
         db.execSQL(CREATE_VENDOR_TABLE)
         db.execSQL(CREATE_MENU_TABLE)
         db.execSQL(CREATE_DIETARY_REQ_TABLE)
         db.execSQL(CREATE_MENU_ITEM_TABLE)
         db.execSQL(CREATE_REVIEW_TABLE)
+        db.execSQL(CREATE_USER_TABLE)
     }
 
-    // Create other table creation strings (CREATE_MENU_TABLE, CREATE_DIETARY_REQ_TABLE, CREATE_REVIEW_TABLE)
+    private fun seedDatabase(db : SQLiteDatabase) {
+        val values = ContentValues().apply {
+            put("id", 6)
+            put("name", "Campus Cafe")
+            put("cuisine", "")
+            put("menu_id", 6)
+            put("rating", 3.3)
+            put("openTime", "07:00")
+            put("closeTime", "18:00")
+            put("dietaryReq_id", 1)
+        }
+        db.insert("vendor", null, values)
+    }
+
+    private val CREATE_USER_TABLE = """
+        CREATE TABLE user (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        rewardPoints INTEGER
+        )
+    """.trimIndent()
 
     private val CREATE_VENDOR_TABLE = """
         CREATE TABLE vendor (
@@ -66,10 +92,12 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     private val CREATE_REVIEW_TABLE = """
         CREATE TABLE review (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER,
             vendor_id INTEGER,
             text TEXT,
             rating REAL,
-            FOREIGN KEY(vendor_id) REFERENCES vendor(id)
+            FOREIGN KEY(vendor_id) REFERENCES vendor(id),
+            FOREIGN KEY(user_id) REFERENCES user(id)
         )
     """.trimIndent()
 
