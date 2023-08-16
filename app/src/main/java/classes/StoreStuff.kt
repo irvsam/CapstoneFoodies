@@ -4,6 +4,9 @@ import java.sql.Time
 //this one holds all classes linked to a store
 //Store, Menu, MenuItem, DietaryReq
 
+val STORE_EXTRA = "storeExtra"
+var storeList : ArrayList<Store> = ArrayList()
+
 class Store(
 
     val name: String,
