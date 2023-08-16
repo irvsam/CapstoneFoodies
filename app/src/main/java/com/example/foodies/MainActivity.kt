@@ -2,6 +2,9 @@ package com.example.foodies
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import classes.DietaryReq
 import classes.Menu
@@ -10,6 +13,7 @@ import classes.Store
 import classes.storeRecyclerViewAdapter
 import com.example.foodies.databinding.ActivityMainBinding
 import com.example.foodies.databinding.StoreCardCellBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.sql.Time
 
 class MainActivity : AppCompatActivity() {
@@ -25,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
         populateStores()
         val mainActivity = this

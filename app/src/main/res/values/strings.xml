@@ -18,5 +18,9 @@
     <string name="continue_as_guest">continue as guest</string>
     <string name="your_account">your account</string>
     <string name="home_fragment">Home fragment</string>
+    <string name="account">Account</string>
+    <string name="manage">Manage</string>
+    <string name="browse">Browse</string>
+    <string name="home">Home</string>
 
 </resources>
