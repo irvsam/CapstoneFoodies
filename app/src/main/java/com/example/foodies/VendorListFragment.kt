@@ -1,6 +1,7 @@
 package com.example.foodies
 
 import android.content.Intent
+import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,9 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 
 class VendorListFragment : Fragment() {
+
+    private lateinit var dbHelper: DatabaseHelper
+    private lateinit var db: SQLiteDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -20,6 +24,10 @@ class VendorListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // create the databases
+        val dbHelper = DatabaseHelper(requireContext())
+        val db = dbHelper.writableDatabase // or readableDatabase
 
         val backToHomeButton = view.findViewById<Button>(R.id.backToHome_button)
         backToHomeButton.setOnClickListener{

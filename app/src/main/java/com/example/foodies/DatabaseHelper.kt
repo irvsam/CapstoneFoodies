@@ -19,10 +19,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.execSQL(CREATE_MENU_ITEM_TABLE)
         db.execSQL(CREATE_REVIEW_TABLE)
     }
-    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        // Handle database upgrades
-        // You might want to preserve existing data during upgrades
-    }
+
+    // Create other table creation strings (CREATE_MENU_TABLE, CREATE_DIETARY_REQ_TABLE, CREATE_REVIEW_TABLE)
 
     private val CREATE_VENDOR_TABLE = """
         CREATE TABLE vendor (
@@ -35,7 +33,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             closeTime TEXT,
             dietaryReq_id INTEGER,
             FOREIGN KEY(menu_id) REFERENCES menu(id),
-            FOREIGN KEY(dietaryReq_id) REFERENCES dietaryreq(id)
+            FOREIGN KEY(dietaryReq_id) REFERENCES dietary_req(id)
         )
     """.trimIndent()
 
@@ -65,7 +63,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         )
     """.trimIndent()
 
-
     private val CREATE_REVIEW_TABLE = """
         CREATE TABLE review (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -75,7 +72,12 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             FOREIGN KEY(vendor_id) REFERENCES vendor(id)
         )
     """.trimIndent()
-    // Create other table creation strings (CREATE_MENU_TABLE, CREATE_DIETARY_REQ_TABLE, CREATE_REVIEW_TABLE)
+
+    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        // Handle database upgrades
+        // You might want to preserve existing data during upgrades
+    }
 }
+
 
 
