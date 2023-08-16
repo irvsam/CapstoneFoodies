@@ -9,7 +9,7 @@ class Store(
     val name: String,
     val cuisine: String,
     val menu: Menu,
-    private var rating: Double, //made a change to class diagram, could be double?
+    var rating: Double, //made a change to class diagram, could be double?
     var openTime: Time,
     var closeTime: Time,
     var dietaryReqs: DietaryReq,
