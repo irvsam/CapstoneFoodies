@@ -14,5 +14,6 @@ class MainActivity : AppCompatActivity() {
             transaction.replace(R.id.main_container, VendorListFragment())
             transaction.commit()
         }
+
     }
 }
