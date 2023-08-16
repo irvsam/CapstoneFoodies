@@ -17,5 +17,6 @@
     <string name="register_link_text">don\'t have an account? click here to register</string>
     <string name="continue_as_guest">continue as guest</string>
     <string name="your_account">your account</string>
+    <string name="home_fragment">Home fragment</string>
 
 </resources>
