@@ -4,19 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bckgrnd"
     tools:context=".MainActivity">
-
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/storeRecyclerView"
-            android:layout_width="match_parent"
+            android:layout_width="366dp"
+            android:layout_height="477dp"
             android:padding="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_height="match_parent" />
-
-
-
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"

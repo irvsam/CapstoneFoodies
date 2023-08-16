@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity(), StoreClickListener {
     private lateinit var binding: ActivityMainBinding
 
 
-    private var imageList : List<Int> = listOf(R.drawable.campus_coffee,R.drawable.afriquezeen)
+    private var imageList : List<Int> = listOf(R.drawable.cc,R.drawable.afriquezeen)
     private var campusCafeMenu : Menu = Menu()
     private var ccReviewList : ArrayList<Review> = ArrayList()
 

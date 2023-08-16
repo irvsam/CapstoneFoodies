@@ -33,7 +33,7 @@
                 android:id="@+id/imageView"
                 android:layout_width="102dp"
                 android:layout_height="103dp"
-                android:src="@drawable/campus_coffee"
+                android:src="@drawable/cc"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
