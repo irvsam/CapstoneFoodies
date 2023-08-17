@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(), StoreClickListener {
 
     private lateinit var binding: ActivityMainBinding
 
-    private var storesPopulated = false  // Flag to track whether stores have been populated
+    //private var storesPopulated = false  // Flag to track whether stores have been populated
 
 
     private var imageList : List<Int> = listOf(R.drawable.cc,R.drawable.afriquezeen)
@@ -43,10 +43,10 @@ class MainActivity : AppCompatActivity(), StoreClickListener {
 
 
         //only populate if it is the first time opening this activity
-        if (!storesPopulated) {
+        //if (!storesPopulated) {
             populateStores()
-            storesPopulated = true  // Set the flag to true after populating stores for the first time
-        }
+            //storesPopulated = true  // Set the flag to true after populating stores for the first time
+        //}
         val mainActivity = this
         binding.storeRecyclerView.apply {
             layoutManager = GridLayoutManager(applicationContext,1)

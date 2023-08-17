@@ -53,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
             if (email=="wkrrya001" && password=="ryan") {  //If login credentials are correct open main screen
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
-                println("Logged in")
+                //println("Logged in")
                 // Optional: finish the LoginActivity if you don't want to come back to it using the back button
             }
             else{
