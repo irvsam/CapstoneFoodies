@@ -43,9 +43,10 @@ class Store(
 
 
 class Menu{
-    private lateinit var menu: ArrayList<MenuItem>
-
-    constructor(){}
+    private var menu: ArrayList<MenuItem>
+    constructor(){
+        menu = ArrayList<MenuItem>()
+    }
     constructor(m : ArrayList<MenuItem>){
         menu = m
     }
@@ -58,14 +59,29 @@ class Menu{
         menu.remove(item)
     }
 
+    override fun toString():String{
+        lateinit var string:String
+        for (item in menu){
+            string += item.name +"\t\t\t" + item.price.toString() +"\n"
+        }
+        return string
+    }
+
 }
 
-class MenuItem(
-    var name: String,
-    var price: Double,
-    var description: String,
-    var inStock: Boolean,
-){
+class MenuItem{
+    var name: String
+    var price: Double =0.0
+    private var description: String
+    var inStock: Boolean = false
+
+    constructor(n:String,p:Double,d:String,i:Boolean){
+        name = n
+        price = p
+        description = d
+        inStock = i
+    }
+
     fun setStock(boolean: Boolean){
         inStock=boolean
     }

@@ -38,12 +38,15 @@
 
     <TextView
         android:id="@+id/storeName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_width="274dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="4dp"
+        android:gravity="left"
         android:text="Campus Cafe"
         android:textSize="30sp"
         android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -55,6 +58,59 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="87dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:text="4.2/5"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/storeName"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/menuHeading"
+        android:layout_width="108dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="27dp"
+        android:gravity="center"
+        android:text="Menu"
+        android:textStyle="bold"
+        android:textSize="22dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/storeName" />
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="341dp"
+        android:layout_height="271dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menuHeading"
+        app:layout_constraintVertical_bias="0.46">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Iced Coffee\t\t\tR15\nCappucino\t\t\t\tR14\nFilter Coffee\t\t\tR14\nGinger Tea\t\t\t\tR10\nRooibos\t\t\t\t\t\t\tR10\nEarl Grey\t\t\t\t\t\tR10\nGreen Tea\t\t\t\t\tR10"
+                android:textSize="18dp"
+                android:gravity="center"
+                />
+
+
+        </LinearLayout>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

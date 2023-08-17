@@ -11,17 +11,17 @@ class storeRecyclerViewAdapter(
 ) : RecyclerView.Adapter<storeRecyclerViewAdapter.MyViewHolder>(){
 
     class MyViewHolder(
-        private val cardCellBinding: StoreCardCellBinding,
+        private val storeCardCellBinding: StoreCardCellBinding,
         private val clickListener: StoreClickListener
     )
-        : RecyclerView.ViewHolder(cardCellBinding.root)
+        : RecyclerView.ViewHolder(storeCardCellBinding.root)
     {
         fun bindStore(store:Store){
-            cardCellBinding.imageView.setImageResource(store.image)
-            cardCellBinding.storeName.text = store.name
-            cardCellBinding.rating.text = store.rating.toString()
+            storeCardCellBinding.imageView.setImageResource(store.image)
+            storeCardCellBinding.storeName.text = store.name
+            storeCardCellBinding.rating.text = store.rating.toString()
 
-            cardCellBinding.storeCardView.setOnClickListener{
+            storeCardCellBinding.storeCardView.setOnClickListener{
                 clickListener.onClick(store)
             }
         }
