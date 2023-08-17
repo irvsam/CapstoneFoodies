@@ -3,23 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/home_icon">
+    app:startDestination="@id/vendorListFragment">
 
-    <activity
-        android:id="@+id/account_icon"
-        android:name="com.example.foodies.AccountActivity"
-        android:label="AccountActivity" />
-    <activity
-        android:id="@+id/home_icon"
-        android:name="com.example.foodies.MainActivity"
-        android:label="activity_main"
-        tools:layout="@layout/activity_main" />
-
-    <action
-        android:id="@+id/action_mainActivity_to_accountActivity"
-        app:destination="@id/account_icon" />
-
-    <action
-        android:id="@+id/action_accountActivity_to_mainActivity"
-        app:destination="@id/home_icon" />
+    <fragment
+        android:id="@+id/vendorListFragment"
+        android:name="com.example.foodies.VendorListFragment"
+        android:label="fragment_vendor_list"
+        tools:layout="@layout/fragment_vendor_list" />
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.example.foodies.AccountFragment"
+        android:label="AccountFragment" />
 </navigation>
