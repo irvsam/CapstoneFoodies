@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/accountActivity">
+    app:startDestination="@id/mainActivity">
 
     <activity
         android:id="@+id/accountActivity"
@@ -14,4 +14,12 @@
         android:name="com.example.foodies.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
+
+    <action
+        android:id="@+id/action_mainActivity_to_accountActivity"
+        app:destination="@id/accountActivity" />
+
+    <action
+        android:id="@+id/action_accountActivity_to_mainActivity"
+        app:destination="@id/mainActivity" />
 </navigation>
