@@ -51,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
             val password = passwordEditedText.text.toString()
 
             if (email=="wkrrya001" && password=="ryan") {  //If login credentials are correct open main screen
-                val intent = Intent(this, NavHomeActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 println("Logged in")
                 // Optional: finish the LoginActivity if you don't want to come back to it using the back button
@@ -69,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
         val guestButton = findViewById<Button>(R.id.guestCont_btn)
         guestButton.setOnClickListener {
             // Navigate to MainActivity
-            val intent = Intent(this, NavHomeActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             // Optional: finish the LoginActivity if you don't want to come back to it using the back button
         }
