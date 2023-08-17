@@ -19,7 +19,7 @@ import classes.StoreClickListener
 import java.sql.Time
 
 
-class VendorListFragment : Fragment(){
+class VendorListFragment : Fragment(), StoreClickListener{
 
     private lateinit var storeViewModel: StoreViewModel
     private var campusCafeMenu : Menu = Menu()
@@ -75,8 +75,8 @@ class VendorListFragment : Fragment(){
     }
 
     //TODO make the storedetails thing into a fragment not an activity so this can work
-    /*
-    override fun onItemClick(store: Store) {
+
+    override fun onClick(store: Store) {
         // Open a new fragment when a store is clicked
         val storeDetailsFragment = StoreDetailsFragment()
 
@@ -89,7 +89,7 @@ class VendorListFragment : Fragment(){
             .replace(R.id.fragment_container, storeDetailsFragment)
             .addToBackStack(null)
             .commit()
-    }*/
+    }
 
 
 }

@@ -1,5 +1,6 @@
 package classes
 
+import java.io.Serializable
 import java.sql.Time
 //this one holds all classes linked to a store
 //Store, Menu, MenuItem, DietaryReq
@@ -18,7 +19,7 @@ class Store(
     var dietaryReqs: DietaryReq,
     var reviewList: ArrayList<Review>,
     var image: Int
-)
+): Serializable
 {
     fun calcAveRating() {
         if (reviewList.isNotEmpty()) {
