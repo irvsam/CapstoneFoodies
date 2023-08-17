@@ -13,6 +13,13 @@ class AccountActivity: AppCompatActivity() {
 
 
 
+        val vendorButton = findViewById<Button>(R.id.v_button)
+
+        // Set an OnClickListener to navigate to vendor list
+        /*vendorButton.setOnClickListener {
+            val intent = Intent(this, VendorListActivity::class.java)
+            startActivity(intent)
+        }*/
         // Set click listener for the logout button
 
         val signOutButton = findViewById<Button>(R.id.sign_out)

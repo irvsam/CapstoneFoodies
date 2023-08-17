@@ -1,7 +1,9 @@
 package com.example.foodies
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import classes.STORE_EXTRA
 import classes.Store
 import classes.storeList
@@ -23,6 +25,15 @@ class StoreDetailsActivity : AppCompatActivity() {
             binding.storeName.text = store.name
             //binding.rating.text = store.rating.toString()
         }
+
+
+        // Set an OnClickListener to navigate to vendor list
+        /*
+        val vendorButton = findViewById<Button>(R.id.v_button)
+        vendorButton.setOnClickListener {
+            val intent = Intent(this, VendorListActivity::class.java)
+            startActivity(intent)
+        }*/
     }
 
     private fun storeFromName(storeID: String?): Store? {

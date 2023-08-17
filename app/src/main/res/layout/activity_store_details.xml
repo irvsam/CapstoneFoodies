@@ -7,6 +7,22 @@
     tools:context=".StoreDetailsActivity"
     android:orientation="vertical">
 
+
+    <Button
+        android:visibility="invisible"
+        android:id="@+id/v_button"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:backgroundTint="@color/white"
+        android:text="@string/back_to_vendor_list"
+        android:textColor="@color/blue"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.935"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.28" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="338dp"

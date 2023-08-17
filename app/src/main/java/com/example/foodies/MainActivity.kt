@@ -3,6 +3,7 @@ package com.example.foodies
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -24,6 +25,8 @@ class MainActivity : AppCompatActivity(), StoreClickListener {
 
     private lateinit var binding: ActivityMainBinding
 
+    private var storesPopulated = false  // Flag to track whether stores have been populated
+
 
     private var imageList : List<Int> = listOf(R.drawable.cc,R.drawable.afriquezeen)
     private var campusCafeMenu : Menu = Menu()
@@ -35,7 +38,11 @@ class MainActivity : AppCompatActivity(), StoreClickListener {
         setContentView(binding.root)
 
 
-        populateStores()
+        //only populate if it is the first time opening this activity
+        if (!storesPopulated) {
+            populateStores()
+            storesPopulated = true  // Set the flag to true after populating stores for the first time
+        }
         val mainActivity = this
         binding.storeRecyclerView.apply {
             layoutManager = GridLayoutManager(applicationContext,1)
@@ -46,6 +53,15 @@ class MainActivity : AppCompatActivity(), StoreClickListener {
             transaction.replace(R.id.main_container, VendorListFragment())
             transaction.commit()
         }*/
+
+        // Find the account button by its ID
+        val accountButton = findViewById<Button>(R.id.account_button)
+
+        // Set an OnClickListener to navigate to AccountActivity
+        accountButton.setOnClickListener {
+            val intent = Intent(this, AccountActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun populateStores(){

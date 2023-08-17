@@ -17,11 +17,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:visibility="invisible"
+        android:id="@+id/v_button"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:backgroundTint="@color/white"
+        android:text="@string/back_to_vendor_list"
+        android:textColor="@color/blue"
+        app:layout_constraintBottom_toTopOf="@+id/accLabel"
+        app:layout_constraintEnd_toEndOf="@+id/tableLayout"
+        app:layout_constraintHorizontal_bias="0.937"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
     <TextView
         android:id="@+id/accLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="104dp"
         android:text="@string/your_account_details"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -30,12 +45,12 @@
 
     <TableLayout
         android:id="@+id/tableLayout"
-        android:layout_width="396dp"
-        android:layout_height="307dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintTop_toBottomOf="@id/imageView2"
+        android:layout_width="347dp"
+        android:layout_height="298dp"
+        android:layout_marginTop="44dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView2">
 
         <TableRow>
 
