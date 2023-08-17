@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodies.R
 
-class Adapter(private val storeList: ArrayList<Store>) : RecyclerView.Adapter<Adapter.MyViewHolder>() {
+class Adapter(private val storeList: MutableList<Store>) : RecyclerView.Adapter<Adapter.MyViewHolder>() {
 
     // This method creates a new ViewHolder object for each item in the RecyclerView
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
