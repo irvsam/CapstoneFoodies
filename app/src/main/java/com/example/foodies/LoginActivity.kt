@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
@@ -19,8 +20,8 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var emailEditedText: EditText
     private lateinit var passwordEditedText: EditText
-    private var guest:Boolean=false
-    private var loggedIn:Boolean=false
+    //private val sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN //get rid of top purple bar
@@ -55,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
 
             if (email=="wkrrya001" && password=="ryan") {  //If login credentials are correct open main screen
                 //set logged in boolean
-                loggedIn=true
+                //sharedViewModel.loggedIn = true
                 val intent = Intent(this, FragmentHolderActivity::class.java)
                 startActivity(intent)
                 //println("Logged in")
@@ -74,7 +75,7 @@ class LoginActivity : AppCompatActivity() {
         val guestButton = findViewById<Button>(R.id.guestCont_btn)
         guestButton.setOnClickListener {
             //set guest boolean
-            guest=true
+            //sharedViewModel.guest=true
             // Navigate to MainActivity
             val intent = Intent(this, FragmentHolderActivity::class.java)
             startActivity(intent)

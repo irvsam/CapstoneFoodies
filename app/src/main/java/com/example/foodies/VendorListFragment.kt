@@ -20,7 +20,7 @@ import java.sql.Time
 
 class VendorListFragment : Fragment(), StoreClickListener{
 
-    private lateinit var storeViewModel: StoreViewModel
+    private lateinit var storeViewModel: SharedViewModel
     private var campusCafeMenu : Menu = Menu()
     private var afriquezeenMenu: Menu = Menu()
     private var ccReviewList : ArrayList<Review> = ArrayList()
@@ -28,7 +28,7 @@ class VendorListFragment : Fragment(), StoreClickListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        storeViewModel = ViewModelProvider(requireActivity())[StoreViewModel::class.java]
+        storeViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         if (storeViewModel.storeList.isEmpty()) {
             populateStores()
         }

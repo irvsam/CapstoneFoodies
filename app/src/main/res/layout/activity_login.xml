@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bckgrnd"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
@@ -17,7 +16,9 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="@id/email_layout"
         app:layout_constraintRight_toRightOf="@id/email_layout"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/black"
+        />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/email_layout"
@@ -65,6 +66,7 @@
         android:layout_marginStart="35dp"
         android:layout_marginEnd="35dp"
         android:text="@string/login"
+        android:backgroundTint="@color/nicegreen"
         app:layout_constraintTop_toBottomOf="@id/password_layout"
         app:layout_constraintLeft_toLeftOf="@id/password_layout"
         app:layout_constraintRight_toRightOf="@id/password_layout"/>
@@ -80,7 +82,9 @@
         app:layout_constraintLeft_toLeftOf="@id/login_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/login_btn"
-        app:strokeColor="?attr/colorPrimary" />
+        app:strokeColor="?attr/colorPrimary"
+        android:textColor="@color/nicegreen"
+        />
 
     <TextView
         android:id="@+id/registerLink"
@@ -92,7 +96,7 @@
         android:focusable="true"
         android:minHeight="48dp"
         android:text="@string/register_link_text"
-        android:textColor="@color/blue"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"

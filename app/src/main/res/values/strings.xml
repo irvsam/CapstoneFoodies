@@ -26,5 +26,6 @@
     <string name="back_to_vendor_list">back to vendor list</string>
     <string name="campus_cafe">Campus Cafe</string>
     <string name="store_image">store image</string>
+    <string name="vendor_list">Vendor List</string>
 
 </resources>
