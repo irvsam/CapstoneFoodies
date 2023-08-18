@@ -7,44 +7,28 @@
     android:orientation="vertical">
 
 
-    <Button
-        android:visibility="invisible"
-        android:id="@+id/v_button"
-        android:layout_width="wrap_content"
-        android:layout_height="55dp"
-        android:backgroundTint="@color/white"
-        android:text="@string/back_to_vendor_list"
-        android:textColor="@color/blue"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.935"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.28" />
-
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="338dp"
-        android:layout_height="113dp"
-        android:layout_marginTop="112dp"
-        android:src="@drawable/cc"
+        android:layout_width="437dp"
+        android:layout_height="188dp"
+        android:layout_marginBottom="448dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/coffees"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/storeName"
-        android:layout_width="274dp"
-        android:layout_height="41dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginTop="4dp"
         android:gravity="left"
         android:text="Campus Cafe"
         android:textSize="30sp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -60,26 +44,30 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="87dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:gravity="center_vertical"
         android:text="4.2/5"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/storeName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.128"
         app:layout_constraintStart_toEndOf="@+id/storeName"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.526" />
 
     <TextView
         android:id="@+id/menuHeading"
         android:layout_width="108dp"
         android:layout_height="32dp"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="48dp"
         android:gravity="center"
         android:text="Menu"
-        android:textStyle="bold"
         android:textSize="22dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/storeName" />
 
@@ -102,10 +90,9 @@
                 android:id="@+id/menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Iced Coffee\t\t\tR15\nCappucino\t\t\t\tR14\nFilter Coffee\t\t\tR14\nGinger Tea\t\t\t\tR10\nRooibos\t\t\t\t\t\t\tR10\nEarl Grey\t\t\t\t\t\tR10\nGreen Tea\t\t\t\t\tR10"
-                android:textSize="18dp"
                 android:gravity="center"
-                />
+                android:text="Iced Coffee\t\t\tR15\nCappucino\t\t\t\tR14\nFilter Coffee\t\t\tR14\nGinger Tea\t\t\t\tR10\nRooibos\t\t\t\t\t\t\tR10\nEarl Grey\t\t\t\t\t\tR10\nGreen Tea\t\t\t\t\tR10"
+                android:textSize="18dp" />
 
 
         </LinearLayout>
