@@ -24,5 +24,6 @@
     <string name="home">Home</string>
     <string name="go_to_account">go to account</string>
     <string name="back_to_vendor_list">back to vendor list</string>
+    <string name="campus_cafe">Campus Cafe</string>
 
 </resources>

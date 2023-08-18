@@ -19,6 +19,7 @@ class Store(
     var dietaryReqs: DietaryReq,
     var reviewList: ArrayList<Review>,
     var image: Int
+
 ): Serializable
 {
     fun calcAveRating() {

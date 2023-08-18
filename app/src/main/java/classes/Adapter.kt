@@ -1,11 +1,14 @@
 package classes
 
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodies.R
+import com.example.foodies.StoreViewModel
 
 class Adapter(private val storeList: MutableList<Store>) : RecyclerView.Adapter<Adapter.MyViewHolder>() {
 
@@ -28,11 +31,15 @@ class Adapter(private val storeList: MutableList<Store>) : RecyclerView.Adapter<
         val currentStore = storeList[position]
         holder.name.text = currentStore.name
         holder.rating.text = currentStore.rating.toString()
+        holder.image.setImageResource(currentStore.image)
+
     }
 
     // This class defines the ViewHolder object for each item in the RecyclerView
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.storeName)
         val rating: TextView = itemView.findViewById(R.id.rating)
+        var image: ImageView=itemView.findViewById(R.id.imageView)
+
     }
 }

@@ -19,6 +19,8 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var emailEditedText: EditText
     private lateinit var passwordEditedText: EditText
+    private var guest:Boolean=false
+    private var loggedIn:Boolean=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +53,8 @@ class LoginActivity : AppCompatActivity() {
             val password = passwordEditedText.text.toString()
 
             if (email=="wkrrya001" && password=="ryan") {  //If login credentials are correct open main screen
+                //set logged in boolean
+                loggedIn=true
                 val intent = Intent(this, FragmentHolderActivity::class.java)
                 startActivity(intent)
                 //println("Logged in")
@@ -68,6 +72,8 @@ class LoginActivity : AppCompatActivity() {
         //TODO we must make this only allow guest functionality
         val guestButton = findViewById<Button>(R.id.guestCont_btn)
         guestButton.setOnClickListener {
+            //set guest boolean
+            guest=true
             // Navigate to MainActivity
             val intent = Intent(this, FragmentHolderActivity::class.java)
             startActivity(intent)
