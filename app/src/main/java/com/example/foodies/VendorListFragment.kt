@@ -86,7 +86,7 @@ class VendorListFragment : Fragment(), StoreClickListener{
         storeDetailsFragment.arguments = bundle
 
         parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, storeDetailsFragment)
+            .replace(R.id.nav_fragment, storeDetailsFragment)
             .addToBackStack(null)
             .commit()
     }
