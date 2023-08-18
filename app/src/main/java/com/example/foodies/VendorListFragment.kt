@@ -72,8 +72,6 @@ class VendorListFragment : Fragment(), StoreClickListener{
         storeViewModel.storeList.add(afriquezeen)
     }
 
-    //TODO make the storedetails thing into a fragment not an activity so this can work
-
     override fun onClick(store: Store) {
         // Open a new fragment when a store is clicked
         val storeDetailsFragment = StoreDetailsFragment()

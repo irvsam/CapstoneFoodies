@@ -30,8 +30,7 @@ class StoreDetailsFragment : Fragment() {
         if (store != null) {
             binding.imageView.setImageResource(store.image)
             binding.storeName.text = store.name
-            //binding.menu.text = store.menu.toString()
-            //binding.rating.text = store.rating.toString()
+            binding.menu.text = store.menu.toString()
         }
     }
 
