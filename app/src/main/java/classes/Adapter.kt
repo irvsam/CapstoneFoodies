@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.foodies.R
 import com.example.foodies.StoreViewModel
 
-class Adapter(private val storeList: MutableList<Store>) : RecyclerView.Adapter<Adapter.MyViewHolder>() {
+class Adapter(private val storeList: MutableList<Store>, private val clickListener: StoreClickListener) : RecyclerView.Adapter<Adapter.MyViewHolder>() {
 
     // This method creates a new ViewHolder object for each item in the RecyclerView
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -32,6 +32,10 @@ class Adapter(private val storeList: MutableList<Store>) : RecyclerView.Adapter<
         holder.name.text = currentStore.name
         holder.rating.text = currentStore.rating.toString()
         holder.image.setImageResource(currentStore.image)
+        // Set a click listener for the store card
+        holder.itemView.setOnClickListener {
+            clickListener.onClick(currentStore)
+        }
 
     }
 

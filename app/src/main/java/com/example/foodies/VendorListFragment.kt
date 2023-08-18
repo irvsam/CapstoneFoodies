@@ -1,6 +1,5 @@
 package com.example.foodies
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -50,7 +49,7 @@ class VendorListFragment : Fragment(), StoreClickListener{
 
 
         // Assign employeelist to ItemAdapter
-        val itemAdapter= Adapter(storeViewModel.storeList)
+        val itemAdapter= Adapter(storeViewModel.storeList, this)
         // Set the LayoutManager that this RecyclerView will use.
         val recyclerView:RecyclerView=view.findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -63,10 +62,10 @@ class VendorListFragment : Fragment(), StoreClickListener{
     private fun populateStores() {
         val campusCafe: Store = Store("Campus Cafe", "Beverages", campusCafeMenu, 4.2, Time(8, 15, 0),
             Time(16, 15, 0),
-            DietaryReq.VEGETARIAN, ccReviewList, storeViewModel.imageList[0])
+            DietaryReq.VEGETARIAN, ccReviewList, R.drawable.cc)
         val afriquezeen: Store = Store("Afriquezeen", "Hearty meals", afriquezeenMenu, 4.8, Time(8, 15, 0),
             Time(16, 15, 0),
-            DietaryReq.NUT_FREE, ccReviewList, storeViewModel.imageList[1])
+            DietaryReq.NUT_FREE, ccReviewList, R.drawable.afriquezeen)
 
         // Use the ViewModel's storeList to add stores
         storeViewModel.storeList.add(campusCafe)
@@ -81,7 +80,7 @@ class VendorListFragment : Fragment(), StoreClickListener{
 
         // Pass the clicked store's information to the new fragment using Bundle
         val bundle = Bundle()
-        bundle.putSerializable("clicked_store", store)
+        bundle.putSerializable(STORE_EXTRA, store)
         storeDetailsFragment.arguments = bundle
 
         parentFragmentManager.beginTransaction()
