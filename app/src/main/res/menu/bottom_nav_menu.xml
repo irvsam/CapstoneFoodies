@@ -3,8 +3,8 @@
 
     <item
         android:id="@+id/vendorListFragment"
-        android:icon="@drawable/home_icon"
-        android:title="@string/home" />
+        android:icon="@drawable/list"
+        android:title="Vendor List" />
 
     <item
         android:id="@+id/accountFragment"

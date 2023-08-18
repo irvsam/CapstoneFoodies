@@ -23,6 +23,7 @@ class LoginActivity : AppCompatActivity() {
     private var loggedIn:Boolean=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN //get rid of top purple bar
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 

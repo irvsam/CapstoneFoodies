@@ -62,10 +62,10 @@ class VendorListFragment : Fragment(), StoreClickListener{
     private fun populateStores() {
         val campusCafe: Store = Store("Campus Cafe", "Beverages", campusCafeMenu, 4.2, Time(8, 15, 0),
             Time(16, 15, 0),
-            DietaryReq.VEGETARIAN, ccReviewList, R.drawable.cc)
+            DietaryReq.VEGETARIAN, ccReviewList, R.drawable.coffees)
         val afriquezeen: Store = Store("Afriquezeen", "Hearty meals", afriquezeenMenu, 4.8, Time(8, 15, 0),
             Time(16, 15, 0),
-            DietaryReq.NUT_FREE, ccReviewList, R.drawable.afriquezeen)
+            DietaryReq.NUT_FREE, ccReviewList, R.drawable.curry)
 
         // Use the ViewModel's storeList to add stores
         storeViewModel.storeList.add(campusCafe)

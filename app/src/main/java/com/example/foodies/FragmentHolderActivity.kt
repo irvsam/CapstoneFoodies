@@ -15,6 +15,7 @@ class FragmentHolderActivity : AppCompatActivity() {
 
     // This method is called when the activity is first created
     override fun onCreate(savedInstanceState: Bundle?) {
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fragment_holder)
 
