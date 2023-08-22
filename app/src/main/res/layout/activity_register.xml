@@ -10,7 +10,7 @@
         android:id="@+id/register_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="32dp"
         android:text="Register for Foodies"
         android:textColor="@color/black"
         android:textSize="30sp"
