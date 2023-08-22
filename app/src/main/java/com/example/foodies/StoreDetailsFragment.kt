@@ -53,15 +53,11 @@ class StoreDetailsFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                // Handle the back navigation
                 val navController = findNavController()
-                if (navController.previousBackStackEntry != null) {
-                    // If there's a previous fragment in the back stack, pop back to it
-                    navController.popBackStack()
-                } else {
-                    // If not, navigate to the vendor list fragment (or any desired destination)
-                    navController.navigate(R.id.action_storeDetailsFragment_to_vendorListFragment)
-                }
+
+                // Manually navigate to the VendorListFragment
+                navController.navigate(R.id.vendorListFragment)
+
                 return true
             }
         }

@@ -2,10 +2,12 @@ package com.example.foodies
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import classes.Adapter
@@ -39,7 +41,6 @@ class VendorListFragment : Fragment(), StoreClickListener{
     ): View? {
 
         // Inflate the layout for this fragment
-
         return inflater.inflate(R.layout.fragment_vendor_list, container, false)
 
     }
@@ -75,7 +76,6 @@ class VendorListFragment : Fragment(), StoreClickListener{
     override fun onClick(store: Store) {
         // Open a new fragment when a store is clicked
         val storeDetailsFragment = StoreDetailsFragment()
-
         // Pass the clicked store's information to the new fragment using Bundle
         val bundle = Bundle()
         bundle.putSerializable(STORE_EXTRA, store)
@@ -83,9 +83,10 @@ class VendorListFragment : Fragment(), StoreClickListener{
 
         parentFragmentManager.beginTransaction()
             .replace(R.id.nav_fragment, storeDetailsFragment)
-            .addToBackStack(null)
+            .addToBackStack("StoreDetailsFragmentTransaction")
             .commit()
     }
+
 
 
 }

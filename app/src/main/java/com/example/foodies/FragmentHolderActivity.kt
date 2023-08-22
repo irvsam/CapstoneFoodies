@@ -22,14 +22,8 @@ class FragmentHolderActivity : AppCompatActivity() {
 
 
         // calling the action bar
-        // calling the action bar
         val actionBar: ActionBar? = supportActionBar
-
-        // showing the back button in action bar
-
-        // showing the back button in action bar
         actionBar?.setDisplayHomeAsUpEnabled(true)
-
 
         //Initialize the bottom navigation view
         //create bottom navigation view object
@@ -37,7 +31,7 @@ class FragmentHolderActivity : AppCompatActivity() {
                 >(R.id.bottomNavigationView)
         val navController = findNavController(R.id.nav_fragment)
         bottomNavigationView.setupWithNavController(navController)
-        // Get a reference to the "btn_frag" button from the layout
+
 
     }
 
@@ -45,5 +39,6 @@ class FragmentHolderActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_fragment)
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
+
 
 }
