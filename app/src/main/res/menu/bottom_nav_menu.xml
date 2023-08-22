@@ -5,11 +5,16 @@
         android:id="@+id/vendorListFragment"
         android:icon="@drawable/list"
         android:title="@string/vendor_list" />
-
+    <item
+        android:id="@+id/browseFragment"
+        android:icon="@drawable/search"
+        android:title="Browse" />
     <item
         android:id="@+id/accountFragment"
-        android:icon="@drawable/account_icon"
+        android:icon="@drawable/account"
         android:title="@string/account" />
+
+
 
 
 
