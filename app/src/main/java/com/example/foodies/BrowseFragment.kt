@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 
@@ -15,7 +16,7 @@ class BrowseFragment : Fragment() {
 
     private lateinit var searchEditText: EditText
     private lateinit var filterOption1: CheckBox
-    private lateinit var searchButton: Button
+    private lateinit var searchButton: ImageButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

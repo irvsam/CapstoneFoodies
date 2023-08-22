@@ -3,15 +3,15 @@
 
     <item
         android:id="@+id/vendorListFragment"
-        android:icon="@drawable/list"
+        android:icon="@drawable/vendorlist"
         android:title="@string/vendor_list" />
     <item
         android:id="@+id/browseFragment"
-        android:icon="@drawable/search"
-        android:title="Browse" />
+        android:icon="@drawable/browse"
+        android:title="@string/browse" />
     <item
         android:id="@+id/accountFragment"
-        android:icon="@drawable/account"
+        android:icon="@drawable/account_icon"
         android:title="@string/account" />
 
 
