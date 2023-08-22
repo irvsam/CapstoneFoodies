@@ -41,31 +41,9 @@ class FragmentHolderActivity : AppCompatActivity() {
 
     }
 
-    // this event will enable the back
-    // function to the button on press
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_fragment)
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
-    // This method replaces the current fragment
-    // with a new fragment
-    fun replaceFragment(fragment: Fragment) {
-        // Get a reference to the FragmentManager
-        val fragmentManager = supportFragmentManager
-
-        // Start a new FragmentTransaction
-        val fragmentTransaction = fragmentManager.beginTransaction()
-
-        // Replace the current fragment with the new fragment
-        fragmentTransaction.replace(R.id.nav_fragment, fragment)
-
-        // Commit the FragmentTransaction
-        fragmentTransaction.commit()
-    }
 }

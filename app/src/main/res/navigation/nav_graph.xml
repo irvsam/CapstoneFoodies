@@ -9,9 +9,22 @@
         android:id="@+id/vendorListFragment"
         android:name="com.example.foodies.VendorListFragment"
         android:label="fragment_vendor_list"
-        tools:layout="@layout/fragment_vendor_list" />
+        tools:layout="@layout/fragment_vendor_list" >
+        <action
+            android:id="@+id/action_vendorListFragment_to_storeDetailsFragment"
+            app:destination="@id/storeDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.example.foodies.AccountFragment"
         android:label="AccountFragment" />
+    <fragment
+        android:id="@+id/storeDetailsFragment"
+        android:name="com.example.foodies.StoreDetailsFragment"
+        android:label="fragment_store_details"
+        tools:layout="@layout/fragment_store_details" >
+        <action
+            android:id="@+id/action_storeDetailsFragment_to_vendorListFragment"
+            app:destination="@id/vendorListFragment" />
+    </fragment>
 </navigation>
