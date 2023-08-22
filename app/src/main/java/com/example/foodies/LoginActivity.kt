@@ -24,23 +24,26 @@ class LoginActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN //get rid of top purple bar
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         val registerLinkTextView = findViewById<TextView>(R.id.registerLink)
 
-        val clickableSpan = object : ClickableSpan() {
-            override fun onClick(widget: View) {
-                // Handle the click event, navigate to the registration screen
-            }
-        }
-
         // Set the ClickableSpan to the TextView
         val spannableString = SpannableString(registerLinkTextView.text)
-        spannableString.setSpan(clickableSpan, 23, 45, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                //TODO Handle the click event, open the registration activity
+                val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+                startActivity(intent)
+            }
+        }, 23, 45, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
         registerLinkTextView.text = spannableString
         registerLinkTextView.movementMethod = LinkMovementMethod.getInstance()
+
+
+
 
         // Set click listener for the login button
         //TODO this should not just let them in but for prototype it might be good enough
