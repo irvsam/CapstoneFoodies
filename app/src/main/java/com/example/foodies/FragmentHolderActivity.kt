@@ -1,15 +1,16 @@
 package com.example.foodies
 
 
-import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
-import android.widget.Button
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+
 
 class FragmentHolderActivity : AppCompatActivity() {
 
@@ -19,6 +20,17 @@ class FragmentHolderActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fragment_holder)
 
+
+        // calling the action bar
+        // calling the action bar
+        val actionBar: ActionBar? = supportActionBar
+
+        // showing the back button in action bar
+
+        // showing the back button in action bar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+
+
         //Initialize the bottom navigation view
         //create bottom navigation view object
         val bottomNavigationView = findViewById<BottomNavigationView
@@ -27,6 +39,18 @@ class FragmentHolderActivity : AppCompatActivity() {
         bottomNavigationView.setupWithNavController(navController)
         // Get a reference to the "btn_frag" button from the layout
 
+    }
+
+    // this event will enable the back
+    // function to the button on press
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     // This method replaces the current fragment
