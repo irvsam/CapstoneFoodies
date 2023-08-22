@@ -1,20 +1,26 @@
 package classes
 
+import java.io.Serializable
 import java.sql.Time
 //this one holds all classes linked to a store
 //Store, Menu, MenuItem, DietaryReq
+
+val STORE_EXTRA = "storeExtra"
+var storeList : ArrayList<Store> = ArrayList()
 
 class Store(
 
     val name: String,
     val cuisine: String,
     val menu: Menu,
-    private var rating: Double, //made a change to class diagram, could be double?
+    var rating: Double, //made a change to class diagram, could be double?
     var openTime: Time,
     var closeTime: Time,
     var dietaryReqs: DietaryReq,
     var reviewList: ArrayList<Review>,
-)
+    var image: Int
+
+): Serializable
 {
     fun calcAveRating() {
         if (reviewList.isNotEmpty()) {
@@ -33,13 +39,19 @@ class Store(
 
         }
     }
+
+
 }
 
 
-class Menu(
+class Menu{
     private var menu: ArrayList<MenuItem>
-)
-{
+    constructor(){
+        menu = ArrayList<MenuItem>()
+    }
+    constructor(m : ArrayList<MenuItem>){
+        menu = m
+    }
     fun addItem(item: MenuItem) {
         // Add an item to the menu
         menu.add(item)}
@@ -49,14 +61,29 @@ class Menu(
         menu.remove(item)
     }
 
+    override fun toString():String{
+        lateinit var string:String
+        for (item in menu){
+            string += item.name +"\t\t\t" + item.price.toString() +"\n"
+        }
+        return string
+    }
+
 }
 
-class MenuItem(
-    var name: String,
-    var price: Double,
-    var description: String,
-    var inStock: Boolean,
-){
+class MenuItem{
+    var name: String
+    var price: Double =0.0
+    private var description: String
+    var inStock: Boolean = false
+
+    constructor(n:String,p:Double,d:String,i:Boolean){
+        name = n
+        price = p
+        description = d
+        inStock = i
+    }
+
     fun setStock(boolean: Boolean){
         inStock=boolean
     }
