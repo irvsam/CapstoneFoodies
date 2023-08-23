@@ -90,8 +90,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             vendor_id INTEGER,
             name TEXT,
             FOREIGN KEY(vendor_id) REFERENCES vendor(id)
-        )
-    """.trimIndent()
+    )
+""".trimIndent()
 
     private val CREATE_MENU_ITEM_TABLE = """
         CREATE TABLE menuitem (
