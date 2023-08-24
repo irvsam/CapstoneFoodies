@@ -27,5 +27,9 @@
     <string name="campus_cafe">Campus Cafe</string>
     <string name="store_image">store image</string>
     <string name="vendor_list">Vendor List</string>
+    <string name="menu">Menu</string>
+    <string name="view_reviews">View Reviews</string>
+    <string name="averagerating">AverageRating: 4.5</string>
+    <string name="your_store">Your Store</string>
 
 </resources>
