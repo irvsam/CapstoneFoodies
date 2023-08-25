@@ -6,15 +6,20 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
+import androidx.lifecycle.lifecycleScope
+import classes.Entities
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -22,10 +27,16 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var passwordEditedText: EditText
     //private val sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        val user = Entities.User(email = "user@example.com", password = "password", type = "user", rewardPoints = 100)
+
+        // launch a coroutine to add user in the background
+        lifecycleScope.launch {
+            insertUserInBackground(user)
+        }
 
         val registerLinkTextView = findViewById<TextView>(R.id.registerLink)
 
@@ -41,7 +52,6 @@ class LoginActivity : AppCompatActivity() {
 
         registerLinkTextView.text = spannableString
         registerLinkTextView.movementMethod = LinkMovementMethod.getInstance()
-
 
 
 
@@ -84,5 +94,13 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
             // Optional: finish the LoginActivity if you don't want to come back to it using the back button
         }
+    }
+}
+// do this on a separate thread because if it's on the main thread
+// it could cause delayed responses
+private suspend fun insertUserInBackground(user: Entities.User) {
+    withContext(Dispatchers.IO) {
+        // Perform the database operation on the IO dispatcher
+        ApplicationCore.database.accountDao().insertUser(user)
     }
 }
