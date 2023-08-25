@@ -50,6 +50,21 @@ class Entities {
         val type: String
     )
 
+    // MENU
+    @Entity(
+        tableName = "menu",
+        foreignKeys = [ForeignKey(
+            entity = Vendor::class,
+            parentColumns = ["id"],
+            childColumns = ["vendor_id"],
+            onDelete = ForeignKey.CASCADE
+        )]
+    )
+    data class Menu(
+        @PrimaryKey(autoGenerate = true) val id: Long = 0,
+        @ColumnInfo(name = "vendor_id") val vendorId: Long,
+        val name: String
+    )
 
     // MENU_ITEM
     @Entity(
@@ -69,25 +84,6 @@ class Entities {
         val name: String,
         val price: Float
     )
-
-    // MENU
-    @Entity(
-        tableName = "menu",
-        foreignKeys = [ForeignKey(
-            entity = Vendor::class,
-            parentColumns = ["id"],
-            childColumns = ["vendor_id"],
-            onDelete = ForeignKey.CASCADE
-        )]
-    )
-    data class Menu(
-        @PrimaryKey(autoGenerate = true) val id: Long = 0,
-        @ColumnInfo(name = "vendor_id") val vendorId: Long,
-        val name: String
-    ) {
-        @Relation(parentColumn = "id", entityColumn = "menu_id")
-        val menuItems: List<MenuItem> = emptyList()
-    }
 
     // REVIEW
     @Entity(
@@ -114,6 +110,5 @@ class Entities {
         val text: String,
         val rating: Float
     )
-
 
 }
