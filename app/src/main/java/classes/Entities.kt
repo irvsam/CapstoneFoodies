@@ -11,6 +11,7 @@ class Entities {
         @PrimaryKey(autoGenerate = true) val id: Long = 0,
         val email: String,
         val password: String,
+        val type: String,
         val rewardPoints: Int
     )
 
