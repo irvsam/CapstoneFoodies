@@ -24,5 +24,9 @@
         android:name="com.example.foodies.StoreDetailsFragment"
         android:label="fragment_store_details"
         tools:layout="@layout/fragment_store_details" />
+    <fragment
+        android:id="@+id/rewardsFragment"
+        android:name="com.example.foodies.RewardsFragment"
+        android:label="RewardsFragment" />
 
 </navigation>

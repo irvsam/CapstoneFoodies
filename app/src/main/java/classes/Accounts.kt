@@ -53,9 +53,9 @@ class UserAccount(
     email: String,
     phoneNo: String,
     loggedIn: Boolean,
-    val uctID: Double,
+    val uctID: Double, //maybe remove
     private val reviewHistory: ArrayList<Review>,
-    val rewardPoints: RewardSystem
+    val rewardPoints: RewardSystem // could also just calculate based on review history??
 
 
 ) : Account(userName, password, email, phoneNo, loggedIn)
@@ -79,8 +79,8 @@ class VendorAccount(
     email: String,
     phoneNo: String,
     loggedIn: Boolean,
-    val store: Store,
-    val vendorID: Double
+    val store: Store, //could be string store name?
+    val vendorID: Double //or string?
 
 ) : Account(userName, password, email, phoneNo, loggedIn)
 

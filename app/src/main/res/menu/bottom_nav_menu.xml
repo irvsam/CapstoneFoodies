@@ -10,6 +10,10 @@
         android:icon="@drawable/browse"
         android:title="@string/browse" />
     <item
+        android:id="@+id/rewardsFragment"
+        android:icon="@drawable/reward"
+        android:title="@string/rewards"/>
+    <item
         android:id="@+id/accountFragment"
         android:icon="@drawable/account_icon"
         android:title="@string/account" />
