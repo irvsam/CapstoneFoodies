@@ -9,7 +9,7 @@ import androidx.room.*
     Entities.MenuItem::class,
     Entities.Menu::class,
     Entities.Review::class],
-    version = 1, exportSchema = false
+    version = 2, exportSchema = false
 )
 
 abstract class AppDatabase : RoomDatabase() {

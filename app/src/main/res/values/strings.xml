@@ -11,8 +11,8 @@
     <string name="review_history">Review history:</string>
     <string name="users_review_history">user\'s review history</string>
     <string name="login">Log in</string>
-    <string name="hint_email">email</string>
-    <string name="hint_password">password</string>
+    <string name="hint_email">UCT Email</string>
+    <string name="hint_password">Password</string>
     <string name="cancel">cancel</string>
     <string name="register_link_text">don\'t have an account? click here to register</string>
     <string name="continue_as_guest">continue as guest</string>
@@ -27,5 +27,7 @@
     <string name="campus_cafe">Campus Cafe</string>
     <string name="store_image">store image</string>
     <string name="vendor_list">Vendor List</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="register">register</string>
 
 </resources>

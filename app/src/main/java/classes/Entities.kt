@@ -9,7 +9,9 @@ class Entities {
     @Entity(tableName = "user")
     data class User(
         @PrimaryKey(autoGenerate = true) val id: Long = 0,
+        val username: String,
         val email: String,
+        val phone: String,
         val password: String,
         val type: String,
         val rewardPoints: Int

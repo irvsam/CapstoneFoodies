@@ -16,6 +16,7 @@ class ApplicationCore : Application() {
         Log.d("ApplicationCore", "onCreate() method is being executed")
 
         database = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "app-database")
+            .fallbackToDestructiveMigration()
             .build()
 
     }
