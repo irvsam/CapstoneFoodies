@@ -48,7 +48,6 @@ class VendorListFragment : Fragment(), StoreClickListener{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         // Assign employeelist to ItemAdapter
         val itemAdapter= Adapter(storeViewModel.storeList, this)
         // Set the LayoutManager that this RecyclerView will use.

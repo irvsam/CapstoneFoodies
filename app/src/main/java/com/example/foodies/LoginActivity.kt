@@ -6,15 +6,20 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
+import androidx.lifecycle.lifecycleScope
+import classes.Entities
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -22,25 +27,33 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var passwordEditedText: EditText
     //private val sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN //get rid of top purple bar
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val registerLinkTextView = findViewById<TextView>(R.id.registerLink)
+        val user = Entities.User(email = "user@example.com", password = "password", type = "user", rewardPoints = 100)
 
-        val clickableSpan = object : ClickableSpan() {
-            override fun onClick(widget: View) {
-                // Handle the click event, navigate to the registration screen
-            }
+        // launch a coroutine to add user in the background
+        lifecycleScope.launch {
+            insertUserInBackground(user)
         }
+
+        val registerLinkTextView = findViewById<TextView>(R.id.registerLink)
 
         // Set the ClickableSpan to the TextView
         val spannableString = SpannableString(registerLinkTextView.text)
-        spannableString.setSpan(clickableSpan, 23, 45, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                //TODO Handle the click event, open the registration activity
+                val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+                startActivity(intent)
+            }
+        }, 23, 45, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
         registerLinkTextView.text = spannableString
         registerLinkTextView.movementMethod = LinkMovementMethod.getInstance()
+
+
 
         // Set click listener for the login button
         //TODO this should not just let them in but for prototype it might be good enough
@@ -81,5 +94,13 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
             // Optional: finish the LoginActivity if you don't want to come back to it using the back button
         }
+    }
+}
+// do this on a separate thread because if it's on the main thread
+// it could cause delayed responses
+private suspend fun insertUserInBackground(user: Entities.User) {
+    withContext(Dispatchers.IO) {
+        // Perform the database operation on the IO dispatcher
+        ApplicationCore.database.accountDao().insertUser(user)
     }
 }
