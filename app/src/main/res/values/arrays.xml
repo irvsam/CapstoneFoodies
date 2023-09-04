@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="vendor_names">put names in here</string-array>
+    <string-array name="vendor_names" />
 </resources>

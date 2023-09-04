@@ -1,5 +1,6 @@
 package classes
 
+import androidx.room.Entity
 import java.time.LocalDateTime
 import java.util.ArrayList
 
@@ -20,8 +21,6 @@ open class Account(
     fun register(usrN: String,pswd: String,eml: String,phone: String) {
         //create a new account by just calling the constructor
         val account = Account(usrN,pswd,eml,phone,false)
-
-
     }
 
     fun login(usrN: String, pswd: String): String {
@@ -45,6 +44,7 @@ open class Account(
 
 }
 
+
 class UserAccount(
     //inherits from account with extra user details
 
@@ -56,7 +56,6 @@ class UserAccount(
     val uctID: Double, //maybe remove
     private val reviewHistory: ArrayList<Review>,
     val rewardPoints: RewardSystem // could also just calculate based on review history??
-
 
 ) : Account(userName, password, email, phoneNo, loggedIn)
 {

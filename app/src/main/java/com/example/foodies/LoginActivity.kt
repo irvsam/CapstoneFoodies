@@ -6,22 +6,25 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
+import androidx.lifecycle.lifecycleScope
+import classes.Entities
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var emailEditedText: EditText
     private lateinit var passwordEditedText: EditText
     //private val sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +35,9 @@ class LoginActivity : AppCompatActivity() {
         // Set the ClickableSpan to the TextView
         val spannableString = SpannableString(registerLinkTextView.text)
         spannableString.setSpan(object : ClickableSpan() {
+
             override fun onClick(widget: View) {
-                //TODO Handle the click event, open the registration activity
+
                 val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
                 startActivity(intent)
             }
@@ -42,11 +46,7 @@ class LoginActivity : AppCompatActivity() {
         registerLinkTextView.text = spannableString
         registerLinkTextView.movementMethod = LinkMovementMethod.getInstance()
 
-
-
-
         // Set click listener for the login button
-        //TODO this should not just let them in but for prototype it might be good enough
         val loginButton = findViewById<Button>(R.id.login_btn)
         loginButton.setOnClickListener {
 
@@ -57,21 +57,19 @@ class LoginActivity : AppCompatActivity() {
             val email = emailEditedText.text.toString()
             val password = passwordEditedText.text.toString()
 
-            if (email=="wkrrya001" && password=="ryan") {  //If login credentials are correct open main screen
-                //set logged in boolean
-                //sharedViewModel.loggedIn = true
-                val intent = Intent(this, FragmentHolderActivity::class.java)
-                startActivity(intent)
-                //println("Logged in")
-                // Optional: finish the LoginActivity if you don't want to come back to it using the back button
+            CoroutineScope(Dispatchers.IO).launch {
+                val user = ApplicationCore.database.accountDao().getUserByEmailAndPassword(email, password)
+                withContext(Dispatchers.Main) {
+                    if (user != null) {  //If login credentials are correct open main screen
+                        showToast("Login Successful")
+                        val intent = Intent(this@LoginActivity, FragmentHolderActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        showToast("Invalid credentials. Please try again.")
+                    }
+                }
             }
-            else{
-                //Reset text boxes to ask for input again
-                emailEditedText.text = null
-                passwordEditedText.text = null
-                emailEditedText.requestFocus()  //Bring cursor back to email box
-                Toast.makeText(this,"Invalid login, please try again",Toast.LENGTH_SHORT).show()
-            }
+
         }
         // Set click listener for the continue as guest button
         //TODO we must make this only allow guest functionality
@@ -84,5 +82,8 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
             // Optional: finish the LoginActivity if you don't want to come back to it using the back button
         }
+    }
+        private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
