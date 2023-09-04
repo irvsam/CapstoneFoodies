@@ -39,6 +39,12 @@ class StoreDetailsFragment : Fragment() {
         }
         val actionBar: ActionBar? = (activity as AppCompatActivity).supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
+
+        binding.reviewButton.setOnClickListener {
+            val navController = findNavController()
+            navController.navigate(R.id.leaveReviewFragment)
+        }
+
     }
 
     private fun storeFromName(storeID: String?): Store? {

@@ -6,103 +6,98 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/reviewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rate your experience"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:rating="0"
+            android:stepSize="1" />
+
+        <!-- Cleanliness Rating -->
+        <TextView
+            android:id="@+id/cleanlinessTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cleanliness"
+            android:textSize="18sp" />
+
+        <RatingBar
+            android:id="@+id/cleanlinessRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:rating="0"
+            android:stepSize="1" />
+
+        <!-- Friendliness Rating -->
+        <TextView
+            android:id="@+id/friendlinessTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Friendliness"
+            android:textSize="18sp" />
+
+        <RatingBar
+            android:id="@+id/friendlinessRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:rating="0"
+            android:stepSize="1" />
+
+        <!-- Efficiency Rating -->
+        <TextView
+            android:id="@+id/efficiencyTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Efficiency"
+            android:textSize="18sp" />
+
+        <RatingBar
+            android:id="@+id/efficiencyRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:rating="0"
+            android:stepSize="1" />
+
+        <EditText
+            android:id="@+id/reviewText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:hint="Leave a comment"
+            android:inputType="textMultiLine"
+            android:minLines="3" />
 
+        <Button
+            android:id="@+id/submitReviewButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/nicegreen"
+            android:text="Submit Review"
+            android:textColor="@android:color/white" />
 
-            <TextView
-                android:id="@+id/reviewTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rate your experience"
-                android:textSize="24sp"
-                android:textStyle="bold"/>
+    </LinearLayout>
 
-            <RatingBar
-                android:id="@+id/ratingBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:numStars="5"
-                android:rating="0"
-                android:stepSize="1"/>
-
-            <!-- Cleanliness Rating -->
-            <TextView
-                android:id="@+id/cleanlinessTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cleanliness"
-                android:textSize="18sp"/>
-
-            <RatingBar
-                android:id="@+id/cleanlinessRatingBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:numStars="5"
-                android:rating="0"
-                android:stepSize="1"/>
-
-            <!-- Friendliness Rating -->
-            <TextView
-                android:id="@+id/friendlinessTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Friendliness"
-                android:textSize="18sp"/>
-
-            <RatingBar
-                android:id="@+id/friendlinessRatingBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:numStars="5"
-                android:rating="0"
-                android:stepSize="1"/>
-
-            <!-- Efficiency Rating -->
-            <TextView
-                android:id="@+id/efficiencyTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Efficiency"
-                android:textSize="18sp"/>
-
-            <RatingBar
-                android:id="@+id/efficiencyRatingBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:numStars="5"
-                android:rating="0"
-                android:stepSize="1"/>
-
-            <EditText
-                android:id="@+id/reviewText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Leave a comment"
-                android:inputType="textMultiLine"
-                android:minLines="3" />
-
-            <Button
-                android:id="@+id/submitReviewButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="16dp"
-                android:backgroundTint="@color/nicegreen"
-                android:text="Submit Review"
-                android:textColor="@android:color/white" />
-
-        </LinearLayout>
-    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

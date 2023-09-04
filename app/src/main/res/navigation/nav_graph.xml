@@ -28,5 +28,9 @@
         android:id="@+id/rewardsFragment"
         android:name="com.example.foodies.RewardsFragment"
         android:label="RewardsFragment" />
+    <fragment
+        android:id="@+id/leaveReviewFragment"
+        android:name="com.example.foodies.LeaveReviewFragment"
+        android:label="LeaveReviewFragment" />
 
 </navigation>
