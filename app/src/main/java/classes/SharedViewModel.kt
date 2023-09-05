@@ -12,3 +12,7 @@ class SharedViewModel : ViewModel() {
 class UserViewModel : ViewModel() {
     var user: Entities.User? = null
 }
+
+class GuestViewModel : ViewModel() {
+    var isGuest: Boolean = false
+}

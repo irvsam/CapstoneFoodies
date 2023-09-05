@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import classes.GuestViewModel
 import classes.UserViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
@@ -21,30 +22,38 @@ import kotlinx.coroutines.withContext
 
 class FragmentHolderActivity : AppCompatActivity() {
     private lateinit var userViewModel: UserViewModel
+    private lateinit var guestViewModel: GuestViewModel
     // This method is called when the activity is first created
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fragment_holder)
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
+        guestViewModel = ViewModelProvider(this)[GuestViewModel::class.java]
 
-        val userId = intent.getIntExtra("user_id", -1)
-        val userName = intent.getStringExtra("user_name")
-        val userEmail = intent.getStringExtra("user_email")
+        val isGuest = intent.getBooleanExtra("is_guest", false)
+        guestViewModel.isGuest = isGuest
 
-        if(userEmail != null && userName!=null){
+        if(!isGuest) { //if they are not a guest then continue as if they are a user
+            val userId = intent.getIntExtra("user_id", -1)
+            val userName = intent.getStringExtra("user_name")
+            val userEmail = intent.getStringExtra("user_email")
 
-            CoroutineScope(Dispatchers.IO).launch {
-                val user = ApplicationCore.database.accountDao().getUserByEmailAndUsername(userEmail, userName)
+            if (userEmail != null && userName != null) {
 
-                withContext(Dispatchers.Main) {
-                    if (user != null) {
-                        val userViewModel = ViewModelProvider(this@FragmentHolderActivity)[UserViewModel::class.java]
-                        userViewModel.user = user
+                CoroutineScope(Dispatchers.IO).launch {
+                    val user = ApplicationCore.database.accountDao()
+                        .getUserByEmailAndUsername(userEmail, userName)
+
+                    withContext(Dispatchers.Main) {
+                        if (user != null) {
+                            val userViewModel =
+                                ViewModelProvider(this@FragmentHolderActivity)[UserViewModel::class.java]
+                            userViewModel.user = user
+                        }
                     }
                 }
             }
         }
-
 
 
 

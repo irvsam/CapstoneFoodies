@@ -80,16 +80,11 @@ class LoginActivity : AppCompatActivity() {
             }
 
         }
-        // Set click listener for the continue as guest button
-        //TODO we must make this only allow guest functionality
         val guestButton = findViewById<Button>(R.id.guestCont_btn)
         guestButton.setOnClickListener {
-            //set guest boolean
-            //sharedViewModel.guest=true
-            // Navigate to MainActivity
             val intent = Intent(this, FragmentHolderActivity::class.java)
+            intent.putExtra("is_guest", true)
             startActivity(intent)
-            // Optional: finish the LoginActivity if you don't want to come back to it using the back button
         }
     }
         private fun showToast(message: String) {
