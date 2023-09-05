@@ -50,11 +50,9 @@ class StoreDetailsFragment : Fragment() {
         if(guestViewModel.isGuest){binding.reviewButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey))}
         binding.reviewButton.setOnClickListener {
             if(!guestViewModel.isGuest){
-                    binding.reviewButton.setOnClickListener {
-                            // User is logged in, handle the review action here
-                            val navController = findNavController()
-                            navController.navigate(R.id.leaveReviewFragment)
-                    }
+                // User is logged in, handle the review action here
+                val navController = findNavController()
+                navController.navigate(R.id.leaveReviewFragment)
             }
             else{
                 Toast.makeText(requireContext(),"you are not logged in!",Toast.LENGTH_SHORT).show() }

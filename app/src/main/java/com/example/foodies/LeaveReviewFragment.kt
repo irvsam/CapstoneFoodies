@@ -9,8 +9,20 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.RatingBar
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import classes.Entities
+import classes.ReviewDao
+import classes.UserViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class LeaveReviewFragment : Fragment() {
+
+    private lateinit var userViewModel: UserViewModel
+    private var user: Entities.User? = null // Declare the User property as nullable
+
     private lateinit var ratingBar: RatingBar
     private lateinit var cleanlinessRatingBar: RatingBar
     private lateinit var friendlinessRatingBar: RatingBar
@@ -40,18 +52,33 @@ class LeaveReviewFragment : Fragment() {
             val friendlinessRating = friendlinessRatingBar.rating
             val efficiencyRating = efficiencyRatingBar.rating
             val userReview = reviewText.text.toString()
+            userViewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
+            user = userViewModel.user
 
-            // You can perform actions like sending the review to a server or storing it locally
-            // For this example, we'll just display a Toast message
-            val reviewMessage = "Overall Rating: $overallRating\n" +
-                    "Cleanliness Rating: $cleanlinessRating\n" +
-                    "Friendliness Rating: $friendlinessRating\n" +
-                    "Efficiency Rating: $efficiencyRating\n" +
-                    "User Review: $userReview"
+            if(user!=null) {
+                val review = Entities.Review(
+                    userId = user!!.id,
+                    //vendorId = 0/* set the vendor ID for this review */,
+                    text = userReview,
+                    rating = overallRating
+                )
 
-            Toast.makeText(requireContext(), reviewMessage, Toast.LENGTH_LONG).show()
+                // Launch a coroutine to insert the review into the database
+                lifecycleScope.launch {
+                    insertReviewIntoDatabase(review)
+                    Toast.makeText(requireContext(),"review submitted",Toast.LENGTH_SHORT).show()
+
+                }
+            }
+
         }
 
         return rootView
+    }
+
+    private suspend fun insertReviewIntoDatabase(review: Entities.Review) {
+        withContext(Dispatchers.IO) {
+            ApplicationCore.database.reviewDao().insertReview(review)
+        }
     }
 }
