@@ -9,6 +9,8 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavGraph
+import androidx.navigation.NavGraphNavigator
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import classes.GuestViewModel
@@ -65,8 +67,20 @@ class FragmentHolderActivity : AppCompatActivity() {
         //create bottom navigation view object
         val bottomNavigationView = findViewById<BottomNavigationView
                 >(R.id.bottomNavigationView)
+
+
         val navController = findNavController(R.id.nav_fragment)
+
+        if (guestViewModel.isGuest) {
+            // If the user is a guest, set the start destination to the "Guest Account" fragment
+            val navGraph = navController.navInflater.inflate(R.navigation.nav_graph_guest)
+            navController.graph = navGraph
+            // Remove the "Rewards" menu item
+            bottomNavigationView.menu.removeItem(R.id.rewardsFragment)
+        }
+
         bottomNavigationView.setupWithNavController(navController)
+
 
 
     }

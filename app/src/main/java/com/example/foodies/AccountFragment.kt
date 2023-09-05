@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import classes.Entities
+import classes.GuestViewModel
 import classes.SharedViewModel
 import classes.UserViewModel
 
@@ -21,6 +22,7 @@ class AccountFragment : Fragment() {
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var userViewModel: UserViewModel // Declare the UserViewModel
     private var user: Entities.User? = null // Declare the User property as nullable
+    private lateinit var guestViewModel: GuestViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,10 +40,6 @@ class AccountFragment : Fragment() {
 
         // Get the user from the UserViewModel
         user = userViewModel.user
-
-        Log.d("LoginActivity", "User ID: ${user?.id}")
-        Log.d("LoginActivity", "User Name: ${user?.username}")
-        Log.d("LoginActivity", "User Email: ${user?.email}")
 
         // Check if the user is not null before accessing its properties
         if (user != null) {
