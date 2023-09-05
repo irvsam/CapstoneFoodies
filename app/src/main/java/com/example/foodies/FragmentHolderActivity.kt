@@ -13,6 +13,10 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import classes.UserViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class FragmentHolderActivity : AppCompatActivity() {
@@ -21,17 +25,33 @@ class FragmentHolderActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fragment_holder)
-
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
+
+        val userId = intent.getIntExtra("user_id", -1)
+        val userName = intent.getStringExtra("user_name")
+        val userEmail = intent.getStringExtra("user_email")
+
+        if(userEmail != null && userName!=null){
+
+            CoroutineScope(Dispatchers.IO).launch {
+                val user = ApplicationCore.database.accountDao().getUserByEmailAndUsername(userEmail, userName)
+
+                withContext(Dispatchers.Main) {
+                    if (user != null) {
+                        val userViewModel = ViewModelProvider(this@FragmentHolderActivity)[UserViewModel::class.java]
+                        userViewModel.user = user
+                    }
+                }
+            }
+        }
+
+
+
+
         // calling the action bar
         val actionBar: ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
-
-        val user = userViewModel.user
-        Log.d("FragmentHolderActivity", "User ID: ${user?.id}")
-        Log.d("FragmentHolderActivity", "User Name: ${user?.username}")
-        Log.d("FragmentHolderActivity", "User Email: ${user?.email}")
         //Initialize the bottom navigation view
         //create bottom navigation view object
         val bottomNavigationView = findViewById<BottomNavigationView

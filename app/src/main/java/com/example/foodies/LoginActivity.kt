@@ -65,18 +65,11 @@ class LoginActivity : AppCompatActivity() {
                     if (user != null) {  //If login credentials are correct open main screen
                         showToast("Login Successful")
 
-                        // Log user information to check if it's retrieved correctly
-                        Log.d("LoginActivity", "User ID: ${user.id}")
-                        Log.d("LoginActivity", "User Name: ${user.username}")
-                        Log.d("LoginActivity", "User Email: ${user.email}")
-
-
-                        val userViewModel = ViewModelProvider(this@LoginActivity)[UserViewModel::class.java]
-                        // Set the user object in the ViewModel
-                        userViewModel.user = user
-                        Log.d("LoginActivity", "User ID: ${user.id}")
-
+                        //pass the user through in the intent
                         val intent = Intent(this@LoginActivity, FragmentHolderActivity::class.java)
+                        intent.putExtra("user", user.id)
+                        intent.putExtra("user_name", user.username)
+                        intent.putExtra("user_email", user.email)
 
                         startActivity(intent)
 
