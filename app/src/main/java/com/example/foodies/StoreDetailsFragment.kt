@@ -31,7 +31,7 @@ class StoreDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val storeID = arguments?.getString(STORE_EXTRA)
-        val store = arguments?.getSerializable(STORE_EXTRA) as? Store
+        val store = storeFromName(storeID)
         if (store != null) {
             binding.imageView.setImageResource(store.image)
             binding.storeName.text = store.name

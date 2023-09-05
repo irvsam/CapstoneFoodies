@@ -43,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
                 val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
                 startActivity(intent)
             }
-        }, 23, 45, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }, 23, 33, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         registerLinkTextView.text = spannableString
         registerLinkTextView.movementMethod = LinkMovementMethod.getInstance()
