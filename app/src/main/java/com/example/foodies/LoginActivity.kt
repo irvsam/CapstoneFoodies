@@ -13,8 +13,10 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import classes.Entities
+import classes.UserViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -62,8 +64,22 @@ class LoginActivity : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     if (user != null) {  //If login credentials are correct open main screen
                         showToast("Login Successful")
+
+                        // Log user information to check if it's retrieved correctly
+                        Log.d("LoginActivity", "User ID: ${user.id}")
+                        Log.d("LoginActivity", "User Name: ${user.username}")
+                        Log.d("LoginActivity", "User Email: ${user.email}")
+
+
+                        val userViewModel = ViewModelProvider(this@LoginActivity)[UserViewModel::class.java]
+                        // Set the user object in the ViewModel
+                        userViewModel.user = user
+                        Log.d("LoginActivity", "User ID: ${user.id}")
+
                         val intent = Intent(this@LoginActivity, FragmentHolderActivity::class.java)
+
                         startActivity(intent)
+
                     } else {
                         showToast("Invalid credentials. Please try again.")
                     }
