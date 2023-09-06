@@ -75,7 +75,43 @@ class ApplicationCore : Application() {
                 menuId = 1,
                 name = "Jollof",
                 price = 40.00f
-            )
+            ),
+            Entities.MenuItem(
+                id = 12,
+                menuId = 2,
+                name = "Beef Burger",
+                price = 40.00f
+            ),
+            Entities.MenuItem(
+                id = 13,
+                menuId = 3,
+                name = "Chicken sub",
+                price = 40.00f
+            ),
+            Entities.MenuItem(
+                id = 14,
+                menuId = 4,
+                name = "Chicken Mayo Rolls",
+                price = 40.00f
+            ),
+            Entities.MenuItem(
+                id = 15,
+                menuId = 5,
+                name = "Dried Fruit",
+                price = 10.00f
+            ),
+            Entities.MenuItem(
+                id = 16,
+                menuId = 6,
+                name = "Filter Coffee",
+                price = 14.00f
+            ),
+            Entities.MenuItem(
+                id = 17,
+                menuId = 7,
+                name = "Wrap",
+                price = 45.00f
+            ),
         )
 
         // This is where the dietaryRequirements are created for prepopulation
@@ -86,6 +122,7 @@ class ApplicationCore : Application() {
             )
         )
         seedMenuTable(menuEntitiesToSeed)
+        seedMenuItemTable(menuItemEntitiesToSeed)
         seedDietaryReqTable(dietaryReqEntitiesToSeed)
 
         // Seed Vendor Entities
