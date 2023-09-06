@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
+    android:id="@+id/nav_graph_guest"
     app:startDestination="@id/vendorListFragment">
 
     <fragment
@@ -10,10 +10,7 @@
         android:name="com.example.foodies.VendorListFragment"
         android:label="fragment_vendor_list"
         tools:layout="@layout/fragment_vendor_list" />
-    <fragment
-        android:id="@+id/accountFragment"
-        android:name="com.example.foodies.AccountFragment"
-        android:label="AccountFragment" />
+
     <fragment
         android:id="@+id/browseFragment"
         android:name="com.example.foodies.BrowseFragment"
@@ -24,14 +21,10 @@
         android:name="com.example.foodies.StoreDetailsFragment"
         android:label="fragment_store_details"
         tools:layout="@layout/fragment_store_details" />
-    <fragment
-        android:id="@+id/rewardsFragment"
-        android:name="com.example.foodies.RewardsFragment"
-        android:label="RewardsFragment" />
-    <fragment
-        android:id="@+id/leaveReviewFragment"
-        android:name="com.example.foodies.LeaveReviewFragment"
-        android:label="LeaveReviewFragment" />
 
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.example.foodies.GuestAccountFragment"
+        android:label="GuestAccountFragment" />
 
 </navigation>

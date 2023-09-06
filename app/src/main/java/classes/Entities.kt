@@ -90,19 +90,20 @@ class Entities {
                 parentColumns = ["id"],
                 childColumns = ["user_id"],
                 onDelete = ForeignKey.CASCADE
-            ),
+            )
+            /*,
             ForeignKey(
                 entity = Vendor::class,
                 parentColumns = ["id"],
                 childColumns = ["vendor_id"],
                 onDelete = ForeignKey.CASCADE
-            )
+            )*/
         ]
     )
     data class Review(
         @PrimaryKey(autoGenerate = true) val id: Long = 0,
         @ColumnInfo(name = "user_id") val userId: Long,
-        @ColumnInfo(name = "vendor_id") val vendorId: Long,
+        //@ColumnInfo(name = "vendor_id") val vendorId: Long,
         val text: String,
         val rating: Float
     )

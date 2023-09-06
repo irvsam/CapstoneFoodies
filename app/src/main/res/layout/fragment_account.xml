@@ -56,20 +56,33 @@
                 android:layout_height="match_parent"
                 android:text="@string/users_email" />
         </TableRow>
-
         <TableRow>
 
             <TextView
                 android:layout_width="124dp"
                 android:layout_height="31dp"
-                android:text="@string/review_history"
+                android:text="phone number"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/reviewTextView"
+                android:id="@+id/phoneTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/users_review_history" />
+                android:text="users phone number" />
+        </TableRow>
+        <TableRow>
+
+            <TextView
+                android:layout_width="124dp"
+                android:layout_height="31dp"
+                android:text="reward points"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/rewardTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="users reward points" />
         </TableRow>
 
     </TableLayout>

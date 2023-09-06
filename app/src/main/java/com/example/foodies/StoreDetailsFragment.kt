@@ -1,23 +1,30 @@
 package com.example.foodies
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import classes.GuestViewModel
 import classes.STORE_EXTRA
 import classes.Store
 import classes.storeList
 import com.example.foodies.databinding.FragmentStoreDetailsBinding
+import com.google.android.material.snackbar.Snackbar
 
 class StoreDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentStoreDetailsBinding
+    private lateinit var guestViewModel: GuestViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +46,18 @@ class StoreDetailsFragment : Fragment() {
         }
         val actionBar: ActionBar? = (activity as AppCompatActivity).supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
+        guestViewModel = ViewModelProvider(requireActivity())[GuestViewModel::class.java]
+        if(guestViewModel.isGuest){binding.reviewButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey))}
+        binding.reviewButton.setOnClickListener {
+            if(!guestViewModel.isGuest){
+                // User is logged in, handle the review action here
+                val navController = findNavController()
+                navController.navigate(R.id.leaveReviewFragment)
+            }
+            else{
+                Toast.makeText(requireContext(),"you are not logged in!",Toast.LENGTH_SHORT).show() }
+        }
+
     }
 
     private fun storeFromName(storeID: String?): Store? {
@@ -63,4 +82,5 @@ class StoreDetailsFragment : Fragment() {
         }
         return super.onOptionsItemSelected(item)
     }
+
 }

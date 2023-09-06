@@ -21,6 +21,7 @@ import com.example.foodies.ApplicationCore
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun accountDao(): AccountDao
+    abstract fun reviewDao(): ReviewDao
 
     abstract fun vendorDao(): VendorDao
 

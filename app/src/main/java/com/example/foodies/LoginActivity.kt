@@ -13,8 +13,10 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import classes.Entities
+import classes.UserViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -41,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
                 val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
                 startActivity(intent)
             }
-        }, 23, 45, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }, 23, 33, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         registerLinkTextView.text = spannableString
         registerLinkTextView.movementMethod = LinkMovementMethod.getInstance()
@@ -62,8 +64,15 @@ class LoginActivity : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     if (user != null) {  //If login credentials are correct open main screen
                         showToast("Login Successful")
+
+                        //pass the user through in the intent
                         val intent = Intent(this@LoginActivity, FragmentHolderActivity::class.java)
+                        intent.putExtra("user", user.id)
+                        intent.putExtra("user_name", user.username)
+                        intent.putExtra("user_email", user.email)
+
                         startActivity(intent)
+
                     } else {
                         showToast("Invalid credentials. Please try again.")
                     }
@@ -71,16 +80,11 @@ class LoginActivity : AppCompatActivity() {
             }
 
         }
-        // Set click listener for the continue as guest button
-        //TODO we must make this only allow guest functionality
         val guestButton = findViewById<Button>(R.id.guestCont_btn)
         guestButton.setOnClickListener {
-            //set guest boolean
-            //sharedViewModel.guest=true
-            // Navigate to MainActivity
             val intent = Intent(this, FragmentHolderActivity::class.java)
+            intent.putExtra("is_guest", true)
             startActivity(intent)
-            // Optional: finish the LoginActivity if you don't want to come back to it using the back button
         }
     }
         private fun showToast(message: String) {

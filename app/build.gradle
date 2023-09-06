@@ -3,6 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'org.jetbrains.kotlin.kapt'
 }
+apply plugin: 'kotlin-kapt'
+
 
 android {
     compileSdk 33
@@ -25,6 +27,7 @@ android {
     kapt {
         correctErrorTypes true
         useBuildCache true
+        generateStubs = true
     }
 
     buildTypes {

@@ -17,5 +17,8 @@ interface AccountDao {
 
 
 
+    @Query("SELECT * FROM user WHERE email = :email AND username = :username")
+    suspend fun getUserByEmailAndUsername(email: String, username: String): Entities.User?
+
 
 }
