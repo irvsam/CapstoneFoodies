@@ -56,7 +56,73 @@ class ApplicationCore : Application() {
                 openTime = "7:00",
                 closeTime = "18:00",
                 dietaryReqId = 1
-            )
+            ),
+            //Varisty Fast Foods store
+            Entities.Vendor(
+                id = 2,
+                name = "Varsity Fast Foods",
+                cuisine = "Meat",
+                menuId = 2,
+                rating = 5.0,
+                openTime = "9:00",
+                closeTime = "17:00",
+                dietaryReqId = 1
+            ),
+            //Best Quality store
+            Entities.Vendor(
+                id = 3,
+                name = "Best Quality",
+                cuisine = "Meat",
+                menuId = 3,
+                rating = 5.0,
+                openTime = "9:00",
+                closeTime = "17:00",
+                dietaryReqId = 1
+            ),
+            //Budget Rolls store
+            Entities.Vendor(
+                id = 4,
+                name = "Budget Rolls",
+                cuisine = "Meat",
+                menuId = 4,
+                rating = 5.0,
+                openTime = "9:00",
+                closeTime = "17:00",
+                dietaryReqId = 1
+            ),
+            //Dans Health Shop store
+            Entities.Vendor(
+                id = 5,
+                name = "Dans Health Shop",
+                cuisine = "Meat",
+                menuId = 5,
+                rating = 5.0,
+                openTime = "9:00",
+                closeTime = "17:00",
+                dietaryReqId = 1
+            ),
+            //Campus Cafe store
+            Entities.Vendor(
+                id = 6,
+                name = "Campus Coffee",
+                cuisine = "Beverages",
+                menuId = 6,
+                rating = 5.0,
+                openTime = "9:00",
+                closeTime = "17:00",
+                dietaryReqId = 1
+            ),
+            //Prashad store
+            Entities.Vendor(
+                id = 7,
+                name = "Prashad",
+                cuisine = "Meat",
+                menuId = 7,
+                rating = 5.0,
+                openTime = "9:00",
+                closeTime = "17:00",
+                dietaryReqId = 1
+            ),
 
             // Add more entities as needed
         )
