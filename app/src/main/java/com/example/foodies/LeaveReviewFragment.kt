@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import classes.Entities
-import classes.ReviewDao
 import classes.UserViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

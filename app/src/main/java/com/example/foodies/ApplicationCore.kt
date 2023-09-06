@@ -57,6 +57,7 @@ class ApplicationCore : Application() {
                 closeTime = "18:00",
                 dietaryReqId = 1
             )
+
             // Add more entities as needed
         )
        seedVendorTable(vendorEntitiesToSeed)
