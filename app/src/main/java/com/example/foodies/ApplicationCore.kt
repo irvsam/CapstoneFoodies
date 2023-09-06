@@ -29,9 +29,52 @@ class ApplicationCore : Application() {
         // TODO: finish writing out the vendor details
         // Here is where we create the list of MenuEntities that need to prepopulate the database
         val menuEntitiesToSeed = listOf(
+
+            //Various store menu's
             Entities.Menu(
                 id = 1,
                 name = "AfriQuezeen"
+            ),
+            Entities.Menu(
+                id = 2,
+                name = "Varsity Fast Foods"
+            ),
+            Entities.Menu(
+                id = 3,
+                name = "Best Quality"
+            ),
+            Entities.Menu(
+                id = 4,
+                name = "Budget Rolls"
+            ),
+            Entities.Menu(
+                id = 5,
+                name = "Dan's Health Shop"
+            ),
+            Entities.Menu(
+                id = 6,
+                name = "Campus Cafe"
+            ),
+            Entities.Menu(
+                id = 7,
+                name = "Prashad"
+            ),
+
+            //Menu Items
+            /*Entities.MenuItem(
+                id = 11,
+                menuId = 1,
+                name = "Jollof",
+                price = 40.00f
+            )*/
+        )
+
+        val menuItemEntitiesToSeed = listOf(
+            Entities.MenuItem(
+                id = 11,
+                menuId = 1,
+                name = "Jollof",
+                price = 40.00f
             )
         )
 
@@ -93,7 +136,7 @@ class ApplicationCore : Application() {
             //Dans Health Shop store
             Entities.Vendor(
                 id = 5,
-                name = "Dans Health Shop",
+                name = "Dan's Health Shop",
                 cuisine = "Meat",
                 menuId = 5,
                 rating = 5.0,
@@ -135,6 +178,14 @@ class ApplicationCore : Application() {
             DatabaseSeeder.seedMenuTable(database, entitiesToSeed)
         }
     }
+
+    //Inserts the various menuItems items into the DB on a background thread
+    private fun seedMenuItemTable(entitiesToSeed: List<Entities.MenuItem>) {
+        GlobalScope.launch(Dispatchers.Main) {
+            DatabaseSeeder.seedMenuItemTable(database,entitiesToSeed)
+        }
+    }
+
     // Inserts dietReq items into the DB on a background thread
     private fun seedDietaryReqTable(entitiesToSeed: List<Entities.DietaryRequirement>) {
         GlobalScope.launch(Dispatchers.Main) {
