@@ -22,6 +22,17 @@ object DatabaseSeeder {
         }
     }
 
+    suspend fun seedMenuItemTable(database: AppDatabase,entitiesToSeed: List<Entities.MenuItem>){
+        withContext(Dispatchers.IO){
+            for (entity in entitiesToSeed){
+                val existingMenuItem = database.menuItemDao().getMenuItemById(entity.id)
+                if(existingMenuItem==null){
+                    insertMenuItem(database,entity)
+                }
+            }
+        }
+    }
+
     suspend fun seedDietaryReqTable(database: AppDatabase, entitiesToSeed: List<Entities.DietaryRequirement>) {
         withContext(Dispatchers.IO) {
             for (entity in entitiesToSeed) {
@@ -49,6 +60,12 @@ object DatabaseSeeder {
     private suspend fun insertMenu(database: AppDatabase, menu: Entities.Menu) {
         withContext(Dispatchers.IO) {
             database.menuDao().insertMenu(menu)
+        }
+    }
+
+    private suspend fun insertMenuItem(database: AppDatabase,menuItem: Entities.MenuItem){
+        withContext(Dispatchers.IO){
+            database.menuItemDao().insertMenuItem(menuItem)
         }
     }
 
