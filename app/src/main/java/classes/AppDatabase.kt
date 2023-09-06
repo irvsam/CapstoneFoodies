@@ -4,6 +4,7 @@ import androidx.room.*
 import classes.daos.AccountDao
 import classes.daos.DietaryReqDao
 import classes.daos.MenuDao
+import classes.daos.MenuItemDao
 import classes.daos.ReviewDao
 import classes.daos.VendorDao
 
@@ -14,7 +15,7 @@ import classes.daos.VendorDao
     Entities.MenuItem::class,
     Entities.Menu::class,
     Entities.Review::class],
-    version = 3, exportSchema = false
+    version = 4, exportSchema = false
 )
 
 abstract class AppDatabase : RoomDatabase() {
@@ -27,5 +28,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun dietaryReqDao(): DietaryReqDao
 
     abstract fun menuDao(): MenuDao
+
+    abstract fun menuItemDao(): MenuItemDao
 
 }
