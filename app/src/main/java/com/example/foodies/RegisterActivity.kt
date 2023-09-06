@@ -48,7 +48,7 @@ class RegisterActivity: AppCompatActivity() {
                 phone = phone,
                 password = password,
                 type = "user",
-                rewardPoints = 100)
+                rewardPoints = 0)
 
             if (validateRegistrationInput(username, email, phone, password, passwordRepeat)) {
                 // registration is successful
