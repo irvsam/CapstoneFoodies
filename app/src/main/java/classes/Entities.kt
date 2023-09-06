@@ -40,7 +40,7 @@ class Entities {
         val name: String,
         val cuisine: String,
         @ColumnInfo(name = "menu_id") val menuId: Long,
-        val rating: Float,
+        val rating: Double,
         @ColumnInfo(name = "openTime") val openTime: String,
         @ColumnInfo(name = "closeTime") val closeTime: String,
         @ColumnInfo(name = "dietaryReq_id") val dietaryReqId: Long
@@ -54,19 +54,13 @@ class Entities {
 
     // MENU
     @Entity(
-        tableName = "menu",
-        foreignKeys = [ForeignKey(
-            entity = Vendor::class,
-            parentColumns = ["id"],
-            childColumns = ["vendor_id"],
-            onDelete = ForeignKey.CASCADE
-        )]
+        tableName = "menu"
     )
     data class Menu(
         @PrimaryKey(autoGenerate = true) val id: Long = 0,
-        @ColumnInfo(name = "vendor_id") val vendorId: Long,
         val name: String
     )
+
 
     // MENU_ITEM
     @Entity(

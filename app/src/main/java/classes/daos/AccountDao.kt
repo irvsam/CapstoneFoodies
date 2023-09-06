@@ -1,4 +1,4 @@
-package classes
+package classes.daos
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -10,12 +10,12 @@ interface AccountDao {
     // DAO methods here
     @Insert
     suspend fun insertUser(user: Entities.User)
-
+    @Insert
+    fun insertVendor(vendor: Entities.Vendor)
     @Query("SELECT * FROM user WHERE email = :email AND password = :password")
     suspend fun getUserByEmailAndPassword(email: String, password: String): Entities.User?
 
-    @Insert
-    suspend fun insertVendor(vendor: Entities.Vendor)
+
 
 
 }

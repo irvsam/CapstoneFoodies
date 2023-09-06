@@ -9,7 +9,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     companion object {
         private const val DATABASE_NAME = "food_review.db"
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 2
     }
 
     override fun onCreate(db: SQLiteDatabase) {
@@ -27,18 +27,20 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.execSQL(CREATE_USER_TABLE)
     }
 
-    private fun seedDatabase(db : SQLiteDatabase) {
-        val cafeValues = ContentValues().apply {
-            put("id", 6)
+     fun seedDatabase(db : SQLiteDatabase) {
+        val campusCafe = ContentValues().apply {
+            put("id", 1)
             put("name", "Campus Cafe")
-            put("cuisine", "")
+            put("cuisine", "Hot Drinks")
             put("menu_id", 6)
             put("rating", 3.3)
             put("openTime", "07:00")
             put("closeTime", "18:00")
             put("dietaryReq_id", 1)
         }
-        db.insert("vendor", null, cafeValues)
+        db.insert("vendor", null, campusCafe)
+
+
 
         // Creating a User for testing:
         // for ease of testing:
@@ -87,9 +89,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     private val CREATE_MENU_TABLE = """
         CREATE TABLE menu (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            vendor_id INTEGER,
-            name TEXT,
-            FOREIGN KEY(vendor_id) REFERENCES vendor(id)
+            name TEXT
     )
 """.trimIndent()
 
