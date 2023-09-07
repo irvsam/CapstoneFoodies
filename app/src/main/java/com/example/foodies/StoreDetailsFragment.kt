@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import classes.Entities
 import classes.GuestViewModel
 import classes.STORE_EXTRA
 import classes.Store
@@ -37,18 +38,21 @@ class StoreDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val storeID = arguments?.getString(STORE_EXTRA)
-        val store = storeFromName(storeID)
+        //val storeID = arguments?.getString(STORE_EXTRA)
+        val store = arguments?.getSerializable(STORE_EXTRA) as? Entities.Vendor
         if (store != null) {
-            binding.imageView.setImageResource(store.image)
+            //TODO Set image to a relevant store image
+            binding.imageView.setImageResource(R.drawable.curry)
             binding.storeName.text = store.name
-            binding.menu.text = store.menu.toString()
+            //binding.menu.text = store.menu.toString()
         }
 
         val actionBar: ActionBar? = (activity as AppCompatActivity).supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
         guestViewModel = ViewModelProvider(requireActivity())[GuestViewModel::class.java]
-        if(guestViewModel.isGuest){binding.reviewButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey))}
+        if(guestViewModel.isGuest){
+            binding.reviewButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey))
+        }
         binding.reviewButton.setOnClickListener {
             if(!guestViewModel.isGuest){
                 // User is logged in, handle the review action here
@@ -61,9 +65,9 @@ class StoreDetailsFragment : Fragment() {
 
     }
 
-    private fun storeFromName(storeID: String?): Store? {
+    private fun storeFromName(storeID: String?): Entities.Vendor? {
         for (store in storeList) {
-            if (store.name == storeID) {
+            if (store?.name == storeID) {
                 return store
             }
         }
