@@ -42,7 +42,7 @@ class StoreDetailsFragment : Fragment() {
         val store = arguments?.getSerializable(STORE_EXTRA) as? Entities.Vendor
         if (store != null) {
             //TODO Set image to a relevant store image
-            binding.imageView.setImageResource(R.drawable.curry)
+            binding.imageView.setImageResource(store.image)
             binding.storeName.text = store.name
             //binding.menu.text = store.menu.toString()
         }

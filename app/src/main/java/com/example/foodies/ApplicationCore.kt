@@ -141,7 +141,7 @@ class ApplicationCore : Application() {
                 openTime = "9:00",
                 closeTime = "17:00",
                 dietaryReqId = 1,
-                image = R.drawable.afriquezeen
+                image = R.drawable.burger
             ),
             //Best Quality store
             Entities.Vendor(
@@ -153,7 +153,7 @@ class ApplicationCore : Application() {
                 openTime = "9:00",
                 closeTime = "17:00",
                 dietaryReqId = 1,
-                image = R.drawable.afriquezeen
+                image = R.drawable.chips
             ),
             //Budget Rolls store
             Entities.Vendor(
@@ -165,7 +165,7 @@ class ApplicationCore : Application() {
                 openTime = "9:00",
                 closeTime = "17:00",
                 dietaryReqId = 1,
-                image = R.drawable.afriquezeen
+                image = R.drawable.roll
             ),
             //Dans Health Shop store
             Entities.Vendor(
@@ -177,7 +177,7 @@ class ApplicationCore : Application() {
                 openTime = "9:00",
                 closeTime = "17:00",
                 dietaryReqId = 1,
-                image = R.drawable.afriquezeen
+                image = R.drawable.juices
             ),
             //Campus Cafe store
             Entities.Vendor(
@@ -201,7 +201,7 @@ class ApplicationCore : Application() {
                 openTime = "9:00",
                 closeTime = "17:00",
                 dietaryReqId = 1,
-                image = R.drawable.afriquezeen
+                image = R.drawable.burger
             ),
 
             // Add more entities as needed
