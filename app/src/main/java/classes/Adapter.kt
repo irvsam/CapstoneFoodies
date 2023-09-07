@@ -27,15 +27,16 @@ class Adapter(private val storeList: MutableList<Entities.Vendor?>, private val 
     // for each item in the RecyclerView
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentStore = storeList[position]
-        holder.name.text = currentStore?.name
-        holder.rating.text = currentStore?.rating.toString()
-        //TODO this needs to be changed to set the actual image (temporary)
-        holder.image.setImageResource(R.drawable.coffees)
-        // Set a click listener for the store card
-        holder.itemView.setOnClickListener {
-            clickListener.onClick(currentStore)
+        if (currentStore!= null) {
+            holder.name.text = currentStore?.name
+            holder.rating.text = currentStore?.rating.toString()
+            //TODO this needs to be changed to set the actual image (temporary)
+            holder.image.setImageResource(currentStore.image)
+            // Set a click listener for the store card
+            holder.itemView.setOnClickListener {
+                clickListener.onClick(currentStore)
+            }
         }
-
     }
 
     // This class defines the ViewHolder object for each item in the RecyclerView

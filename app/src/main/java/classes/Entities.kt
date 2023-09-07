@@ -1,7 +1,10 @@
 package classes
 
+import android.media.Image
 import androidx.room.*
+import io.reactivex.internal.observers.BlockingLastObserver
 import java.io.Serializable
+import java.sql.Blob
 
 
 class Entities {
@@ -44,7 +47,8 @@ class Entities {
         val rating: Double,
         @ColumnInfo(name = "openTime") val openTime: String,
         @ColumnInfo(name = "closeTime") val closeTime: String,
-        @ColumnInfo(name = "dietaryReq_id") val dietaryReqId: Long
+        @ColumnInfo(name = "dietaryReq_id") val dietaryReqId: Long,
+        val image: Int,
     ):Serializable
 
     @Entity(tableName = "dietary_req")

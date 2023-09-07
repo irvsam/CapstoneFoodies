@@ -128,7 +128,8 @@ class ApplicationCore : Application() {
                 rating = 4.0,
                 openTime = "7:00",
                 closeTime = "18:00",
-                dietaryReqId = 1
+                dietaryReqId = 1,
+                image = R.drawable.curry
             ),
             //Varisty Fast Foods store
             Entities.Vendor(
@@ -139,7 +140,8 @@ class ApplicationCore : Application() {
                 rating = 5.0,
                 openTime = "9:00",
                 closeTime = "17:00",
-                dietaryReqId = 1
+                dietaryReqId = 1,
+                image = R.drawable.afriquezeen
             ),
             //Best Quality store
             Entities.Vendor(
@@ -150,7 +152,8 @@ class ApplicationCore : Application() {
                 rating = 5.0,
                 openTime = "9:00",
                 closeTime = "17:00",
-                dietaryReqId = 1
+                dietaryReqId = 1,
+                image = R.drawable.afriquezeen
             ),
             //Budget Rolls store
             Entities.Vendor(
@@ -161,7 +164,8 @@ class ApplicationCore : Application() {
                 rating = 5.0,
                 openTime = "9:00",
                 closeTime = "17:00",
-                dietaryReqId = 1
+                dietaryReqId = 1,
+                image = R.drawable.afriquezeen
             ),
             //Dans Health Shop store
             Entities.Vendor(
@@ -172,7 +176,8 @@ class ApplicationCore : Application() {
                 rating = 5.0,
                 openTime = "9:00",
                 closeTime = "17:00",
-                dietaryReqId = 1
+                dietaryReqId = 1,
+                image = R.drawable.afriquezeen
             ),
             //Campus Cafe store
             Entities.Vendor(
@@ -183,7 +188,8 @@ class ApplicationCore : Application() {
                 rating = 5.0,
                 openTime = "9:00",
                 closeTime = "17:00",
-                dietaryReqId = 1
+                dietaryReqId = 1,
+                image = R.drawable.coffees
             ),
             //Prashad store
             Entities.Vendor(
@@ -194,7 +200,8 @@ class ApplicationCore : Application() {
                 rating = 5.0,
                 openTime = "9:00",
                 closeTime = "17:00",
-                dietaryReqId = 1
+                dietaryReqId = 1,
+                image = R.drawable.afriquezeen
             ),
 
             // Add more entities as needed
