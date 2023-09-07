@@ -59,16 +59,9 @@ class ApplicationCore : Application() {
                 id = 7,
                 name = "Prashad"
             ),
-
-            //Menu Items
-            /*Entities.MenuItem(
-                id = 11,
-                menuId = 1,
-                name = "Jollof",
-                price = 40.00f
-            )*/
         )
 
+        //List of menuItems that need to be seeded
         val menuItemEntitiesToSeed = listOf(
             Entities.MenuItem(
                 id = 11,

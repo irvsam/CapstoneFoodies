@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import classes.Store
 //store list view model
 class SharedViewModel : ViewModel() {
-    val storeList = mutableListOf<Store>()
+    val storeList = mutableListOf<Entities.Vendor?>()
 }
 // this is to store user details
 class UserViewModel : ViewModel() {

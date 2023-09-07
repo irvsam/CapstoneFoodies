@@ -1,6 +1,7 @@
 package classes
 
 import androidx.room.*
+import java.io.Serializable
 
 
 class Entities {
@@ -44,7 +45,7 @@ class Entities {
         @ColumnInfo(name = "openTime") val openTime: String,
         @ColumnInfo(name = "closeTime") val closeTime: String,
         @ColumnInfo(name = "dietaryReq_id") val dietaryReqId: Long
-    )
+    ):Serializable
 
     @Entity(tableName = "dietary_req")
     data class DietaryRequirement(

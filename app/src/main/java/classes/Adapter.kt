@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodies.R
 
-class Adapter(private val storeList: MutableList<Store>, private val clickListener: StoreClickListener) : RecyclerView.Adapter<Adapter.MyViewHolder>() {
+class Adapter(private val storeList: MutableList<Entities.Vendor?>, private val clickListener: StoreClickListener) : RecyclerView.Adapter<Adapter.MyViewHolder>() {
 
     // This method creates a new ViewHolder object for each item in the RecyclerView
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -27,9 +27,10 @@ class Adapter(private val storeList: MutableList<Store>, private val clickListen
     // for each item in the RecyclerView
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentStore = storeList[position]
-        holder.name.text = currentStore.name
-        holder.rating.text = currentStore.rating.toString()
-        holder.image.setImageResource(currentStore.image)
+        holder.name.text = currentStore?.name
+        holder.rating.text = currentStore?.rating.toString()
+        //TODO this needs to be changed to set the actual image (temporary)
+        holder.image.setImageResource(R.drawable.coffees)
         // Set a click listener for the store card
         holder.itemView.setOnClickListener {
             clickListener.onClick(currentStore)

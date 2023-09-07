@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import classes.Entities
+import java.io.Serializable
 
 @Dao
 interface VendorDao {
@@ -13,5 +14,8 @@ interface VendorDao {
 
     @Query("SELECT * FROM vendor WHERE id = :id")
     suspend fun getVendorById(id: Long): Entities.Vendor?
+
+    @Query("SELECT * FROM vendor")
+    suspend fun getAllVendors(): List<Entities.Vendor?>
 
 }

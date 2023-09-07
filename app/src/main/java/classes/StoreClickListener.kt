@@ -1,5 +1,5 @@
 package classes
 
 interface StoreClickListener{
-    fun onClick(store:Store)
+    fun onClick(store:Entities.Vendor?)
 }

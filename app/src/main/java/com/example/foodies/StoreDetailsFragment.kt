@@ -44,6 +44,7 @@ class StoreDetailsFragment : Fragment() {
             binding.storeName.text = store.name
             binding.menu.text = store.menu.toString()
         }
+
         val actionBar: ActionBar? = (activity as AppCompatActivity).supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
         guestViewModel = ViewModelProvider(requireActivity())[GuestViewModel::class.java]
