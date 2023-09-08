@@ -21,6 +21,7 @@ import classes.daos.VendorDao
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun accountDao(): AccountDao
+
     abstract fun reviewDao(): ReviewDao
 
     abstract fun vendorDao(): VendorDao

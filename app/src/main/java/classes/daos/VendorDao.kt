@@ -18,4 +18,7 @@ interface VendorDao {
     @Query("SELECT * FROM vendor")
     suspend fun getAllVendors(): List<Entities.Vendor?>
 
+    @Query("SELECT * FROM menuitem WHERE menu_id = :id")
+    suspend fun getMenuItemsByMenuId(id: Long): List<Entities.MenuItem?>
+
 }

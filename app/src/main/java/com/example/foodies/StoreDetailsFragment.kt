@@ -21,6 +21,7 @@ import classes.Store
 import classes.storeList
 import com.example.foodies.databinding.FragmentStoreDetailsBinding
 import com.google.android.material.snackbar.Snackbar
+import java.lang.StringBuilder
 
 class StoreDetailsFragment : Fragment() {
 
@@ -44,7 +45,7 @@ class StoreDetailsFragment : Fragment() {
             //TODO Set image to a relevant store image
             binding.imageView.setImageResource(store.image)
             binding.storeName.text = store.name
-            //binding.menu.text = store.menu.toString()
+            //binding.menu.text = store.
         }
 
         val actionBar: ActionBar? = (activity as AppCompatActivity).supportActionBar
@@ -72,6 +73,16 @@ class StoreDetailsFragment : Fragment() {
             }
         }
         return null
+    }
+
+    private fun displayMenuItems(menuItems: List<Entities.MenuItem?>):StringBuilder{
+        val menuItemsString = StringBuilder()
+
+        for (item in menuItems){ // Loop through the items taking their name and price
+            menuItemsString.append(item?.name.toString())
+            menuItemsString.append("\n")
+        }
+        return menuItemsString
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
