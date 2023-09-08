@@ -201,7 +201,7 @@ class ApplicationCore : Application() {
                 openTime = "9:00",
                 closeTime = "17:00",
                 dietaryReqId = 1,
-                image = R.drawable.burger
+                image = R.drawable.samoosa
             ),
 
             // Add more entities as needed
