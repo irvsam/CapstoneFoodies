@@ -14,6 +14,7 @@ import androidx.navigation.NavGraphNavigator
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import classes.GuestViewModel
+import classes.SharedViewModel
 import classes.UserViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
@@ -25,8 +26,10 @@ import kotlinx.coroutines.withContext
 class FragmentHolderActivity : AppCompatActivity() {
     private lateinit var userViewModel: UserViewModel
     private lateinit var guestViewModel: GuestViewModel
+    private lateinit var storeViewModel: SharedViewModel
     // This method is called when the activity is first created
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fragment_holder)
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
@@ -34,6 +37,11 @@ class FragmentHolderActivity : AppCompatActivity() {
 
         val isGuest = intent.getBooleanExtra("is_guest", false)
         guestViewModel.isGuest = isGuest
+
+
+        storeViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
+        populateStores()
+
 
         if(!isGuest) { //if they are not a guest then continue as if they are a user
             val userId = intent.getIntExtra("user_id", -1)
@@ -88,6 +96,20 @@ class FragmentHolderActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_fragment)
         return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    private fun populateStores() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val allStores = ApplicationCore.database.vendorDao().getAllVendors()
+            withContext(Dispatchers.Main){
+                if(allStores.isNotEmpty()){
+                    for (store in allStores){
+                        storeViewModel.storeList.add(store)
+                    }
+                }
+            }
+        }
+
     }
 
 

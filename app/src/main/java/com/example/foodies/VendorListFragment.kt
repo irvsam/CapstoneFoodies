@@ -103,5 +103,13 @@ class VendorListFragment : Fragment(), StoreClickListener{
             .addToBackStack("StoreDetailsFragmentTransaction")
             .commit()
     }
+
+    //this doesnt seem to be working
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        // Load and populate the data here
+        populateStores()
+    }
 }
 
