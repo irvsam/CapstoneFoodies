@@ -111,6 +111,8 @@ class StoreDetailsFragment : Fragment() {
 
         if(menuItems!=null) {
             for (item in menuItems) { // Loop through the items taking their name and price
+                val price = String.format("%.2f",item?.price)
+                menuItemsString.append("R$price   ")
                 menuItemsString.append(item?.name.toString())
                 menuItemsString.append("\n")
             }

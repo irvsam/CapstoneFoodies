@@ -46,7 +46,7 @@
         app:layout_constraintTop_toBottomOf="@+id/storeName" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -93,8 +93,8 @@
                 android:id="@+id/menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Iced Coffee\t\t\tR15\nCappucino\t\t\t\tR14\nFilter Coffee\t\t\tR14\nGinger Tea\t\t\t\tR10\nRooibos\t\t\t\t\t\t\tR10\nEarl Grey\t\t\t\t\t\tR10\nGreen Tea\t\t\t\t\tR10"
+                android:gravity="center_vertical"
+                android:text="Iced Coffee\t\t\tR15\nCappucino\t\t\t\tR14\nFilter Coffee\t\t\tR14 "
                 android:textSize="18dp" />
 
 
