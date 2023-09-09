@@ -46,7 +46,8 @@ class StoreDetailsFragment : Fragment() {
         binding = FragmentStoreDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
-//TODO we might want to use shared view model for stores instead of bundling it, ive already set it up for leaving reviews
+
+    //TODO we might want to use shared view model for stores instead of bundling it, ive already set it up for leaving reviews
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val store = arguments?.getSerializable(STORE_EXTRA) as? Entities.Vendor
@@ -54,44 +55,50 @@ class StoreDetailsFragment : Fragment() {
         CoroutineScope(Dispatchers.IO).launch {
             storeMenu = ApplicationCore.database.vendorDao().getMenuItemsByMenuId(store?.menuId)
             val menu = displayMenuItems(storeMenu).toString()
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 if (store != null) {
                     binding.imageView.setImageResource(store.image)
                     binding.storeName.text = store.name
                     if (menu.length != 0) {
                         binding.menu.text = menu
-                    }
-                    else {
+                    } else {
                         binding.menu.text = "Currently no menu to display"
                     }
                 }
             }
-        if (store != null) {
-            //TODO Set image to a relevant store image
-            binding.imageView.setImageResource(store.image)
-            binding.storeName.text = store.name
-            // Check if the rating is null
-            binding.reviewTextView.text = store.rating
-            //binding.menu.text = store.menu.toString()
-        }
-
-        val actionBar: ActionBar? = (activity as AppCompatActivity).supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-        guestViewModel = ViewModelProvider(requireActivity())[GuestViewModel::class.java]
-        if(guestViewModel.isGuest){
-            binding.reviewButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey))
-        }
-        binding.reviewButton.setOnClickListener {
-            if(!guestViewModel.isGuest){
-                // User is logged in, handle the review action here
-                val navController = findNavController()
-                navController.navigate(R.id.leaveReviewFragment)
+            if (store != null) {
+                //TODO Set image to a relevant store image
+                binding.imageView.setImageResource(store.image)
+                binding.storeName.text = store.name
+                // Check if the rating is null
+                binding.reviewTextView.text = store.rating
+                //binding.menu.text = store.menu.toString()
             }
-            else{
-                Toast.makeText(requireContext(),"you are not logged in!",Toast.LENGTH_SHORT).show() }
+
+            val actionBar: ActionBar? = (activity as AppCompatActivity).supportActionBar
+            actionBar?.setDisplayHomeAsUpEnabled(true)
+            guestViewModel = ViewModelProvider(requireActivity())[GuestViewModel::class.java]
+            if (guestViewModel.isGuest) {
+                binding.reviewButton.setBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.grey
+                    )
+                )
+            }
+            binding.reviewButton.setOnClickListener {
+                if (!guestViewModel.isGuest) {
+                    // User is logged in, handle the review action here
+                    val navController = findNavController()
+                    navController.navigate(R.id.leaveReviewFragment)
+                } else {
+                    Toast.makeText(requireContext(), "you are not logged in!", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+
+
         }
-
-
     }
 
     private fun storeFromName(storeID: String?): Entities.Vendor? {
@@ -120,9 +127,9 @@ class StoreDetailsFragment : Fragment() {
     private fun displayMenuItems(menuItems: List<Entities.MenuItem?>?): StringBuilder {
         val menuItemsString = StringBuilder()
 
-        if(menuItems!=null) {
+        if (menuItems != null) {
             for (item in menuItems) { // Loop through the items taking their name and price
-                val price = String.format("%.2f",item?.price)
+                val price = String.format("%.2f", item?.price)
                 menuItemsString.append("R$price   ")
                 menuItemsString.append(item?.name.toString())
                 menuItemsString.append("\n")
@@ -130,5 +137,6 @@ class StoreDetailsFragment : Fragment() {
         }
         return menuItemsString
     }
-
 }
+
+
