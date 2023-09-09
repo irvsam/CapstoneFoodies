@@ -63,44 +63,112 @@ class ApplicationCore : Application() {
 
         //List of menuItems that need to be seeded
         val menuItemEntitiesToSeed = listOf(
+
+            // Afriquezeen menu items
             Entities.MenuItem(
-                id = 11,
+                id = 100,
                 menuId = 1,
                 name = "Jollof",
                 price = 40.00f
             ),
             Entities.MenuItem(
-                id = 12,
+              id = 101,
+              menuId = 1,
+              name= "Afri Veg Platter (2 Starch & 2 Veg) ",
+              price = 70.00f
+            ),
+            Entities.MenuItem(
+                id = 102,
+                menuId = 1,
+                name= "Afri Veg Platter (2 Starch & 1 Veg)",
+                price = 55.00f
+            ),
+            Entities.MenuItem(
+                id = 103,
+                menuId = 1,
+                name= "Half Portion (1 Starch & 2 Veg ",
+                price = 43.00f
+            ),
+            Entities.MenuItem(
+                id = 104,
+                menuId = 1,
+                name= "Chicken Curry (Full) ",
+                price = 80.00f
+            ),
+            Entities.MenuItem(
+                id = 105,
+                menuId = 1,
+                name= "Chicken Curry (Half)",
+                price = 42.00f
+            ),
+
+            //Varsity Fast Foods menu items
+            Entities.MenuItem(
+                id = 200,
                 menuId = 2,
                 name = "Beef Burger",
                 price = 40.00f
             ),
             Entities.MenuItem(
-                id = 13,
+                id = 201,
+                menuId = 2,
+                name= "Cheese Sandwich ",
+                price = 15.00f
+            ),
+            Entities.MenuItem(
+                id = 202,
+                menuId = 2,
+                name= "Cheese & Tomato Sandwich",
+                price = 20.00f
+            ),
+            Entities.MenuItem(
+                id = 203,
+                menuId =2 ,
+                name= "Chicken Mayo Sandwich",
+                price = 25.00f
+            ),
+            Entities.MenuItem(
+                id = 204,
+                menuId = 2,
+                name= "Steak Sandwich ",
+                price = 25.00f
+            ),
+
+            //Best Quality menu Items
+            Entities.MenuItem(
+                id = 300,
                 menuId = 3,
                 name = "Chicken sub",
                 price = 40.00f
             ),
+
+
             Entities.MenuItem(
-                id = 14,
+                id = 400,
                 menuId = 4,
                 name = "Chicken Mayo Rolls",
                 price = 40.00f
             ),
+
+
             Entities.MenuItem(
-                id = 15,
+                id = 500,
                 menuId = 5,
                 name = "Dried Fruit",
                 price = 10.00f
             ),
+
+
             Entities.MenuItem(
-                id = 16,
+                id = 600,
                 menuId = 6,
                 name = "Filter Coffee",
                 price = 14.00f
             ),
+
+
             Entities.MenuItem(
-                id = 17,
+                id = 700,
                 menuId = 7,
                 name = "Wrap",
                 price = 45.00f

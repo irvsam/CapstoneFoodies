@@ -13,4 +13,5 @@ interface MenuDao {
 
     @Query("SELECT * FROM menu WHERE id = :id")
     suspend fun getMenuById(id: Long): Entities.Menu?
+
 }
