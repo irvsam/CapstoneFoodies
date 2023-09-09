@@ -6,6 +6,7 @@ import java.sql.Time
 //Store, Menu, MenuItem, DietaryReq
 
 val STORE_EXTRA = "storeExtra"
+val STORE_MENU_EXTRA = "storeMenuExtra"
 var storeList : ArrayList<Entities.Vendor?> = ArrayList()
 
 class Store(

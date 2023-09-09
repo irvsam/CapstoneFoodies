@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorBoundsInfo
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.withCreated
@@ -16,22 +17,23 @@ import classes.Entities
 import classes.Menu
 import classes.Review
 import classes.STORE_EXTRA
+import classes.STORE_MENU_EXTRA
 import classes.SharedViewModel
 import classes.Store
 import classes.StoreClickListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
+import java.lang.StringBuilder
 import java.sql.Time
 
 
 class VendorListFragment : Fragment(), StoreClickListener{
 
     private lateinit var storeViewModel: SharedViewModel
-    private lateinit var tempStore: Store
-    private var ccReviewList : ArrayList<Review> = ArrayList()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,14 +80,33 @@ class VendorListFragment : Fragment(), StoreClickListener{
 
     }
 
+    private fun displayMenuItems(menuItems: List<Entities.MenuItem?>?): StringBuilder {
+        val menuItemsString = StringBuilder()
+
+        if(menuItems!=null) {
+            for (item in menuItems) { // Loop through the items taking their name and price
+                menuItemsString.append(item?.name.toString())
+                menuItemsString.append("\n")
+            }
+        }
+        return menuItemsString
+    }
+
     override fun onClick(store: Entities.Vendor?) {
         // Open a new fragment when a store is clicked
         val storeDetailsFragment = StoreDetailsFragment()
+        var storeMenu: List<Entities.MenuItem?>? = null
+        CoroutineScope(Dispatchers.IO).launch {
+                storeMenu = ApplicationCore.database.vendorDao().getMenuItemsByMenuId(store?.menuId)
+
+        }
         // Pass the clicked store's information to the new fragment using Bundle
         val bundle = Bundle()
         bundle.putSerializable(STORE_EXTRA, store)
-        storeDetailsFragment.arguments = bundle
+        val menu = displayMenuItems(storeMenu).toString()
+        bundle.putSerializable(STORE_MENU_EXTRA,menu )
 
+        storeDetailsFragment.arguments = bundle
         parentFragmentManager.beginTransaction()
             .replace(R.id.nav_fragment, storeDetailsFragment)
             .addToBackStack("StoreDetailsFragmentTransaction")

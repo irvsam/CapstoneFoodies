@@ -17,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import classes.Entities
 import classes.GuestViewModel
 import classes.STORE_EXTRA
+import classes.STORE_MENU_EXTRA
 import classes.Store
 import classes.storeList
 import com.example.foodies.databinding.FragmentStoreDetailsBinding
@@ -41,11 +42,12 @@ class StoreDetailsFragment : Fragment() {
 
         //val storeID = arguments?.getString(STORE_EXTRA)
         val store = arguments?.getSerializable(STORE_EXTRA) as? Entities.Vendor
+        val storeMenu = arguments?.getSerializable(STORE_MENU_EXTRA) as? String
         if (store != null) {
             //TODO Set image to a relevant store image
             binding.imageView.setImageResource(store.image)
             binding.storeName.text = store.name
-            //binding.menu.text = store.
+            binding.menu.text = storeMenu
         }
 
         val actionBar: ActionBar? = (activity as AppCompatActivity).supportActionBar
@@ -73,16 +75,6 @@ class StoreDetailsFragment : Fragment() {
             }
         }
         return null
-    }
-
-    private fun displayMenuItems(menuItems: List<Entities.MenuItem?>):StringBuilder{
-        val menuItemsString = StringBuilder()
-
-        for (item in menuItems){ // Loop through the items taking their name and price
-            menuItemsString.append(item?.name.toString())
-            menuItemsString.append("\n")
-        }
-        return menuItemsString
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
