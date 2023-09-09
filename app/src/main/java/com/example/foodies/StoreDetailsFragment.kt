@@ -2,6 +2,9 @@ package com.example.foodies
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -34,7 +37,7 @@ class StoreDetailsFragment : Fragment() {
         binding = FragmentStoreDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
-
+//TODO we might want to use shared view model for stores instead of bundling it, ive already set it up for leaving reviews
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -44,6 +47,8 @@ class StoreDetailsFragment : Fragment() {
             //TODO Set image to a relevant store image
             binding.imageView.setImageResource(store.image)
             binding.storeName.text = store.name
+            // Check if the rating is null
+            binding.reviewTextView.text = store.rating
             //binding.menu.text = store.menu.toString()
         }
 
@@ -62,6 +67,7 @@ class StoreDetailsFragment : Fragment() {
             else{
                 Toast.makeText(requireContext(),"you are not logged in!",Toast.LENGTH_SHORT).show() }
         }
+
 
     }
 

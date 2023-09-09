@@ -40,7 +40,6 @@ class FragmentHolderActivity : AppCompatActivity() {
 
 
         storeViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
-        populateStores()
 
 
         if(!isGuest) { //if they are not a guest then continue as if they are a user
@@ -98,19 +97,6 @@ class FragmentHolderActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
-    private fun populateStores() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val allStores = ApplicationCore.database.vendorDao().getAllVendors()
-            withContext(Dispatchers.Main){
-                if(allStores.isNotEmpty()){
-                    for (store in allStores){
-                        storeViewModel.storeList.add(store)
-                    }
-                }
-            }
-        }
-
-    }
 
 
 }

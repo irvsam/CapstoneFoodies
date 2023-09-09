@@ -37,7 +37,7 @@
         android:id="@+id/reviewButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="52dp"
         android:layout_marginEnd="280dp"
         android:text="leave a review"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,25 +46,21 @@
         app:layout_constraintTop_toBottomOf="@+id/storeName" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/reviewTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:gravity="center_vertical"
-        android:text="4.2/5"
+        android:text="no reviews yet"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/storeName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.128"
-        app:layout_constraintStart_toEndOf="@+id/storeName"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.526" />
+        app:layout_constraintBottom_toTopOf="@+id/reviewButton"
+        app:layout_constraintStart_toStartOf="@+id/storeName"
+        app:layout_constraintTop_toBottomOf="@+id/storeName"
+        app:layout_constraintVertical_bias="0.516" />
 
     <TextView
         android:id="@+id/menuHeading"
         android:layout_width="108dp"
         android:layout_height="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="36dp"
         android:gravity="center"
         android:text="Menu"
         android:textSize="22dp"
