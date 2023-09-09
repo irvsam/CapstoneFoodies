@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.withCreated
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import classes.Entities
@@ -22,12 +23,18 @@ import classes.Store
 import classes.storeList
 import com.example.foodies.databinding.FragmentStoreDetailsBinding
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import java.lang.StringBuilder
 
 class StoreDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentStoreDetailsBinding
     private lateinit var guestViewModel: GuestViewModel
+    private var storeMenu: List<Entities.MenuItem?>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,15 +46,23 @@ class StoreDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        //val storeID = arguments?.getString(STORE_EXTRA)
         val store = arguments?.getSerializable(STORE_EXTRA) as? Entities.Vendor
-        val storeMenu = arguments?.getSerializable(STORE_MENU_EXTRA) as? String
-        if (store != null) {
-            //TODO Set image to a relevant store image
-            binding.imageView.setImageResource(store.image)
-            binding.storeName.text = store.name
-            binding.menu.text = storeMenu
+
+        CoroutineScope(Dispatchers.IO).launch {
+            storeMenu = ApplicationCore.database.vendorDao().getMenuItemsByMenuId(store?.menuId)
+            val menu = displayMenuItems(storeMenu).toString()
+            withContext(Dispatchers.Main){
+                if (store != null) {
+                    binding.imageView.setImageResource(store.image)
+                    binding.storeName.text = store.name
+                    if (menu.length != 0) {
+                        binding.menu.text = menu
+                    }
+                    else {
+                        binding.menu.text = "Currently no menu to display"
+                    }
+                }
+            }
         }
 
         val actionBar: ActionBar? = (activity as AppCompatActivity).supportActionBar
@@ -89,6 +104,18 @@ class StoreDetailsFragment : Fragment() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun displayMenuItems(menuItems: List<Entities.MenuItem?>?): StringBuilder {
+        val menuItemsString = StringBuilder()
+
+        if(menuItems!=null) {
+            for (item in menuItems) { // Loop through the items taking their name and price
+                menuItemsString.append(item?.name.toString())
+                menuItemsString.append("\n")
+            }
+        }
+        return menuItemsString
     }
 
 }
