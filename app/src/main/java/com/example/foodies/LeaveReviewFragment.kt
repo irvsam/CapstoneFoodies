@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import classes.Entities
 import classes.UserViewModel
+import classes.VendorViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -20,9 +21,11 @@ import kotlinx.coroutines.withContext
 class LeaveReviewFragment : Fragment() {
 
     private lateinit var userViewModel: UserViewModel
+    private lateinit var vendorViewModel: VendorViewModel
+    private var vendor : Entities.Vendor? = null
     private var user: Entities.User? = null // Declare the User property as nullable
 
-    private lateinit var ratingBar: RatingBar
+    private lateinit var qualityRatingBar:RatingBar
     private lateinit var cleanlinessRatingBar: RatingBar
     private lateinit var friendlinessRatingBar: RatingBar
     private lateinit var efficiencyRatingBar: RatingBar
@@ -36,7 +39,7 @@ class LeaveReviewFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_leave_review, container, false)
 
         // Initialize views
-        ratingBar = rootView.findViewById(R.id.ratingBar)
+        qualityRatingBar = rootView.findViewById(R.id.QualityRatingBar)
         cleanlinessRatingBar = rootView.findViewById(R.id.cleanlinessRatingBar)
         friendlinessRatingBar = rootView.findViewById(R.id.friendlinessRatingBar)
         efficiencyRatingBar = rootView.findViewById(R.id.efficiencyRatingBar)
@@ -46,20 +49,29 @@ class LeaveReviewFragment : Fragment() {
         // Set a click listener for the Submit Review button
         submitReviewButton.setOnClickListener {
             // Get the ratings and review text from the user
-            val overallRating = ratingBar.rating
+            val qualityRating = qualityRatingBar.rating
             val cleanlinessRating = cleanlinessRatingBar.rating
             val friendlinessRating = friendlinessRatingBar.rating
             val efficiencyRating = efficiencyRatingBar.rating
+            val total = qualityRating+cleanlinessRating+friendlinessRating+efficiencyRating
+            val average = total/4
+
             val userReview = reviewText.text.toString()
             userViewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
+            vendorViewModel = ViewModelProvider(requireActivity())[VendorViewModel::class.java]
             user = userViewModel.user
-
+            vendor = vendorViewModel.vendor
             if(user!=null) {
                 val review = Entities.Review(
                     userId = user!!.id,
-                    vendorId = 1 /* set the vendor ID for this review */,
+                    vendorId = vendor!!.id,
                     text = userReview,
-                    rating = overallRating
+                    overAllRating = average,
+                    quality = qualityRating,
+                    cleanliness = cleanlinessRating,
+                    friendliness = friendlinessRating,
+                    efficiency = efficiencyRating
+
                 )
 
                 // Launch a coroutine to insert the review into the database

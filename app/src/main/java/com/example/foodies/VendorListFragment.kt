@@ -19,6 +19,7 @@ import classes.STORE_EXTRA
 import classes.SharedViewModel
 import classes.Store
 import classes.StoreClickListener
+import classes.VendorViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,6 +30,7 @@ import java.sql.Time
 class VendorListFragment : Fragment(), StoreClickListener{
 
     private lateinit var storeViewModel: SharedViewModel
+    private lateinit var vendorViewModel: VendorViewModel
     private lateinit var tempStore: Store
     private var campusCafeMenu : Menu = Menu()
     private var afriquezeenMenu: Menu = Menu()
@@ -38,6 +40,7 @@ class VendorListFragment : Fragment(), StoreClickListener{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         storeViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
+        vendorViewModel =  ViewModelProvider(requireActivity())[VendorViewModel::class.java]
         if (storeViewModel.storeList.isEmpty()) {
             populateStores()
         }
@@ -91,6 +94,7 @@ class VendorListFragment : Fragment(), StoreClickListener{
     }
 
     override fun onClick(store: Entities.Vendor?) {
+        vendorViewModel.vendor = store
         // Open a new fragment when a store is clicked
         val storeDetailsFragment = StoreDetailsFragment()
         // Pass the clicked store's information to the new fragment using Bundle

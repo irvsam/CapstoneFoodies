@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".StoreDetailsFragment"
     android:orientation="vertical"
-    android:fitsSystemWindows="true">
+    >
 
 
     <ImageView

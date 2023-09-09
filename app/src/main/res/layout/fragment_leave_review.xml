@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
 
     <LinearLayout
@@ -24,8 +25,17 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
+
+        <TextView
+            android:id="@+id/FoodQualityTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Food quality"
+            android:textSize="18sp"
+            android:layout_marginTop="8dp"/>
+
         <RatingBar
-            android:id="@+id/ratingBar"
+            android:id="@+id/QualityRatingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:numStars="5"

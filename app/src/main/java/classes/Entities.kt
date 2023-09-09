@@ -1,6 +1,7 @@
 package classes
 
 import android.media.Image
+import androidx.core.location.LocationRequestCompat.Quality
 import androidx.room.*
 import io.reactivex.internal.observers.BlockingLastObserver
 import java.io.Serializable
@@ -110,7 +111,12 @@ class Entities {
         @ColumnInfo(name = "user_id") val userId: Long,
         @ColumnInfo(name = "vendor_id") val vendorId: Long,
         val text: String,
-        val rating: Float
+        val overAllRating: Float,
+        val quality: Float,
+        val cleanliness: Float,
+        val friendliness: Float,
+        val efficiency: Float
+
     )
 
 }
