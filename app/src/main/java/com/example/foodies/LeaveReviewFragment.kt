@@ -83,6 +83,9 @@ class LeaveReviewFragment : Fragment() {
                     withContext(Dispatchers.IO) {
                         userViewModel.updateUserRewardPoints(user!!.id, 10)
                     }
+                    withContext(Dispatchers.IO) {
+                        ApplicationCore.database.vendorDao().updateVendorAverageRating(vendor!!.id)
+                    }
 
                     requireActivity().supportFragmentManager.popBackStack()
                 }
