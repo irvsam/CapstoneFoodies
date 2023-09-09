@@ -15,7 +15,7 @@ import classes.daos.VendorDao
     Entities.MenuItem::class,
     Entities.Menu::class,
     Entities.Review::class],
-    version = 7, exportSchema = false
+    version = 8, exportSchema = false
 )
 
 abstract class AppDatabase : RoomDatabase() {

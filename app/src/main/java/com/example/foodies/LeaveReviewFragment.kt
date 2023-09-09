@@ -57,7 +57,7 @@ class LeaveReviewFragment : Fragment() {
             if(user!=null) {
                 val review = Entities.Review(
                     userId = user!!.id,
-                    //vendorId = 0/* set the vendor ID for this review */,
+                    vendorId = 1 /* set the vendor ID for this review */,
                     text = userReview,
                     rating = overallRating
                 )
