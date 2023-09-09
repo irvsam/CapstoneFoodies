@@ -19,7 +19,7 @@ class Entities {
         val phone: String,
         val password: String,
         val type: String,
-        val rewardPoints: Int
+        var rewardPoints: Int
     )
 
     // VENDOR

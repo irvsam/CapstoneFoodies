@@ -78,7 +78,13 @@ class LeaveReviewFragment : Fragment() {
                 lifecycleScope.launch {
                     insertReviewIntoDatabase(review)
                     Toast.makeText(requireContext(),"review submitted",Toast.LENGTH_SHORT).show()
+                    // Navigate back to the previous fragment
 
+                    withContext(Dispatchers.IO) {
+                        userViewModel.updateUserRewardPoints(user!!.id, 10)
+                    }
+
+                    requireActivity().supportFragmentManager.popBackStack()
                 }
             }
 

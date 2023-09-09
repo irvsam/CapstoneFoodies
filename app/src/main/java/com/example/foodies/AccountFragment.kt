@@ -63,5 +63,7 @@ class AccountFragment : Fragment() {
                 startActivity(intent)
 
         }
+
+
     }
 }
