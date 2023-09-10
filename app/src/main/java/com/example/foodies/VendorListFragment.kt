@@ -46,9 +46,8 @@ class VendorListFragment : Fragment(), StoreClickListener{
         super.onCreate(savedInstanceState)
         storeViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         vendorViewModel =  ViewModelProvider(requireActivity())[VendorViewModel::class.java]
-        if (storeViewModel.storeList.isEmpty()) {
             populateStores()
-        }
+
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,6 +77,7 @@ class VendorListFragment : Fragment(), StoreClickListener{
         CoroutineScope(Dispatchers.IO).launch {
             val allStores = ApplicationCore.database.vendorDao().getAllVendors()
             withContext(Dispatchers.Main){
+                if (storeViewModel.storeList.isEmpty()) {
                 if(allStores.isNotEmpty()){
                     for (store in allStores){
                         storeViewModel.storeList.add(store)
@@ -86,6 +86,7 @@ class VendorListFragment : Fragment(), StoreClickListener{
             }
         }
 
+    }
     }
 
 

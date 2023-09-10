@@ -27,19 +27,27 @@ class FragmentHolderActivity : AppCompatActivity() {
     private lateinit var userViewModel: UserViewModel
     private lateinit var guestViewModel: GuestViewModel
     private lateinit var storeViewModel: SharedViewModel
-    // This method is called when the activity is first created
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fragment_holder)
+
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
         guestViewModel = ViewModelProvider(this)[GuestViewModel::class.java]
 
         val isGuest = intent.getBooleanExtra("is_guest", false)
         guestViewModel.isGuest = isGuest
-
-
         storeViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
+        // calling the action bar
+        val actionBar: ActionBar? = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+
+        //Initialize the bottom navigation view
+        //create bottom navigation view object
+        val bottomNavigationView = findViewById<BottomNavigationView
+                >(R.id.bottomNavigationView)
+        val navController = findNavController(R.id.nav_fragment)
 
 
         if(!isGuest) { //if they are not a guest then continue as if they are a user
@@ -64,22 +72,7 @@ class FragmentHolderActivity : AppCompatActivity() {
             }
         }
 
-
-
-        // calling the action bar
-        val actionBar: ActionBar? = supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-
-        //Initialize the bottom navigation view
-        //create bottom navigation view object
-        val bottomNavigationView = findViewById<BottomNavigationView
-                >(R.id.bottomNavigationView)
-
-
-        val navController = findNavController(R.id.nav_fragment)
-
         if (guestViewModel.isGuest) {
-            // If the user is a guest, set the start destination to the "Guest Account" fragment
             val navGraph = navController.navInflater.inflate(R.navigation.nav_graph_guest)
             navController.graph = navGraph
             // Remove the "Rewards" menu item
