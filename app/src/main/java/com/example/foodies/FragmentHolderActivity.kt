@@ -49,9 +49,8 @@ class FragmentHolderActivity : AppCompatActivity() {
                 >(R.id.bottomNavigationView)
         val navController = findNavController(R.id.nav_fragment)
 
+        if(!isGuest) { //if they logged in then set the user view model
 
-        if(!isGuest) { //if they are not a guest then continue as if they are a user
-            val userId = intent.getIntExtra("user_id", -1)
             val userName = intent.getStringExtra("user_name")
             val userEmail = intent.getStringExtra("user_email")
 
@@ -82,14 +81,11 @@ class FragmentHolderActivity : AppCompatActivity() {
         bottomNavigationView.setupWithNavController(navController)
 
 
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_fragment)
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
-
-
 
 }

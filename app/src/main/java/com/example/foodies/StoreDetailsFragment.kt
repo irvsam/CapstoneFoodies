@@ -10,6 +10,9 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -24,8 +27,10 @@ import classes.GuestViewModel
 import classes.STORE_EXTRA
 import classes.STORE_MENU_EXTRA
 import classes.Store
+import classes.UserViewModel
+import classes.VendorViewModel
 import classes.storeList
-import com.example.foodies.databinding.FragmentStoreDetailsBinding
+import com.example.foodies.R
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -36,45 +41,57 @@ import java.lang.StringBuilder
 
 class StoreDetailsFragment : Fragment() {
 
-    private lateinit var binding: FragmentStoreDetailsBinding
     private lateinit var guestViewModel: GuestViewModel
     private var storeMenu: List<Entities.MenuItem?>? = null
+    private lateinit var imageView: ImageView
+    private lateinit var storeName: TextView
+    private lateinit var menuTextView: TextView
+    private lateinit var reviewTextView: TextView
+    private lateinit var reviewButton: Button
+    private lateinit var vendorViewModel: VendorViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentStoreDetailsBinding.inflate(inflater, container, false)
-        return binding.root
+        return inflater.inflate(R.layout.fragment_store_details, container, false)
     }
 
     //TODO we might want to use shared view model for stores instead of bundling it, ive already set it up for leaving reviews
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val store = arguments?.getSerializable(STORE_EXTRA) as? Entities.Vendor
+
+        imageView = view.findViewById(R.id.imageView)
+        storeName = view.findViewById(R.id.storeName)
+        menuTextView = view.findViewById(R.id.menu)
+        reviewTextView = view.findViewById(R.id.reviewTextView)
+        reviewButton = view.findViewById(R.id.reviewButton)
+        vendorViewModel = ViewModelProvider(requireActivity())[VendorViewModel::class.java]
+
+        val store = vendorViewModel.vendor
 
         CoroutineScope(Dispatchers.IO).launch {
             storeMenu = ApplicationCore.database.vendorDao().getMenuItemsByMenuId(store?.menuId)
             val menu = displayMenuItems(storeMenu).toString()
             withContext(Dispatchers.Main) {
                 if (store != null) {
-                    binding.imageView.setImageResource(store.image)
-                    binding.storeName.text = store.name
+                    imageView.setImageResource(store.image)
+                    storeName.text = store.name
                     if (menu.length != 0) {
-                        binding.menu.text = menu
+                        menuTextView.text = menu
                     } else {
-                        binding.menu.text = "Currently no menu to display"
+                        menuTextView.text = "Currently no menu to display"
                     }
 
-                    binding.reviewTextView.text = store.rating
+                    reviewTextView.text = store.rating
 
-                    binding.reviewTextView.paintFlags = Paint.UNDERLINE_TEXT_FLAG
-                    binding.reviewTextView.setOnClickListener {
+                    reviewTextView.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+                    reviewTextView.setOnClickListener {
                         //navigate to viewing the reviews
                         val navController = findNavController()
                         //this should be viewreviewfragment
                         navController.navigate(R.id.viewReviewsFragment)
-                        }
+                    }
                 }
             }
 
@@ -84,14 +101,14 @@ class StoreDetailsFragment : Fragment() {
             //setting guest behavior
             guestViewModel = ViewModelProvider(requireActivity())[GuestViewModel::class.java]
             if (guestViewModel.isGuest) {
-                binding.reviewButton.setBackgroundColor(
+                reviewButton.setBackgroundColor(
                     ContextCompat.getColor(
                         requireContext(),
                         R.color.grey
                     )
                 )
             }
-            binding.reviewButton.setOnClickListener {
+            reviewButton.setOnClickListener {
                 if (!guestViewModel.isGuest) {
                     // User is logged in, handle the review action here
                     val navController = findNavController()
@@ -102,8 +119,6 @@ class StoreDetailsFragment : Fragment() {
                         .show()
                 }
             }
-
-
         }
     }
 
@@ -121,5 +136,3 @@ class StoreDetailsFragment : Fragment() {
         return menuItemsString
     }
 }
-
-

@@ -8,6 +8,7 @@ import android.view.inputmethod.EditorBoundsInfo
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.withCreated
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import classes.Adapter
@@ -88,16 +89,8 @@ class VendorListFragment : Fragment(), StoreClickListener{
     override fun onClick(store: Entities.Vendor?) {
         vendorViewModel.vendor = store
         // Open a new fragment when a store is clicked
-        val storeDetailsFragment = StoreDetailsFragment()
-
-        // Pass the clicked store's information to the new fragment using Bundle
-        val bundle = Bundle()
-        bundle.putSerializable(STORE_EXTRA, store)
-        storeDetailsFragment.arguments = bundle
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.nav_fragment, storeDetailsFragment)
-            .addToBackStack("StoreDetailsFragmentTransaction")
-            .commit()
+        val navController = findNavController()
+        navController.navigate(R.id.storeDetailsFragment)
     }
 }
 
