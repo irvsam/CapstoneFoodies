@@ -8,6 +8,7 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.View
+import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -26,6 +27,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var emailEditedText: EditText
     private lateinit var passwordEditedText: EditText
+
     //private val sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {

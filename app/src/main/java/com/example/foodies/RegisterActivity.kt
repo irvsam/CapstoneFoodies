@@ -3,6 +3,10 @@ package com.example.foodies
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -16,6 +20,10 @@ import kotlinx.coroutines.withContext
 
 class RegisterActivity: AppCompatActivity() {
 
+    private val userTypes = listOf("Student","Staff Member","Vendor")
+    private lateinit var autoCompleteUserTextView: AutoCompleteTextView
+    private lateinit var adapterItems:ArrayAdapter<String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
@@ -24,6 +32,7 @@ class RegisterActivity: AppCompatActivity() {
         val actionBar: ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
+
         // Find references to the EditText fields and registration button
         val usernameEditText = findViewById<EditText>(R.id.username_input)
         val emailEditText = findViewById<EditText>(R.id.email_input)
@@ -31,6 +40,15 @@ class RegisterActivity: AppCompatActivity() {
         val passwordEditText = findViewById<EditText>(R.id.password_input)
         val passwordRepeatEditText = findViewById<EditText>(R.id.password_repeat_input)
         val registerButton = findViewById<Button>(R.id.register_btn)
+        autoCompleteUserTextView = findViewById<AutoCompleteTextView>(R.id.user_type_input)
+        adapterItems = ArrayAdapter<String>(this,R.layout.list_user_types,userTypes)
+        autoCompleteUserTextView.setAdapter(adapterItems)
+        autoCompleteUserTextView.onItemClickListener = AdapterView.OnItemClickListener{
+            adapterView,view,i,l->
+
+            val itemSelected = adapterView.getItemAtPosition(i)
+            Toast.makeText(this,"Item: $itemSelected",Toast.LENGTH_SHORT).show()
+        }
 
         registerButton.setOnClickListener {
             // retrieve the input from the EditText fields
@@ -123,7 +141,5 @@ class RegisterActivity: AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
-
-
 }
+
