@@ -1,5 +1,6 @@
 package com.example.foodies
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
@@ -59,6 +60,9 @@ class RegisterActivity: AppCompatActivity() {
 
                 val toast = Toast.makeText(this, "Registration Successful!", Toast.LENGTH_SHORT)
                 toast.show()
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
             }
 
         }
