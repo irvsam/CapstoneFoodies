@@ -26,5 +26,9 @@
         android:id="@+id/accountFragment"
         android:name="com.example.foodies.GuestAccountFragment"
         android:label="GuestAccountFragment" />
+    <fragment
+        android:id="@+id/viewReviewsFragment"
+        android:name="com.example.foodies.ViewReviewsFragment"
+        android:label="ViewReviewsFragment" />
 
 </navigation>

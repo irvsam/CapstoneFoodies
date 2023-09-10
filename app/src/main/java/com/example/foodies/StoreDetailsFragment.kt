@@ -73,7 +73,7 @@ class StoreDetailsFragment : Fragment() {
                         //navigate to viewing the reviews
                         val navController = findNavController()
                         //this should be viewreviewfragment
-                        navController.navigate(R.id.leaveReviewFragment)
+                        navController.navigate(R.id.viewReviewsFragment)
                         }
                 }
             }
