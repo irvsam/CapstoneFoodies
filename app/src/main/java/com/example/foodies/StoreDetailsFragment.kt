@@ -88,9 +88,14 @@ class StoreDetailsFragment : Fragment() {
                     reviewTextView.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                     reviewTextView.setOnClickListener {
                         //navigate to viewing the reviews
-                        val navController = findNavController()
-                        //this should be viewreviewfragment
-                        navController.navigate(R.id.viewReviewsFragment)
+                        if(store.rating!="no reviews yet")
+                        {val navController = findNavController()
+                        navController.navigate(R.id.viewReviewsFragment)}
+                        else{
+                            Toast.makeText(requireContext(), "no reviews to show!", Toast.LENGTH_SHORT)
+                                .show()
+
+                        }
                     }
                 }
             }

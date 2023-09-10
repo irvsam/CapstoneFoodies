@@ -26,6 +26,8 @@ class UserViewModel : ViewModel() {
             userRepository.updateUserRewardPoints(userId, rewardPointsToAdd)
         }
     }
+
+
 }
 
 class GuestViewModel : ViewModel() {
@@ -34,4 +36,11 @@ class GuestViewModel : ViewModel() {
 
 class VendorViewModel : ViewModel(){
     var vendor: Entities.Vendor? = null
+}
+
+class ReviewViewModel: ViewModel(){
+    val reviewList = mutableListOf<Entities.Review?>()
+
+
+
 }

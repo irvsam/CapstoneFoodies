@@ -24,4 +24,7 @@ interface AccountDao {
     @Update
     suspend fun updateUser(user: Entities.User)
 
+    @Query("SELECT username FROM user WHERE id = :userId")
+    suspend fun getUsernameById(userId: Long): String?
+
 }

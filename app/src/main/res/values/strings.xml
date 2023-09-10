@@ -34,5 +34,6 @@
     <string name="rewards">Rewards</string>
     <string name="repeat_password">Repeat password</string>
     <string name="register">register</string>
+    <string name="reviews">%1$s Reviews</string>
 
 </resources>

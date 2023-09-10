@@ -47,3 +47,4 @@ class Adapter(private val storeList: MutableList<Entities.Vendor?>, private val 
 
     }
 }
+

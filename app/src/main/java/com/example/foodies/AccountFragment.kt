@@ -19,10 +19,8 @@ import classes.UserViewModel
 
 
 class AccountFragment : Fragment() {
-    private val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var userViewModel: UserViewModel // Declare the UserViewModel
     private var user: Entities.User? = null // Declare the User property as nullable
-    private lateinit var guestViewModel: GuestViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +33,25 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setUserDetails()
+        setSignOutButton()
+    }
+
+
+    private fun setSignOutButton(){
+
+        val signOutButton = view?.findViewById<Button>(R.id.signout_button)
+
+        signOutButton?.setOnClickListener {
+            // Perform the sign-out logic
+            // sharedViewModel.loggedIn = false
+
+            val intent = Intent(requireContext(), LoginActivity::class.java)
+            startActivity(intent)
+
+        }
+    }
+    private fun setUserDetails(){
         // Initialize the UserViewModel
         userViewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
 
@@ -43,25 +60,15 @@ class AccountFragment : Fragment() {
 
         // Check if the user is not null before accessing its properties
         if (user != null) {
-            val nameTextView = view.findViewById<TextView>(R.id.nameTextView)
-            val emailTextView = view.findViewById<TextView>(R.id.emailTextView)
-            val phoneTextView = view.findViewById<TextView>(R.id.phoneTextView)
-            val rewardTextView = view.findViewById<TextView>(R.id.rewardTextView)
+            val nameTextView = view?.findViewById<TextView>(R.id.nameTextView)
+            val emailTextView = view?.findViewById<TextView>(R.id.emailTextView)
+            val phoneTextView = view?.findViewById<TextView>(R.id.phoneTextView)
+            val rewardTextView = view?.findViewById<TextView>(R.id.rewardTextView)
 
-            nameTextView.text = user?.username
-            emailTextView.text = user?.email
-            phoneTextView.text = user?.phone
-            rewardTextView.text = user?.rewardPoints.toString()
-        }
-            val signOutButton = view.findViewById<Button>(R.id.signout_button)
-
-            signOutButton.setOnClickListener {
-                // Perform the sign-out logic
-                // sharedViewModel.loggedIn = false
-
-                val intent = Intent(requireContext(), LoginActivity::class.java)
-                startActivity(intent)
-
+            nameTextView?.text = user?.username
+            emailTextView?.text = user?.email
+            phoneTextView?.text = user?.phone
+            rewardTextView?.text = user?.rewardPoints.toString()
         }
 
 

@@ -35,10 +35,12 @@ class FragmentHolderActivity : AppCompatActivity() {
 
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
         guestViewModel = ViewModelProvider(this)[GuestViewModel::class.java]
+        storeViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
 
         val isGuest = intent.getBooleanExtra("is_guest", false)
+
         guestViewModel.isGuest = isGuest
-        storeViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
+
         // calling the action bar
         val actionBar: ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
@@ -48,27 +50,10 @@ class FragmentHolderActivity : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView
                 >(R.id.bottomNavigationView)
         val navController = findNavController(R.id.nav_fragment)
+        bottomNavigationView.setupWithNavController(navController)
 
         if(!isGuest) { //if they logged in then set the user view model
-
-            val userName = intent.getStringExtra("user_name")
-            val userEmail = intent.getStringExtra("user_email")
-
-            if (userEmail != null && userName != null) {
-
-                CoroutineScope(Dispatchers.IO).launch {
-                    val user = ApplicationCore.database.accountDao()
-                        .getUserByEmailAndUsername(userEmail, userName)
-
-                    withContext(Dispatchers.Main) {
-                        if (user != null) {
-                            val userViewModel =
-                                ViewModelProvider(this@FragmentHolderActivity)[UserViewModel::class.java]
-                            userViewModel.user = user
-                        }
-                    }
-                }
-            }
+            setUser()
         }
 
         if (guestViewModel.isGuest) {
@@ -78,14 +63,33 @@ class FragmentHolderActivity : AppCompatActivity() {
             bottomNavigationView.menu.removeItem(R.id.rewardsFragment)
         }
 
-        bottomNavigationView.setupWithNavController(navController)
-
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_fragment)
         return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    private fun setUser(){
+        val userName = intent.getStringExtra("user_name")
+        val userEmail = intent.getStringExtra("user_email")
+
+        if (userEmail != null && userName != null) {
+
+            CoroutineScope(Dispatchers.IO).launch {
+                val user = ApplicationCore.database.accountDao()
+                    .getUserByEmailAndUsername(userEmail, userName)
+
+                withContext(Dispatchers.Main) {
+                    if (user != null) {
+                        val userViewModel =
+                            ViewModelProvider(this@FragmentHolderActivity)[UserViewModel::class.java]
+                        userViewModel.user = user
+                    }
+                }
+            }
+        }
+
     }
 
 }

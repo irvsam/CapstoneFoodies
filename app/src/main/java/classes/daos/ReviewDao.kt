@@ -21,5 +21,10 @@ interface ReviewDao {
     @Query("SELECT * FROM review WHERE user_id = :userId")
     suspend fun getReviewsByUserId(userId: Long): List<Entities.Review>
 
+    @Query("SELECT * FROM review WHERE vendor_id = :vendorId")
+    suspend fun getReviewsByVendorId(vendorId: Long): List<Entities.Review>
+
+
+
     // Add other query methods as needed
 }
