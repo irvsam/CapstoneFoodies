@@ -57,6 +57,7 @@ class RegisterActivity: AppCompatActivity() {
             val phone = phoneEditText.text.toString()
             val password = passwordEditText.text.toString()
             val passwordRepeat = passwordRepeatEditText.text.toString()
+            val userType = autoCompleteUserTextView.text.toString()
 
             //TODO: validate passwords, username, and email (no duplicates, passwords match, etc)
 
@@ -66,7 +67,7 @@ class RegisterActivity: AppCompatActivity() {
                 email = email,
                 phone = phone,
                 password = password,
-                type = "user",
+                type = userType,
                 rewardPoints = 0)
 
             if (validateRegistrationInput(username, email, phone, password, passwordRepeat)) {
