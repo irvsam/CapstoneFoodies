@@ -36,17 +36,13 @@ class VendorListFragment : Fragment(), StoreClickListener{
 
     private lateinit var storeViewModel: SharedViewModel
     private lateinit var vendorViewModel: VendorViewModel
-    private lateinit var tempStore: Store
-    private var campusCafeMenu : Menu = Menu()
-    private var afriquezeenMenu: Menu = Menu()
-    private var ccReviewList : ArrayList<Review> = ArrayList()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         storeViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         vendorViewModel =  ViewModelProvider(requireActivity())[VendorViewModel::class.java]
-            populateStores()
+        populateStores()
 
     }
     override fun onCreateView(
@@ -69,8 +65,6 @@ class VendorListFragment : Fragment(), StoreClickListener{
         recyclerView.layoutManager = LinearLayoutManager(context)
         // adapter instance is set to the recyclerview to inflate the items.
         recyclerView.adapter = itemAdapter
-
-
     }
 
     private fun populateStores() {

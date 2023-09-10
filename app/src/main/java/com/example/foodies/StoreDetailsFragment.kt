@@ -64,19 +64,15 @@ class StoreDetailsFragment : Fragment() {
                     } else {
                         binding.menu.text = "Currently no menu to display"
                     }
+
+                    binding.reviewTextView.text = store.rating
                 }
-            }
-            if (store != null) {
-                //TODO Set image to a relevant store image
-                binding.imageView.setImageResource(store.image)
-                binding.storeName.text = store.name
-                // Check if the rating is null
-                binding.reviewTextView.text = store.rating
-                //binding.menu.text = store.menu.toString()
             }
 
             val actionBar: ActionBar? = (activity as AppCompatActivity).supportActionBar
             actionBar?.setDisplayHomeAsUpEnabled(true)
+
+            //setting guest behavior
             guestViewModel = ViewModelProvider(requireActivity())[GuestViewModel::class.java]
             if (guestViewModel.isGuest) {
                 binding.reviewButton.setBackgroundColor(
@@ -92,6 +88,7 @@ class StoreDetailsFragment : Fragment() {
                     val navController = findNavController()
                     navController.navigate(R.id.leaveReviewFragment)
                 } else {
+                    //they are guest
                     Toast.makeText(requireContext(), "you are not logged in!", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -99,29 +96,6 @@ class StoreDetailsFragment : Fragment() {
 
 
         }
-    }
-
-    private fun storeFromName(storeID: String?): Entities.Vendor? {
-        for (store in storeList) {
-            if (store?.name == storeID) {
-                return store
-            }
-        }
-        return null
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                val navController = findNavController()
-
-                // Manually navigate to the VendorListFragment
-                navController.navigate(R.id.vendorListFragment)
-
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun displayMenuItems(menuItems: List<Entities.MenuItem?>?): StringBuilder {
