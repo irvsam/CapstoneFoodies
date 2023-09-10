@@ -1,6 +1,7 @@
 package com.example.foodies
 
 import android.content.Intent
+import android.graphics.Paint
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -66,6 +67,14 @@ class StoreDetailsFragment : Fragment() {
                     }
 
                     binding.reviewTextView.text = store.rating
+
+                    binding.reviewTextView.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+                    binding.reviewTextView.setOnClickListener {
+                        //navigate to viewing the reviews
+                        val navController = findNavController()
+                        //this should be viewreviewfragment
+                        navController.navigate(R.id.leaveReviewFragment)
+                        }
                 }
             }
 
