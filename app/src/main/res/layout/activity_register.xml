@@ -142,6 +142,7 @@
 
         <AutoCompleteTextView
             android:id="@+id/user_type_input"
+            android:inputType="none"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Choose user type" />
