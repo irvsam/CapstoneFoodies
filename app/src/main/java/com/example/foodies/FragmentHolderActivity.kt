@@ -16,6 +16,7 @@ import androidx.navigation.ui.setupWithNavController
 import classes.GuestViewModel
 import classes.SharedViewModel
 import classes.UserViewModel
+import classes.VendorViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -82,9 +83,15 @@ class FragmentHolderActivity : AppCompatActivity() {
 
                 withContext(Dispatchers.Main) {
                     if (user != null) {
-                        val userViewModel =
-                            ViewModelProvider(this@FragmentHolderActivity)[UserViewModel::class.java]
-                        userViewModel.user = user
+                        if(user.type=="Student" || user.type == "Staff Member") {
+                            val userViewModel =
+                                ViewModelProvider(this@FragmentHolderActivity)[UserViewModel::class.java]
+                            userViewModel.user = user
+                        }
+                        else if(user.type=="Vendor"){
+                            val vendorViewModel = ViewModelProvider(this@FragmentHolderActivity)[VendorViewModel::class.java]
+                            //vendorViewModel.vendor = user
+                        }
                     }
                 }
             }

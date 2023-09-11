@@ -19,6 +19,7 @@ class Entities {
         val phone: String,
         val password: String,
         val type: String,
+        val vendorId: Long?,
         var rewardPoints: Int
     )
 
