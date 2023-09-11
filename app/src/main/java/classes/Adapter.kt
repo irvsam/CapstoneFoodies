@@ -5,10 +5,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import com.example.foodies.ApplicationCore
 import com.example.foodies.R
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class Adapter(private val storeList: MutableList<Entities.Vendor?>, private val clickListener: StoreClickListener) : RecyclerView.Adapter<Adapter.MyViewHolder>() {
+class Adapter(private val storeList: MutableList<Entities.Vendor?>, private val clickListener: StoreClickListener, private val lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<Adapter.MyViewHolder>() {
 
     // This method creates a new ViewHolder object for each item in the RecyclerView
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -30,6 +36,23 @@ class Adapter(private val storeList: MutableList<Entities.Vendor?>, private val 
         if (currentStore!= null) {
             holder.name.text = currentStore?.name
             holder.rating.text = currentStore?.rating.toString()
+
+            lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+                val numReviews = ApplicationCore.database.vendorDao().getReviewCountForVendor(currentStore.id)
+
+                // Update the UI on the main thread
+                withContext(Dispatchers.Main) {
+                    if(numReviews!=0){
+                    holder.numRatings.text = "("+numReviews.toString()+")"}
+                    else{holder.numRatings.text =""}
+                }
+            }
+
+
+
+
+
+
             //TODO this needs to be changed to set the actual image (temporary)
             holder.image.setImageResource(currentStore.image)
             // Set a click listener for the store card
@@ -39,11 +62,13 @@ class Adapter(private val storeList: MutableList<Entities.Vendor?>, private val 
         }
     }
 
+
     // This class defines the ViewHolder object for each item in the RecyclerView
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.storeName)
         val rating: TextView = itemView.findViewById(R.id.rating)
         var image: ImageView=itemView.findViewById(R.id.imageView)
+        var numRatings: TextView=itemView.findViewById(R.id.numReviewsTextView)
 
     }
 }

@@ -34,4 +34,7 @@ interface VendorDao {
     @Query("UPDATE vendor SET rating = :averageRating WHERE id = :vendorId")
     suspend fun updateAverageRating(vendorId: Long, averageRating: String)
 
+    @Query("SELECT COUNT(*) FROM review WHERE vendor_id = :vendorId")
+    suspend fun getReviewCountForVendor(vendorId: Long): Int
+
 }

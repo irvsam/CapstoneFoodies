@@ -60,7 +60,7 @@ class VendorListFragment : Fragment(), StoreClickListener{
         super.onViewCreated(view, savedInstanceState)
 
         // Assign employeelist to ItemAdapter
-        val itemAdapter= Adapter(storeViewModel.storeList, this)
+        val itemAdapter= Adapter(storeViewModel.storeList, this,this)
         // Set the LayoutManager that this RecyclerView will use.
         val recyclerView:RecyclerView=view.findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(context)
