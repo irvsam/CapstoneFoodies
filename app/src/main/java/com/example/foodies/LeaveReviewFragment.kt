@@ -49,12 +49,15 @@ class LeaveReviewFragment : Fragment() {
         // Set a click listener for the Submit Review button
         submitReviewButton.setOnClickListener {
             // Get the ratings and review text from the user
+
+
             val qualityRating = qualityRatingBar.rating
             val cleanlinessRating = cleanlinessRatingBar.rating
             val friendlinessRating = friendlinessRatingBar.rating
             val efficiencyRating = efficiencyRatingBar.rating
             val total = qualityRating+cleanlinessRating+friendlinessRating+efficiencyRating
             val average = total/4
+
 
             val userReview = reviewText.text.toString()
             userViewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]

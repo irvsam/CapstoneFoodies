@@ -27,4 +27,7 @@ interface AccountDao {
     @Query("SELECT username FROM user WHERE id = :userId")
     suspend fun getUsernameById(userId: Long): String?
 
+    @Query("SELECT rewardPoints FROM User WHERE id = :userId")
+    suspend fun getUserRewardPoints(userId: Long): Int
+
 }

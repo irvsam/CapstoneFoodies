@@ -25,7 +25,17 @@ class RewardsFragment: Fragment()  {
         rewardAmtTextView = view.findViewById(R.id.rewardAmt)
         // Load the user's points and update the UI
         userViewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
-        rewardAmtTextView.text = userViewModel.user?.rewardPoints.toString()
+
+        // Observe the LiveData for reward points
+        userViewModel.userRewardPoints.observe(viewLifecycleOwner) { rewardPoints ->
+            rewardAmtTextView.text = rewardPoints.toString()
+        }
+
+        // Load the user's initial reward points from the database
+        val userId = userViewModel.user?.id // Replace with the actual user ID
+        if (userId != null) {
+            userViewModel.loadUserInitialRewardPoints(userId)
+        }
 
         return view
     }
