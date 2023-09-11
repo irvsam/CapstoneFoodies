@@ -47,18 +47,18 @@ class RegisterActivity: AppCompatActivity() {
         vendorIdLayout.visibility = View.GONE
 
         autoCompleteUserTextView = findViewById<AutoCompleteTextView>(R.id.user_type_input)
-        adapterItems = ArrayAdapter<String>(this,R.layout.list_user_types,userTypes)
+        adapterItems = ArrayAdapter<String>(this,R.layout.list_user_types,userTypes) // Use userTypes as the various clickable options in drop down menu
         autoCompleteUserTextView.setAdapter(adapterItems)
         autoCompleteUserTextView.onItemClickListener = AdapterView.OnItemClickListener{
             adapterView,view,i,l->
 
             val itemSelected = adapterView.getItemAtPosition(i)
             Toast.makeText(this,"Account type: $itemSelected",Toast.LENGTH_SHORT).show()
-            if (itemSelected=="Vendor"){
+            if (itemSelected=="Vendor"){ // If user is a vendor they must give an associated vendorID
                 Log.d("IF clause","entered")
                 vendorIdLayout.visibility=View.VISIBLE
             }
-            else{
+            else{  // If user is not a vendor then Vendor ID must not be displayed to them
                 vendorIdLayout.visibility=View.GONE
             }
         }
