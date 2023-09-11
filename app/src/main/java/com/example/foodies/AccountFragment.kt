@@ -77,7 +77,7 @@ class AccountFragment : Fragment() {
             }
 
             // Load the user's initial reward points from the database
-            val userId = userViewModel.user?.id // Replace with the actual user ID
+            val userId = userViewModel.user?.id
             if (userId != null) {
                 userViewModel.loadUserInitialRewardPoints(userId)
             }

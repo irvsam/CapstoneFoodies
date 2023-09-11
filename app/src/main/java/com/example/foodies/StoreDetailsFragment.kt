@@ -18,6 +18,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.withCreated
 import androidx.navigation.Navigation.findNavController
@@ -80,10 +81,19 @@ class StoreDetailsFragment : Fragment() {
                     if (menu.length != 0) {
                         menuTextView.text = menu
                     } else {
-                        menuTextView.text = "Currently no menu to display"
+                        menuTextView.text = getString(R.string.currently_no_menu_to_display)
                     }
 
-                    reviewTextView.text = store.rating
+                    vendorViewModel.ratingLiveData.observe(viewLifecycleOwner) { rating ->
+                        if (rating != null) {
+                            reviewTextView.text = rating
+                        }
+                    }
+
+                    val vendorId = store.id
+                    if (vendorId != null) {
+                        vendorViewModel.loadVendorInitialRating(vendorId)
+                    }
 
                     reviewTextView.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                     reviewTextView.setOnClickListener {

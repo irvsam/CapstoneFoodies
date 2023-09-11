@@ -52,11 +52,25 @@ class GuestViewModel : ViewModel() {
 
 class VendorViewModel : ViewModel(){
     var vendor: Entities.Vendor? = null
+    private val vendorRepository: VendorRepository = VendorRepository()
+    private val _ratingLiveData = MutableLiveData<String>()
+
+    val ratingLiveData: LiveData<String>
+        get() = _ratingLiveData
+
+    fun loadVendorInitialRating(vendorId: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val initialVendorRating = vendorRepository.getVendorRating(vendorId)
+            _ratingLiveData.postValue(initialVendorRating)
+        }
+    }
+
+    fun updateRating(rating: String) {
+            _ratingLiveData.postValue(rating)
+    }
 }
 
 class ReviewViewModel: ViewModel(){
     val reviewList = mutableListOf<Entities.Review?>()
-
-
 
 }

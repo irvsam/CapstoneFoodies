@@ -35,5 +35,6 @@
     <string name="repeat_password">Repeat password</string>
     <string name="register">register</string>
     <string name="reviews">%1$s Reviews</string>
+    <string name="currently_no_menu_to_display">Currently no menu to display</string>
 
 </resources>
