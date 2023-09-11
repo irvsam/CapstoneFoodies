@@ -68,7 +68,21 @@ class AccountFragment : Fragment() {
             nameTextView?.text = user?.username
             emailTextView?.text = user?.email
             phoneTextView?.text = user?.phone
-            rewardTextView?.text = user?.rewardPoints.toString()
+
+
+            userViewModel.userRewardPoints.observe(viewLifecycleOwner) { rewardPoints ->
+                if (rewardTextView != null) {
+                    rewardTextView.text = rewardPoints.toString()
+                }
+            }
+
+            // Load the user's initial reward points from the database
+            val userId = userViewModel.user?.id // Replace with the actual user ID
+            if (userId != null) {
+                userViewModel.loadUserInitialRewardPoints(userId)
+            }
+
+
         }
 
 
