@@ -105,7 +105,7 @@ class StoreDetailsFragment : Fragment() {
                     reviewTextView.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                     reviewTextView.setOnClickListener {
                         //navigate to viewing the reviews
-                        if(store.rating!="no reviews yet")
+                        if(numReviews!=0)
                         {val navController = findNavController()
                         navController.navigate(R.id.viewReviewsFragment)}
                         else{
