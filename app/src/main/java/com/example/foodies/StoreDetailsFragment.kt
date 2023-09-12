@@ -94,6 +94,9 @@ class StoreDetailsFragment : Fragment() {
                     vendorViewModel.ratingLiveData.observe(viewLifecycleOwner) { rating ->
                         if (rating != null) {
                             reviewTextView.text = rating
+                            if(rating == "0.0"){
+                                reviewTextView.text = "no reviews yet"
+                            }
                         }
                     }
 
