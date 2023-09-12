@@ -35,16 +35,22 @@ class Adapter(private val storeList: MutableList<Entities.Vendor?>, private val 
         val currentStore = storeList[position]
         if (currentStore!= null) {
             holder.name.text = currentStore?.name
-            holder.rating.text = currentStore?.rating.toString()
 
             lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+
+                val rating = ApplicationCore.database.vendorDao().calculateAverageRating(currentStore.id)
+
                 val numReviews = ApplicationCore.database.vendorDao().getReviewCountForVendor(currentStore.id)
+
 
                 // Update the UI on the main thread
                 withContext(Dispatchers.Main) {
                     if(numReviews!=0){
-                    holder.numRatings.text = "("+numReviews.toString()+")"}
-                    else{holder.numRatings.text =""}
+                        holder.rating.text = rating.toString()
+                        holder.numRatings.text = "("+numReviews.toString()+")"}
+                    else{
+                        holder.numRatings.text =""
+                        holder.rating.text = "no reviews yet"}
                 }
             }
 

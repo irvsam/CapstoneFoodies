@@ -50,6 +50,7 @@ class StoreDetailsFragment : Fragment() {
     private lateinit var reviewTextView: TextView
     private lateinit var reviewButton: Button
     private lateinit var vendorViewModel: VendorViewModel
+    private lateinit var numRatings: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,6 +68,7 @@ class StoreDetailsFragment : Fragment() {
         menuTextView = view.findViewById(R.id.menu)
         reviewTextView = view.findViewById(R.id.reviewTextView)
         reviewButton = view.findViewById(R.id.reviewButton)
+        numRatings = view.findViewById(R.id.numReviewsTextView)
         vendorViewModel = ViewModelProvider(requireActivity())[VendorViewModel::class.java]
 
         val store = vendorViewModel.vendor
@@ -83,6 +85,11 @@ class StoreDetailsFragment : Fragment() {
                     } else {
                         menuTextView.text = getString(R.string.currently_no_menu_to_display)
                     }
+                    val numReviews = ApplicationCore.database.vendorDao().getReviewCountForVendor(store.id)
+
+                    if(numReviews!=0){
+                        numRatings.text = "("+numReviews.toString()+")"}
+                    else{numRatings.text =""}
 
                     vendorViewModel.ratingLiveData.observe(viewLifecycleOwner) { rating ->
                         if (rating != null) {
