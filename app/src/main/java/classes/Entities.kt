@@ -45,7 +45,7 @@ class Entities {
         val name: String,
         val cuisine: String,
         @ColumnInfo(name = "menu_id") val menuId: Long,
-        val rating: String = "no reviews yet",
+        val rating: Float? = null,
         @ColumnInfo(name = "openTime") val openTime: String,
         @ColumnInfo(name = "closeTime") val closeTime: String,
         @ColumnInfo(name = "dietaryReq_id") val dietaryReqId: Long,

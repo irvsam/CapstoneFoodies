@@ -89,7 +89,7 @@ class LeaveReviewFragment : Fragment() {
                     withContext(Dispatchers.IO) {
                         ApplicationCore.database.vendorDao().updateVendorAverageRating(vendor!!.id)
                         val newRating = ApplicationCore.database.vendorDao().calculateAverageRating(vendorViewModel.vendor!!.id)
-                        vendorViewModel.updateRating(newRating.toString())
+                        vendorViewModel.updateRating(newRating)
                     }
 
                     requireActivity().supportFragmentManager.popBackStack()

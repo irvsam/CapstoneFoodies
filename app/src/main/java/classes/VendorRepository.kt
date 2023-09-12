@@ -11,7 +11,7 @@ class VendorRepository {
     private val vendorLiveData = MutableLiveData<Entities.Vendor?>()
     private val vendorDao: VendorDao = ApplicationCore.database.vendorDao()
 
-    suspend fun getVendorRating(vendorId: Long): String {
-        return vendorDao.calculateAverageRating(vendorId).toString()
+    suspend fun getVendorRating(vendorId: Long): Float? {
+        return vendorDao.calculateAverageRating(vendorId)
     }
 }

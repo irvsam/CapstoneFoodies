@@ -53,9 +53,9 @@ class GuestViewModel : ViewModel() {
 class VendorViewModel : ViewModel(){
     var vendor: Entities.Vendor? = null
     private val vendorRepository: VendorRepository = VendorRepository()
-    private val _ratingLiveData = MutableLiveData<String>()
+    private val _ratingLiveData = MutableLiveData<Float?>()
 
-    val ratingLiveData: LiveData<String>
+    val ratingLiveData: LiveData<Float?>
         get() = _ratingLiveData
 
     fun loadVendorInitialRating(vendorId: Long) {
@@ -65,7 +65,7 @@ class VendorViewModel : ViewModel(){
         }
     }
 
-    fun updateRating(rating: String) {
+    fun updateRating(rating: Float?) {
             _ratingLiveData.postValue(rating)
     }
 }

@@ -23,16 +23,16 @@ interface VendorDao {
     suspend fun getMenuItemsByMenuId(id: Long?): List<Entities.MenuItem?>
 
     @Query("SELECT AVG(overAllRating) FROM review WHERE vendor_id = :vendorId")
-    fun calculateAverageRating(vendorId: Long): Float
+    fun calculateAverageRating(vendorId: Long): Float?
 
     @Transaction
     suspend fun updateVendorAverageRating(vendorId: Long) {
         val averageRating = calculateAverageRating(vendorId)
-        updateAverageRating(vendorId, averageRating.toString())
+        updateAverageRating(vendorId, averageRating)
     }
 
     @Query("UPDATE vendor SET rating = :averageRating WHERE id = :vendorId")
-    suspend fun updateAverageRating(vendorId: Long, averageRating: String)
+    suspend fun updateAverageRating(vendorId: Long, averageRating: Float?)
 
     @Query("SELECT COUNT(*) FROM review WHERE vendor_id = :vendorId")
     suspend fun getReviewCountForVendor(vendorId: Long): Int
