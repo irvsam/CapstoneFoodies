@@ -19,7 +19,7 @@
         android:title="@string/account" />
     <item
         android:id="@+id/managementFragment"
-        android:icon="@drawable/management"
+        android:icon="@drawable/manage_icon"
         android:title="@string/manage"/>
 
 </menu>

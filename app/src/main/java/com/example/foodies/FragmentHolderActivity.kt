@@ -67,6 +67,7 @@ class FragmentHolderActivity : AppCompatActivity() {
             val navGraph = navController.navInflater.inflate((R.navigation.nav_graph_vendor))
             navController.graph = navGraph
             bottomNavigationView.menu.removeItem(R.id.rewardsFragment)
+            bottomNavigationView.menu.removeItem(R.id.browseFragment)
         }
 
         else if (guestViewModel.isGuest) {
