@@ -60,6 +60,7 @@ class RegisterActivity: AppCompatActivity() {
             }
             else{  // If user is not a vendor then Vendor ID must not be displayed to them
                 vendorIdLayout.visibility=View.GONE
+                vendorIdText.setText("-1L")
             }
         }
 

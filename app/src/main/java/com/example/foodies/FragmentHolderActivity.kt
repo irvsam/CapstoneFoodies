@@ -26,6 +26,7 @@ import kotlinx.coroutines.withContext
 
 class FragmentHolderActivity : AppCompatActivity() {
     private lateinit var userViewModel: UserViewModel
+    private lateinit var vendorViewModel: VendorViewModel
     private lateinit var guestViewModel: GuestViewModel
     private lateinit var storeViewModel: SharedViewModel
 
@@ -36,11 +37,14 @@ class FragmentHolderActivity : AppCompatActivity() {
 
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
         guestViewModel = ViewModelProvider(this)[GuestViewModel::class.java]
+        vendorViewModel = ViewModelProvider(this)[VendorViewModel::class.java]
         storeViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
 
         val isGuest = intent.getBooleanExtra("is_guest", false)
+        val isVendor = intent.getBooleanExtra("is_vendor",false)
 
         guestViewModel.isGuest = isGuest
+        vendorViewModel.isVendor = isVendor
 
         // calling the action bar
         val actionBar: ActionBar? = supportActionBar
@@ -53,15 +57,24 @@ class FragmentHolderActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_fragment)
         bottomNavigationView.setupWithNavController(navController)
 
-        if(!isGuest) { //if they logged in then set the user view model
+        if(!isGuest && !isVendor) { //if they logged in then set the user view model
+            bottomNavigationView.menu.removeItem(R.id.managementFragment)
             setUser()
         }
+        else if (vendorViewModel.isVendor){
+            setVendor()
+            Log.d("Vendor","Entered vendor statement")
+            val navGraph = navController.navInflater.inflate((R.navigation.nav_graph_vendor))
+            navController.graph = navGraph
+            bottomNavigationView.menu.removeItem(R.id.rewardsFragment)
+        }
 
-        if (guestViewModel.isGuest) {
+        else if (guestViewModel.isGuest) {
             val navGraph = navController.navInflater.inflate(R.navigation.nav_graph_guest)
             navController.graph = navGraph
             // Remove the "Rewards" menu item
             bottomNavigationView.menu.removeItem(R.id.rewardsFragment)
+            bottomNavigationView.menu.removeItem(R.id.managementFragment)
         }
 
     }
@@ -83,20 +96,34 @@ class FragmentHolderActivity : AppCompatActivity() {
 
                 withContext(Dispatchers.Main) {
                     if (user != null) {
-                        if(user.type=="Student" || user.type == "Staff Member") {
-                            val userViewModel =
-                                ViewModelProvider(this@FragmentHolderActivity)[UserViewModel::class.java]
-                            userViewModel.user = user
-                        }
-                        else if(user.type=="Vendor"){
-                            val vendorViewModel = ViewModelProvider(this@FragmentHolderActivity)[VendorViewModel::class.java]
-                            //vendorViewModel.vendor = user
-                        }
+                        val userViewModel = ViewModelProvider(this@FragmentHolderActivity)[UserViewModel::class.java]
+                        userViewModel.user = user
                     }
                 }
             }
         }
 
+    }
+
+    private fun setVendor(){
+        val userName = intent.getStringExtra("user_name")
+        val userEmail = intent.getStringExtra("user_email")
+
+        if (userEmail != null && userName != null) {
+
+            CoroutineScope(Dispatchers.IO).launch {
+                val user = ApplicationCore.database.accountDao()
+                    .getUserByEmailAndUsername(userEmail, userName)
+
+                withContext(Dispatchers.Main) {
+                    if (user != null) {
+                        val vendorViewModel = ViewModelProvider(this@FragmentHolderActivity)[VendorViewModel::class.java]
+                        vendorViewModel.user = user
+                        vendorViewModel.vendor = ApplicationCore.database.accountDao().getVendorStore(user.vendorId)
+                    }
+                }
+            }
+        }
     }
 
 }

@@ -35,7 +35,9 @@ class GuestViewModel : ViewModel() {
 }
 
 class VendorViewModel : ViewModel(){
+    var user: Entities.User? = null
     var vendor: Entities.Vendor? = null
+    var isVendor: Boolean = false
 }
 
 class ReviewViewModel: ViewModel(){
