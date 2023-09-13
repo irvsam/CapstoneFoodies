@@ -73,6 +73,7 @@
                 android:textColor="@android:color/white" />
 
             <Button
+                android:id="@+id/qrButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Scan QR"/>
