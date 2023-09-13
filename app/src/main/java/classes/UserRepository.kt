@@ -32,4 +32,12 @@ class UserRepository() {
     suspend fun getUserTotalPoints(userId: Long): Int {
         return accountDao.getUserOverallPoints(userId)
     }
+
+    suspend fun resetPoints(userId: Long) {
+        val user = ApplicationCore.database.accountDao().getUserById(userId)
+        if (user != null) {
+            user.rewardPoints = 0
+            ApplicationCore.database.accountDao().updateUser(user)
+        }
+    }
 }
