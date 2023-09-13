@@ -8,10 +8,11 @@
     tools:context=".ScannerActivity">
 
     <SurfaceView
-        android:id="@+id/camera_preview"
+        android:id="@+id/scanner_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- Add any UI elements here (e.g., a TextView to display the scanned result). -->
+    <!-- You can add UI elements here if needed. -->
 
 </RelativeLayout>
+
