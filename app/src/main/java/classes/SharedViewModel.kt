@@ -3,6 +3,7 @@ package classes
 //this holds all the shared view models needed
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -38,6 +39,15 @@ class UserViewModel : ViewModel() {
             val updatedTotalPoints = _userTotalPoints.value?.plus(rewardPointsToAdd) ?: rewardPointsToAdd
             _userRewardPoints.postValue(updatedRewardPoints)
             _userTotalPoints.postValue(updatedTotalPoints)
+        }
+    }
+
+    fun resetUserRewardPoints(userId: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            userRepository.resetPoints(userId)
+
+            val updatedRewardPoints = 0
+            _userRewardPoints.postValue(updatedRewardPoints)
         }
     }
 
