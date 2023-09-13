@@ -22,24 +22,33 @@ class UserViewModel : ViewModel() {
     var user: Entities.User? = null
     private val userRepository: UserRepository = UserRepository()
     private val _userRewardPoints = MutableLiveData<Int>()
+    private val _userTotalPoints = MutableLiveData<Int>()
 
     val userRewardPoints: LiveData<Int>
         get() = _userRewardPoints
+
+    val userTotalPoints: LiveData<Int>
+        get() = _userTotalPoints
 
     fun updateUserRewardPoints(userId: Long, rewardPointsToAdd: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             userRepository.updateUserRewardPoints(userId, rewardPointsToAdd)
 
             val updatedRewardPoints = _userRewardPoints.value?.plus(rewardPointsToAdd) ?: rewardPointsToAdd
+            val updatedTotalPoints = _userTotalPoints.value?.plus(rewardPointsToAdd) ?: rewardPointsToAdd
             _userRewardPoints.postValue(updatedRewardPoints)
+            _userTotalPoints.postValue(updatedTotalPoints)
         }
     }
+
 
     // Load the user's initial reward points from the database
     fun loadUserInitialRewardPoints(userId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             val initialRewardPoints = userRepository.getUserRewardPoints(userId)
+            val initialTotalPoints = userRepository.getUserTotalPoints(userId)
             _userRewardPoints.postValue(initialRewardPoints)
+            _userTotalPoints.postValue(initialTotalPoints)
         }
     }
 

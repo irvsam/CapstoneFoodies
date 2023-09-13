@@ -19,7 +19,8 @@ class Entities {
         val phone: String,
         val password: String,
         val type: String,
-        var rewardPoints: Int
+        var rewardPoints: Int,
+        var totalOverAllPoints: Int
     )
 
     // VENDOR

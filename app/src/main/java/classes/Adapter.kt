@@ -39,7 +39,6 @@ class Adapter(private val storeList: MutableList<Entities.Vendor?>, private val 
             lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
 
                 val rating = ApplicationCore.database.vendorDao().calculateAverageRating(currentStore.id)
-
                 val numReviews = ApplicationCore.database.vendorDao().getReviewCountForVendor(currentStore.id)
 
 
