@@ -37,4 +37,7 @@ interface VendorDao {
     @Query("SELECT COUNT(*) FROM review WHERE vendor_id = :vendorId")
     suspend fun getReviewCountForVendor(vendorId: Long): Int
 
+    @Query("SELECT name FROM vendor")
+    suspend fun getAllVendorNames(): List<String>
+
 }
