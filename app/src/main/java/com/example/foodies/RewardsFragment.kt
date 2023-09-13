@@ -47,7 +47,7 @@ class RewardsFragment: Fragment()  {
 
         qrButton.setOnClickListener {
                 val navController = findNavController()
-                navController.navigate(R.id.QRActivity)
+                navController.navigate(R.id.QRFragment)
         }
 
         return view
