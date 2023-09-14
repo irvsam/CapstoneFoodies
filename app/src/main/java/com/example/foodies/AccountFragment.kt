@@ -15,12 +15,14 @@ import classes.Entities
 import classes.GuestViewModel
 import classes.SharedViewModel
 import classes.UserViewModel
-
+import classes.VendorViewModel
 
 
 class AccountFragment : Fragment() {
     private lateinit var userViewModel: UserViewModel // Declare the UserViewModel
+    private lateinit var vendorViewModel: VendorViewModel
     private var user: Entities.User? = null // Declare the User property as nullable
+    private var vendor: Entities.User?=null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,32 +56,42 @@ class AccountFragment : Fragment() {
     private fun setUserDetails(){
         // Initialize the UserViewModel
         userViewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
-
+        vendorViewModel = ViewModelProvider(requireActivity())[VendorViewModel::class.java]
         // Get the user from the UserViewModel
         user = userViewModel.user
+        vendor = vendorViewModel.user
 
         // Check if the user is not null before accessing its properties
-        if (user != null) {
+        if (user != null || vendor!=null) {
             val nameTextView = view?.findViewById<TextView>(R.id.nameTextView)
             val emailTextView = view?.findViewById<TextView>(R.id.emailTextView)
             val phoneTextView = view?.findViewById<TextView>(R.id.phoneTextView)
             val rewardTextView = view?.findViewById<TextView>(R.id.rewardTextView)
+            val rewardRowTitle = view?.findViewById<TextView>(R.id.rewardRowTitle)
 
-            nameTextView?.text = user?.username
-            emailTextView?.text = user?.email
-            phoneTextView?.text = user?.phone
-
-
-            userViewModel.userTotalPoints.observe(viewLifecycleOwner) { totalPoints ->
-                if (rewardTextView != null) {
-                    rewardTextView.text = totalPoints.toString()
-                }
+            if(vendor?.type=="Vendor"){
+                rewardRowTitle?.visibility=View.GONE
+                rewardTextView?.visibility=View.GONE
+                nameTextView?.text = vendor?.username
+                emailTextView?.text = vendor?.email
+                phoneTextView?.text = vendor?.phone
             }
+            else {
+                nameTextView?.text = user?.username
+                emailTextView?.text = user?.email
+                phoneTextView?.text = user?.phone
 
-            // Load the user's initial reward points from the database
-            val userId = userViewModel.user?.id
-            if (userId != null) {
-                userViewModel.loadUserInitialRewardPoints(userId)
+                userViewModel.userTotalPoints.observe(viewLifecycleOwner) { totalPoints ->
+                    if (rewardTextView != null) {
+                        rewardTextView.text = totalPoints.toString()
+                    }
+                }
+
+                // Load the user's initial reward points from the database
+                val userId = userViewModel.user?.id
+                if (userId != null) {
+                    userViewModel.loadUserInitialRewardPoints(userId)
+                }
             }
 
 
