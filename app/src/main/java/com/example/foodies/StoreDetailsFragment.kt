@@ -71,6 +71,11 @@ class StoreDetailsFragment : Fragment() {
         numRatings = view.findViewById(R.id.numReviewsTextView)
         vendorViewModel = ViewModelProvider(requireActivity())[VendorViewModel::class.java]
 
+        //Remove the review button when displaying a store because Vendors cant review
+        if(vendorViewModel.user?.type=="Vendor"){
+            reviewButton.visibility = View.GONE
+        }
+
         val store = vendorViewModel.vendor
 
         CoroutineScope(Dispatchers.IO).launch {
