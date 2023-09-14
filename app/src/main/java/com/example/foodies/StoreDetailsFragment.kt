@@ -136,9 +136,9 @@ class StoreDetailsFragment : Fragment() {
             }
             reviewButton.setOnClickListener {
                 if (!guestViewModel.isGuest) {
-                    // User is logged in, handle the review action here
-                    val navController = findNavController()
-                    navController.navigate(R.id.leaveReviewFragment)
+                    // User is logged in, take them to the QR code scanner
+                        val navController = findNavController()
+                        navController.navigate(R.id.QRFragment)
                 } else {
                     //they are guest
                     Toast.makeText(requireContext(), "you are not logged in!", Toast.LENGTH_SHORT)

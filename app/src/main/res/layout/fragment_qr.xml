@@ -10,9 +10,9 @@
     <SurfaceView
         android:id="@+id/scanner_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <!-- You can add UI elements here if needed. -->
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:rotation="90"/>
 
 </RelativeLayout>
 

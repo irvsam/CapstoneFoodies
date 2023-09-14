@@ -29,7 +29,7 @@ class RewardsFragment: Fragment()  {
 
     ): View? {
         val view = inflater.inflate(R.layout.fragment_rewards, container, false)
-        qrButton = view.findViewById(R.id.qrButton)
+
         rewardAmtTextView = view.findViewById(R.id.rewardAmt)
         // Load the user's points and update the UI
         userViewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
@@ -45,10 +45,7 @@ class RewardsFragment: Fragment()  {
             userViewModel.loadUserInitialRewardPoints(userId)
         }
 
-        qrButton.setOnClickListener {
-                val navController = findNavController()
-                navController.navigate(R.id.QRFragment)
-        }
+
 
         return view
 
