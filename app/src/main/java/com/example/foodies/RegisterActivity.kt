@@ -60,7 +60,7 @@ class RegisterActivity: AppCompatActivity() {
             }
             else{  // If user is not a vendor then Vendor ID must not be displayed to them
                 vendorIdLayout.visibility=View.GONE
-                vendorIdText.setText("-1L")
+                //vendorIdText.setText("-1L")
             }
         }
 
@@ -72,7 +72,10 @@ class RegisterActivity: AppCompatActivity() {
             val password = passwordEditText.text.toString()
             val passwordRepeat = passwordRepeatEditText.text.toString()
             val userType = autoCompleteUserTextView.text.toString()
-            val vendorID = vendorIdText.text.toString()
+            var vendorID:Long = -1
+            if(userType=="Vendor") {
+                vendorID = (vendorIdText.text.toString()).toLong()
+            }
 
 
             //TODO: validate passwords, username, and email (no duplicates, passwords match, etc)
@@ -84,7 +87,7 @@ class RegisterActivity: AppCompatActivity() {
                 phone = phone,
                 password = password,
                 type = userType,
-                vendorId = vendorID.toLong(),
+                vendorId = vendorID,
                 rewardPoints = 0)
 
             if (validateRegistrationInput(username, email, phone, password, passwordRepeat)) {
