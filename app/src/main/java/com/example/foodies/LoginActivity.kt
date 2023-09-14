@@ -72,7 +72,6 @@ class LoginActivity : AppCompatActivity() {
                         intent.putExtra("user", user.id)
                         intent.putExtra("user_name", user.username)
                         intent.putExtra("user_email", user.email)
-
                         startActivity(intent)
 
                     } else {
