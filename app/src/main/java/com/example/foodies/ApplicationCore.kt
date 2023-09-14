@@ -268,15 +268,7 @@ class ApplicationCore : Application() {
             // Add more entities as needed
         )
        seedVendorTable(vendorEntitiesToSeed)
-        val testUser =
-        Entities.User(
-            username = "test",
-        email = "test@myuct.ac.za",
-         phone = "079 999 2559",
-         password = "test",
-         type = "Student",
-         rewardPoints = 0
-        )
+
         //seedTestUser(testUser)
     }
 
