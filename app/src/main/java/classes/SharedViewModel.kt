@@ -3,6 +3,7 @@ package classes
 //this holds all the shared view models needed
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -22,24 +23,42 @@ class UserViewModel : ViewModel() {
     var user: Entities.User? = null
     private val userRepository: UserRepository = UserRepository()
     private val _userRewardPoints = MutableLiveData<Int>()
+    private val _userTotalPoints = MutableLiveData<Int>()
 
     val userRewardPoints: LiveData<Int>
         get() = _userRewardPoints
+
+    val userTotalPoints: LiveData<Int>
+        get() = _userTotalPoints
 
     fun updateUserRewardPoints(userId: Long, rewardPointsToAdd: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             userRepository.updateUserRewardPoints(userId, rewardPointsToAdd)
 
             val updatedRewardPoints = _userRewardPoints.value?.plus(rewardPointsToAdd) ?: rewardPointsToAdd
+            val updatedTotalPoints = _userTotalPoints.value?.plus(rewardPointsToAdd) ?: rewardPointsToAdd
+            _userRewardPoints.postValue(updatedRewardPoints)
+            _userTotalPoints.postValue(updatedTotalPoints)
+        }
+    }
+
+    fun resetUserRewardPoints(userId: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            userRepository.resetPoints(userId)
+
+            val updatedRewardPoints = 0
             _userRewardPoints.postValue(updatedRewardPoints)
         }
     }
+
 
     // Load the user's initial reward points from the database
     fun loadUserInitialRewardPoints(userId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             val initialRewardPoints = userRepository.getUserRewardPoints(userId)
+            val initialTotalPoints = userRepository.getUserTotalPoints(userId)
             _userRewardPoints.postValue(initialRewardPoints)
+            _userTotalPoints.postValue(initialTotalPoints)
         }
     }
 
@@ -51,7 +70,9 @@ class GuestViewModel : ViewModel() {
 }
 
 class VendorViewModel : ViewModel(){
+    var user: Entities.User? = null
     var vendor: Entities.Vendor? = null
+    var isVendor: Boolean = false
     private val vendorRepository: VendorRepository = VendorRepository()
     private val _ratingLiveData = MutableLiveData<Float?>()
 

@@ -18,7 +18,7 @@
         app:layout_constraintVertical_bias="0.4"
         >
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -31,52 +31,77 @@
                 android:layout_height="wrap_content"
                 android:text="Your Rewards"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/earnedRewardsText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Earned Points:"
-                android:textSize="18sp" />
+                android:text="Current Points Earned:"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rewardsTitle" />
 
             <TextView
                 android:id="@+id/rewardAmt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
-                android:textSize="18sp" />
+                android:textColor="@color/nicegreen"
+                android:layout_marginTop="14dp"
+                android:textSize="26sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/earnedRewardsText" />
+
 
             <TextView
-                android:id="@+id/claimInstructions"
+                android:id="@+id/goodNewsText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Where do you want to spend your voucher?"
-                android:textSize="15sp" />
+                android:gravity="center"
+                android:text="Good news! You have enough points for a voucher"
+                android:textSize="15sp"
+                android:layout_marginTop="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rewardAmt" />
 
-            <Spinner
-                android:id="@+id/vendorSpinner"
-                android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/vendor_type_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="305dp"
                 android:layout_height="wrap_content"
-                android:entries="@array/vendor_names" />
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/goodNewsText">
+
+                <AutoCompleteTextView
+                    android:id="@+id/vendor_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:hint="Choose vendor" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/claimButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="16dp"
                 android:backgroundTint="@color/nicegreen"
                 android:text="Claim Voucher"
-                android:textColor="@android:color/white" />
-
-            <Button
-                android:id="@+id/qrButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Scan QR"/>
-        </LinearLayout>
+                android:textColor="@android:color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.476"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vendor_type_layout" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>

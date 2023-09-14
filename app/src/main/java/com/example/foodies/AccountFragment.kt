@@ -70,9 +70,9 @@ class AccountFragment : Fragment() {
             phoneTextView?.text = user?.phone
 
 
-            userViewModel.userRewardPoints.observe(viewLifecycleOwner) { rewardPoints ->
+            userViewModel.userTotalPoints.observe(viewLifecycleOwner) { totalPoints ->
                 if (rewardTextView != null) {
-                    rewardTextView.text = rewardPoints.toString()
+                    rewardTextView.text = totalPoints.toString()
                 }
             }
 

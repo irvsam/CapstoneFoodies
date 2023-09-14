@@ -2,6 +2,7 @@ package com.example.foodies
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -14,6 +15,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import classes.Entities
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -40,14 +42,26 @@ class RegisterActivity: AppCompatActivity() {
         val passwordEditText = findViewById<EditText>(R.id.password_input)
         val passwordRepeatEditText = findViewById<EditText>(R.id.password_repeat_input)
         val registerButton = findViewById<Button>(R.id.register_btn)
+        val vendorIdLayout = findViewById<TextInputLayout>(R.id.vendorID_layout)
+        val vendorIdText = findViewById<EditText>(R.id.vendorID_input)
+        vendorIdLayout.visibility = View.GONE
+
         autoCompleteUserTextView = findViewById<AutoCompleteTextView>(R.id.user_type_input)
-        adapterItems = ArrayAdapter<String>(this,R.layout.list_user_types,userTypes)
+        adapterItems = ArrayAdapter<String>(this,R.layout.list_user_types,userTypes) // Use userTypes as the various clickable options in drop down menu
         autoCompleteUserTextView.setAdapter(adapterItems)
         autoCompleteUserTextView.onItemClickListener = AdapterView.OnItemClickListener{
             adapterView,view,i,l->
 
             val itemSelected = adapterView.getItemAtPosition(i)
             Toast.makeText(this,"Account type: $itemSelected",Toast.LENGTH_SHORT).show()
+            if (itemSelected=="Vendor"){ // If user is a vendor they must give an associated vendorID
+                Log.d("IF clause","entered")
+                vendorIdLayout.visibility=View.VISIBLE
+            }
+            else{  // If user is not a vendor then Vendor ID must not be displayed to them
+                vendorIdLayout.visibility=View.GONE
+                //vendorIdText.setText("-1L")
+            }
         }
 
         registerButton.setOnClickListener {
@@ -58,6 +72,11 @@ class RegisterActivity: AppCompatActivity() {
             val password = passwordEditText.text.toString()
             val passwordRepeat = passwordRepeatEditText.text.toString()
             val userType = autoCompleteUserTextView.text.toString()
+            var vendorID:Long = -1
+            if(userType=="Vendor") {
+                vendorID = (vendorIdText.text.toString()).toLong()
+            }
+
 
             //TODO: validate passwords, username, and email (no duplicates, passwords match, etc)
 
@@ -68,7 +87,9 @@ class RegisterActivity: AppCompatActivity() {
                 phone = phone,
                 password = password,
                 type = userType,
-                rewardPoints = 0)
+                vendorId = vendorID,
+                rewardPoints = 0,
+                totalOverAllPoints = 0)
 
             if (validateRegistrationInput(username, email, phone, password, passwordRepeat)) {
                 // registration is successful

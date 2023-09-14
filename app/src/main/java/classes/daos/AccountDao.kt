@@ -16,6 +16,9 @@ interface AccountDao {
     @Query("SELECT * FROM user WHERE email = :email AND password = :password")
     suspend fun getUserByEmailAndPassword(email: String, password: String): Entities.User?
 
+    @Query("SELECT vendor.* FROM vendor INNER JOIN user ON vendor.id=user.vendorId WHERE user.vendorId=:vendorId")
+    suspend fun getVendorStore(vendorId: Long?): Entities.Vendor?
+
     @Query("SELECT * FROM user WHERE email = :email AND username = :username")
     suspend fun getUserByEmailAndUsername(email: String, username: String): Entities.User?
 
@@ -29,5 +32,10 @@ interface AccountDao {
 
     @Query("SELECT rewardPoints FROM User WHERE id = :userId")
     suspend fun getUserRewardPoints(userId: Long): Int
+
+    @Query("SELECT totalOverAllPoints FROM User WHERE id = :userId")
+    suspend fun getUserOverallPoints(userId: Long): Int
+
+
 
 }
