@@ -70,7 +70,9 @@ class GuestViewModel : ViewModel() {
 }
 
 class VendorViewModel : ViewModel(){
+    var user: Entities.User? = null
     var vendor: Entities.Vendor? = null
+    var isVendor: Boolean = false
     private val vendorRepository: VendorRepository = VendorRepository()
     private val _ratingLiveData = MutableLiveData<Float?>()
 

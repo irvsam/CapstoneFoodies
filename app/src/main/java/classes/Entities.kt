@@ -19,6 +19,7 @@ class Entities {
         val phone: String,
         val password: String,
         val type: String,
+        val vendorId: Long?,
         var rewardPoints: Int,
         var totalOverAllPoints: Int
     )
@@ -46,7 +47,7 @@ class Entities {
         val name: String,
         val cuisine: String,
         @ColumnInfo(name = "menu_id") val menuId: Long,
-        val rating: Float? = null,
+        val rating: String = "no reviews yet",
         @ColumnInfo(name = "openTime") val openTime: String,
         @ColumnInfo(name = "closeTime") val closeTime: String,
         @ColumnInfo(name = "dietaryReq_id") val dietaryReqId: Long,

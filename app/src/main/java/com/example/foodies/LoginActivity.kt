@@ -73,6 +73,10 @@ class LoginActivity : AppCompatActivity() {
                         intent.putExtra("user_name", user.username)
                         intent.putExtra("user_email", user.email)
 
+                        if(user.type=="Vendor"){
+                            intent.putExtra("is_vendor",true)
+                        }
+
                         startActivity(intent)
 
                     } else {

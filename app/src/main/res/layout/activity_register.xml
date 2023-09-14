@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -126,7 +129,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintLeft_toLeftOf="@id/password_layout"
         app:layout_constraintRight_toRightOf="@id/password_layout"
-        app:layout_constraintTop_toBottomOf="@+id/user_type_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/vendorID_layout" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/user_type_layout"
@@ -148,5 +151,25 @@
             android:hint="Choose user type" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/vendorID_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintLeft_toLeftOf="@id/email_layout"
+        app:layout_constraintRight_toRightOf="@id/email_layout"
+        app:layout_constraintTop_toBottomOf="@id/user_type_layout"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/vendorID_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Vendor ID" />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
