@@ -17,6 +17,7 @@ import classes.VendorViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Date
 
 class LeaveReviewFragment : Fragment() {
 
@@ -69,6 +70,7 @@ class LeaveReviewFragment : Fragment() {
                     userId = user!!.id,
                     vendorId = vendor!!.id,
                     text = userReview,
+                    timestamp = System.currentTimeMillis(),
                     overAllRating = average,
                     quality = qualityRating,
                     cleanliness = cleanlinessRating,

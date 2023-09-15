@@ -39,6 +39,17 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/timestampTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Timestamp"
+                android:textColor="@color/grey"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="@+id/userName"
+                app:layout_constraintStart_toEndOf="@+id/userName"
+                app:layout_constraintTop_toTopOf="@+id/userName" />
+
+            <TextView
                 android:id="@+id/commentTextView"
                 android:layout_width="354dp"
                 android:layout_height="34dp"
@@ -145,6 +156,7 @@
                 android:id="@+id/imageView13"
                 android:layout_width="28dp"
                 android:layout_height="26dp"
+                app:layout_constraintBottom_toTopOf="@+id/ratingBar"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/dot" />

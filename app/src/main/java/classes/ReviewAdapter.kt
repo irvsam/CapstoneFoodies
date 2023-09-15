@@ -14,6 +14,9 @@ import com.example.foodies.ApplicationCore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.w3c.dom.Text
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class ReviewAdapter(private val reviews: MutableList<Entities.Review?>, private val lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<ReviewAdapter.ViewHolder>() {
 
@@ -39,6 +42,7 @@ class ReviewAdapter(private val reviews: MutableList<Entities.Review?>, private 
         private val friendliness: TextView = itemView.findViewById(R.id.friendlinessRatingTextView)
         private val efficiency: TextView = itemView.findViewById(R.id.efficiencyRatingTextView)
         private val comment: TextView = itemView.findViewById(R.id.commentTextView)
+        private val timestamp: TextView = itemView.findViewById(R.id.timestampTextView)
         // Bind review data to the UI elements here
         fun bind(review: Entities.Review?) {
             if(review!=null){
@@ -54,7 +58,10 @@ class ReviewAdapter(private val reviews: MutableList<Entities.Review?>, private 
                     }
                 }
 
+                val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm")
+                val formattedDate = dateFormat.format(Date(review.timestamp))
                 ratingBar.rating = review.overAllRating
+                timestamp.text = formattedDate
                 quality.text= review.quality.toString()
                 cleanliness.text = review.cleanliness.toString()
                 friendliness.text = review.friendliness.toString()
