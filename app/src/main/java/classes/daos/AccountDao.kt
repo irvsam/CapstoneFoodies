@@ -36,6 +36,13 @@ interface AccountDao {
     @Query("SELECT totalOverAllPoints FROM User WHERE id = :userId")
     suspend fun getUserOverallPoints(userId: Long): Int
 
+    @Query("SELECT COUNT(*) FROM User WHERE email = :email")
+    fun getCountByEmail(email: String): Int
 
+    @Query("SELECT COUNT(*) FROM User WHERE phone = :phone")
+    fun getCountByPhone(phone: String): Int
+
+    @Query("SELECT COUNT(*) FROM User WHERE username = :username")
+    fun getCountByUsername(username: String): Int
 
 }
