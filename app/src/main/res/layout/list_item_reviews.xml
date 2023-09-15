@@ -43,10 +43,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Timestamp"
+                android:layout_marginEnd="10dp"
                 android:textColor="@color/grey"
                 android:textSize="11sp"
                 app:layout_constraintBottom_toBottomOf="@+id/userName"
-                app:layout_constraintStart_toEndOf="@+id/userName"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/userName" />
 
             <TextView
