@@ -26,7 +26,9 @@ class ReviewAdapter(private val reviews: MutableList<Entities.Review?>, private 
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val review = reviews[position]
+        // Calculate the reverse position to display the latest review on top
+        val reversePosition = itemCount - 1 - position
+        val review = reviews[reversePosition]
         holder.bind(review)
     }
 
