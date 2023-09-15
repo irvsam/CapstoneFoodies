@@ -68,6 +68,7 @@ class ReviewAdapter(private val reviews: MutableList<Entities.Review?>, private 
                 timestamp.text = formattedDate
                 comment.text = review.text
 
+                if(comment.text.isEmpty()){comment.visibility = View.GONE}
 
                 // Check each rating and hide the corresponding TextView if it's 0.0
                 if (review.quality.toDouble() == 0.0) {

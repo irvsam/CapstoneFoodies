@@ -21,59 +21,60 @@
         android:outlineAmbientShadowColor="@color/grey"
         >
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="205dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/userName"
+            <LinearLayout
+                android:id="@+id/titleLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView13"
+                    android:layout_width="28dp"
+                    android:layout_height="26dp"
+                    android:layout_marginTop="7dp"
+                    app:srcCompat="@drawable/dot" />
+
+                <TextView
+                    android:id="@+id/userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="username"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/timestampTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="150dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="Timestamp"
+                    android:textColor="@color/grey"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+
+            <RatingBar
+                android:id="@+id/ratingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:padding="5dp"
-                android:text="username"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/imageView13"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/timestampTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Timestamp"
-                android:layout_marginEnd="10dp"
-                android:textColor="@color/grey"
-                android:textSize="11sp"
-                app:layout_constraintBottom_toBottomOf="@+id/userName"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/userName" />
-
-
-            <TextView
-                android:id="@+id/commentTextView"
-                android:layout_width="354dp"
-                android:layout_height="34dp"
-                android:layout_marginBottom="24dp"
-                android:text="no comment"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.578"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:progressTint="#FFC107" />
 
             <LinearLayout
                 android:id="@+id/ratingsLayout"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintBottom_toTopOf="@+id/commentTextView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-
-                app:layout_constraintTop_toBottomOf="@+id/ratingBar"
-                app:layout_constraintVertical_bias="0.0">
+                android:layout_marginBottom="24dp">
 
                 <TextView
                     android:id="@+id/qualityRatingTextView"
@@ -81,9 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text=""
-                    android:textSize="9sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+                    android:textSize="9sp" />
 
                 <TextView
                     android:id="@+id/foodQualityTextView"
@@ -91,10 +90,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:text="Food Quality"
-                    android:textSize="10sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/qualityRatingTextView"
-                    app:layout_constraintStart_toEndOf="@+id/qualityRatingTextView"
-                    app:layout_constraintTop_toTopOf="@+id/qualityRatingTextView" />
+                    android:textSize="10sp" />
 
                 <TextView
                     android:id="@+id/cleanlinessRatingTextView"
@@ -102,9 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:text=""
-                    android:textSize="9sp"
-                    app:layout_constraintStart_toEndOf="@+id/foodQualityTextView"
-                    app:layout_constraintTop_toTopOf="@+id/qualityRatingTextView" />
+                    android:textSize="9sp" />
 
                 <TextView
                     android:id="@+id/cleanlinessTextView"
@@ -112,10 +106,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:text="Cleanliness"
-                    android:textSize="10sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/cleanlinessRatingTextView"
-                    app:layout_constraintStart_toEndOf="@+id/cleanlinessRatingTextView"
-                    app:layout_constraintTop_toTopOf="@+id/cleanlinessRatingTextView" />
+                    android:textSize="10sp" />
 
                 <TextView
                     android:id="@+id/friendlinessRatingTextView"
@@ -123,9 +114,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:text=""
-                    android:textSize="9sp"
-                    app:layout_constraintStart_toEndOf="@+id/cleanlinessTextView"
-                    app:layout_constraintTop_toTopOf="@+id/cleanlinessRatingTextView" />
+                    android:textSize="9sp" />
 
                 <TextView
                     android:id="@+id/friendlinessTextView"
@@ -133,10 +122,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:text="Friendliness"
-                    android:textSize="10sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/friendlinessRatingTextView"
-                    app:layout_constraintStart_toEndOf="@+id/friendlinessRatingTextView"
-                    app:layout_constraintTop_toTopOf="@+id/friendlinessRatingTextView" />
+                    android:textSize="10sp" />
 
                 <TextView
                     android:id="@+id/efficiencyRatingTextView"
@@ -144,9 +130,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:text=""
-                    android:textSize="9sp"
-                    app:layout_constraintStart_toEndOf="@+id/friendlinessTextView"
-                    app:layout_constraintTop_toTopOf="@+id/friendlinessRatingTextView" />
+                    android:textSize="9sp" />
 
                 <TextView
                     android:id="@+id/efficiencyTextView"
@@ -154,31 +138,19 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:text="Efficiency"
-                    android:textSize="10sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/efficiencyRatingTextView"
-                    app:layout_constraintStart_toEndOf="@+id/efficiencyRatingTextView"
-                    app:layout_constraintTop_toTopOf="@+id/efficiencyRatingTextView" />
+                    android:textSize="10sp" />
 
             </LinearLayout>
 
-            <RatingBar
-                android:id="@+id/ratingBar"
-                android:progressTint="#FFC107"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/commentTextView"
+                android:layout_width="354dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/userName" />
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="24dp"
+                android:text="no comment" />
 
-            <ImageView
-                android:id="@+id/imageView13"
-                android:layout_width="28dp"
-                android:layout_height="26dp"
-                app:layout_constraintBottom_toTopOf="@+id/ratingBar"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/dot" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
+
