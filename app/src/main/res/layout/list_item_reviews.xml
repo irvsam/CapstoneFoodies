@@ -50,100 +50,116 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/userName" />
 
+
             <TextView
                 android:id="@+id/commentTextView"
                 android:layout_width="354dp"
                 android:layout_height="34dp"
+                android:layout_marginBottom="24dp"
                 android:text="no comment"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.578"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/ratingsLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/commentTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="Food Quality"
-                android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="@+id/qualityRatingTextView"
-                app:layout_constraintStart_toEndOf="@+id/qualityRatingTextView"
-                app:layout_constraintTop_toTopOf="@+id/qualityRatingTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/ratingBar"
+                app:layout_constraintVertical_bias="0.0">
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="Cleanliness"
-                android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="@+id/cleanlinessRatingTextView"
-                app:layout_constraintStart_toEndOf="@+id/cleanlinessRatingTextView"
-                app:layout_constraintTop_toTopOf="@+id/cleanlinessRatingTextView" />
+                <TextView
+                    android:id="@+id/qualityRatingTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text=""
+                    android:textSize="9sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="Friendliness"
-                android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="@+id/friendlinessRatingTextView"
-                app:layout_constraintStart_toEndOf="@+id/friendlinessRatingTextView"
-                app:layout_constraintTop_toTopOf="@+id/friendlinessRatingTextView" />
+                <TextView
+                    android:id="@+id/foodQualityTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="Food Quality"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/qualityRatingTextView"
+                    app:layout_constraintStart_toEndOf="@+id/qualityRatingTextView"
+                    app:layout_constraintTop_toTopOf="@+id/qualityRatingTextView" />
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="Efficiency"
-                android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="@+id/efficiencyRatingTextView"
-                app:layout_constraintStart_toEndOf="@+id/efficiencyRatingTextView"
-                app:layout_constraintTop_toTopOf="@+id/efficiencyRatingTextView" />
+                <TextView
+                    android:id="@+id/cleanlinessRatingTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text=""
+                    android:textSize="9sp"
+                    app:layout_constraintStart_toEndOf="@+id/foodQualityTextView"
+                    app:layout_constraintTop_toTopOf="@+id/qualityRatingTextView" />
 
-            <TextView
-                android:id="@+id/qualityRatingTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
-                android:text=""
-                android:textSize="9sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+                <TextView
+                    android:id="@+id/cleanlinessTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="Cleanliness"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/cleanlinessRatingTextView"
+                    app:layout_constraintStart_toEndOf="@+id/cleanlinessRatingTextView"
+                    app:layout_constraintTop_toTopOf="@+id/cleanlinessRatingTextView" />
 
-            <TextView
-                android:id="@+id/efficiencyRatingTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:text=""
-                android:textSize="9sp"
-                app:layout_constraintStart_toEndOf="@+id/textView5"
-                app:layout_constraintTop_toTopOf="@+id/friendlinessRatingTextView" />
+                <TextView
+                    android:id="@+id/friendlinessRatingTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text=""
+                    android:textSize="9sp"
+                    app:layout_constraintStart_toEndOf="@+id/cleanlinessTextView"
+                    app:layout_constraintTop_toTopOf="@+id/cleanlinessRatingTextView" />
 
-            <TextView
-                android:id="@+id/friendlinessRatingTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:text=""
-                android:textSize="9sp"
-                app:layout_constraintStart_toEndOf="@+id/textView4"
-                app:layout_constraintTop_toTopOf="@+id/cleanlinessRatingTextView" />
+                <TextView
+                    android:id="@+id/friendlinessTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="Friendliness"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/friendlinessRatingTextView"
+                    app:layout_constraintStart_toEndOf="@+id/friendlinessRatingTextView"
+                    app:layout_constraintTop_toTopOf="@+id/friendlinessRatingTextView" />
 
-            <TextView
-                android:id="@+id/cleanlinessRatingTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:text=""
-                android:textSize="9sp"
-                app:layout_constraintStart_toEndOf="@+id/textView3"
-                app:layout_constraintTop_toTopOf="@+id/qualityRatingTextView" />
+                <TextView
+                    android:id="@+id/efficiencyRatingTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text=""
+                    android:textSize="9sp"
+                    app:layout_constraintStart_toEndOf="@+id/friendlinessTextView"
+                    app:layout_constraintTop_toTopOf="@+id/friendlinessRatingTextView" />
+
+                <TextView
+                    android:id="@+id/efficiencyTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="Efficiency"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/efficiencyRatingTextView"
+                    app:layout_constraintStart_toEndOf="@+id/efficiencyRatingTextView"
+                    app:layout_constraintTop_toTopOf="@+id/efficiencyRatingTextView" />
+
+            </LinearLayout>
 
             <RatingBar
                 android:id="@+id/ratingBar"

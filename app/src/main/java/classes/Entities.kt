@@ -117,7 +117,7 @@ class Entities {
         val quality: Float,
         val cleanliness: Float,
         val friendliness: Float,
-        val efficiency: Float
+        val efficiency: Float,
 
     )
 
