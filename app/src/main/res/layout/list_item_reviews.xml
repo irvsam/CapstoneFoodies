@@ -38,6 +38,7 @@
                     android:layout_width="28dp"
                     android:layout_height="26dp"
                     android:layout_marginTop="7dp"
+                    android:layout_marginStart="0dp"
                     app:srcCompat="@drawable/dot" />
 
                 <TextView
@@ -54,11 +55,11 @@
                     android:id="@+id/timestampTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="150dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="128dp"
+                    android:layout_marginEnd="5dp"
                     android:text="Timestamp"
                     android:textColor="@color/grey"
-                    android:textSize="11sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -67,6 +68,7 @@
                 android:id="@+id/ratingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:progressTint="#FFC107" />
 
             <LinearLayout
@@ -82,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text=""
-                    android:textSize="9sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/foodQualityTextView"
@@ -90,15 +92,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:text="Food Quality"
-                    android:textSize="10sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/cleanlinessRatingTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
+                    android:layout_marginStart="16dp"
                     android:text=""
-                    android:textSize="9sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/cleanlinessTextView"
@@ -106,15 +108,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:text="Cleanliness"
-                    android:textSize="10sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/friendlinessRatingTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
+                    android:layout_marginStart="16dp"
                     android:text=""
-                    android:textSize="9sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/friendlinessTextView"
@@ -122,15 +124,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:text="Friendliness"
-                    android:textSize="10sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/efficiencyRatingTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
+                    android:layout_marginStart="16dp"
                     android:text=""
-                    android:textSize="9sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/efficiencyTextView"
@@ -138,7 +140,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:text="Efficiency"
-                    android:textSize="10sp" />
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
@@ -147,8 +149,9 @@
                 android:layout_width="354dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
-                android:layout_marginStart="24dp"
-                android:text="no comment" />
+                android:layout_marginStart="16dp"
+                android:textSize="20sp"
+                android:text="no comment"/>
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
