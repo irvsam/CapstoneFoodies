@@ -13,6 +13,7 @@
         android:text="@string/your_store"
         android:textColor="@color/black"
         android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/menuItemsRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -46,12 +47,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/menuItemsRecyclerView"
         android:layout_width="355dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="164dp"
+        android:layout_height="400dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vendorStoreNameTextView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/menuHeading"
@@ -62,7 +62,8 @@
         android:text="@string/menu"
         android:textSize="22sp"
         app:layout_constraintBottom_toTopOf="@+id/menuItemsRecyclerView"
-        app:layout_constraintStart_toStartOf="@+id/menuItemsRecyclerView" />
+        app:layout_constraintStart_toStartOf="@+id/menuItemsRecyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/vendorStoreNameTextView" />
 
     <ImageButton
         android:id="@+id/addItemButton"
@@ -71,6 +72,7 @@
         android:backgroundTint="@color/white"
         android:scaleType="centerCrop"
         android:src="@drawable/add"
+        app:layout_constraintBottom_toTopOf="@+id/storeReviewScoreTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.085"
         app:layout_constraintStart_toStartOf="parent"
