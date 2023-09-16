@@ -5,7 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,10 +28,9 @@ class ManagementFragment: Fragment() {
     private var vendor: Entities.Vendor? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("Entry","Entered the mangementFrag")
+        Log.d("Entry","Entered the managementFrag")
         menuItemViewModel = ViewModelProvider(requireActivity())[MenuItemViewModel::class.java]
         vendorViewModel = ViewModelProvider(requireActivity())[VendorViewModel::class.java]
-        loadMenuItems()
     }
 
     override fun onCreateView(
@@ -36,31 +38,24 @@ class ManagementFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_management, container, false)
+        val view = inflater.inflate(R.layout.fragment_management, container, false)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("ENTERED", "Created")
         val itemAdapter = MenuItemAdapter(menuItemViewModel.menuItems,this)
         val recyclerView:RecyclerView = view.findViewById(R.id.menuItemsRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = itemAdapter
-    }
-
-    private fun loadMenuItems(){
-        CoroutineScope(Dispatchers.IO).launch {
-            val menuItems = menuItemViewModel.menuItems
-            withContext(Dispatchers.Main){
-                /*if(menuItemViewModel.menuItems.isEmpty()){
-                    if (menuItems.isNotEmpty()){
-                        for(item in menuItems){
-                            Log.d("Item",item!!.name)
-                            menuItemViewModel.menuItems.add(item)
-                        }
-                    }
-                }*/
-            }
+        Log.d("ENTERED", "Created")
+        val addItemButton = view.findViewById<ImageButton>(R.id.addItemButton)
+        addItemButton.setOnClickListener{
+            val addItemFragment = AddItemFragment()
+            addItemFragment.show(requireFragmentManager(),"addItemDialog")
         }
+        Log.d("ENTERED", "Created")
     }
 }
 
