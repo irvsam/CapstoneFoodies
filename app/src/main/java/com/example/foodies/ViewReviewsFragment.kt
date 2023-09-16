@@ -44,7 +44,8 @@ class ViewReviewsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        // Sort the reviews list by timestamp in descending order (latest first)
+        reviewViewModel.reviewList.sortByDescending { it?.timestamp }
         val itemAdapter= ReviewAdapter(reviewViewModel.reviewList, this)
         val recyclerView:RecyclerView=view.findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(context)

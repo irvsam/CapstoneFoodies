@@ -17,6 +17,7 @@ import classes.VendorViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Date
 
 class LeaveReviewFragment : Fragment() {
 
@@ -55,47 +56,71 @@ class LeaveReviewFragment : Fragment() {
             val cleanlinessRating = cleanlinessRatingBar.rating
             val friendlinessRating = friendlinessRatingBar.rating
             val efficiencyRating = efficiencyRatingBar.rating
-            val total = qualityRating+cleanlinessRating+friendlinessRating+efficiencyRating
-            val average = total/4
+
+            val filledRatings = listOf(
+                qualityRating,
+                cleanlinessRating,
+                friendlinessRating,
+                efficiencyRating
+            )
+
+            // Count how many rating bars were filled
+            val numberOfRatings = filledRatings.count { it > 0 }
+            if (numberOfRatings > 1) {
+                // Calculate the average rating based on the filled ratings
+                val total = filledRatings.sum()
+                val average = total / numberOfRatings
 
 
-            val userReview = reviewText.text.toString()
-            userViewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
-            vendorViewModel = ViewModelProvider(requireActivity())[VendorViewModel::class.java]
-            user = userViewModel.user
-            vendor = vendorViewModel.vendor
-            if(user!=null) {
-                val review = Entities.Review(
-                    userId = user!!.id,
-                    vendorId = vendor!!.id,
-                    text = userReview,
-                    overAllRating = average,
-                    quality = qualityRating,
-                    cleanliness = cleanlinessRating,
-                    friendliness = friendlinessRating,
-                    efficiency = efficiencyRating
+                val userReview = reviewText.text.toString()
+                userViewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
+                vendorViewModel = ViewModelProvider(requireActivity())[VendorViewModel::class.java]
+                user = userViewModel.user
+                vendor = vendorViewModel.vendor
+                if (user != null) {
+                    val review = Entities.Review(
+                        userId = user!!.id,
+                        vendorId = vendor!!.id,
+                        text = userReview,
+                        timestamp = System.currentTimeMillis(),
+                        overAllRating = average,
+                        quality = qualityRating,
+                        cleanliness = cleanlinessRating,
+                        friendliness = friendlinessRating,
+                        efficiency = efficiencyRating
 
-                )
+                    )
 
-                // Launch a coroutine to insert the review into the database
-                lifecycleScope.launch {
-                    insertReviewIntoDatabase(review)
-                    Toast.makeText(requireContext(),"review submitted",Toast.LENGTH_SHORT).show()
-                    // Navigate back to the previous fragment
+                    // Launch a coroutine to insert the review into the database
+                    lifecycleScope.launch {
+                        insertReviewIntoDatabase(review)
+                        Toast.makeText(requireContext(), "review submitted", Toast.LENGTH_SHORT)
+                            .show()
+                        // Navigate back to the previous fragment
 
-                    withContext(Dispatchers.IO) {
-                        userViewModel.updateUserRewardPoints(user!!.id, 10)
+                        withContext(Dispatchers.IO) {
+                            userViewModel.updateUserRewardPoints(user!!.id, 10)
+                        }
+                        withContext(Dispatchers.IO) {
+                            ApplicationCore.database.vendorDao()
+                                .updateVendorAverageRating(vendor!!.id)
+                            val newRating = ApplicationCore.database.vendorDao()
+                                .calculateAverageRating(vendorViewModel.vendor!!.id)
+                            vendorViewModel.updateRating(newRating)
+                        }
+
+                        requireActivity().supportFragmentManager.popBackStack()
                     }
-                    withContext(Dispatchers.IO) {
-                        ApplicationCore.database.vendorDao().updateVendorAverageRating(vendor!!.id)
-                        val newRating = ApplicationCore.database.vendorDao().calculateAverageRating(vendorViewModel.vendor!!.id)
-                        vendorViewModel.updateRating(newRating)
-                    }
-
-                    requireActivity().supportFragmentManager.popBackStack()
                 }
-            }
 
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    "Please rate at least two aspects.",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            }
         }
 
         return rootView

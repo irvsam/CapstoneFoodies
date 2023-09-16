@@ -113,11 +113,12 @@ class Entities {
         @ColumnInfo(name = "user_id") val userId: Long,
         @ColumnInfo(name = "vendor_id") val vendorId: Long,
         val text: String,
+        val timestamp: Long,
         val overAllRating: Float,
         val quality: Float,
         val cleanliness: Float,
         val friendliness: Float,
-        val efficiency: Float
+        val efficiency: Float,
 
     )
 
