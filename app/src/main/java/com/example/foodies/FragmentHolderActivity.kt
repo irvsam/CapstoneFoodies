@@ -54,8 +54,6 @@ class FragmentHolderActivity : AppCompatActivity() {
         val actionBar: ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
-
-
         //Initialize the bottom navigation view
         //create bottom navigation view object
 
@@ -85,6 +83,7 @@ class FragmentHolderActivity : AppCompatActivity() {
             navController.graph = navGraph
             bottomNavigationView.menu.removeItem(R.id.rewardsFragment)
             bottomNavigationView.menu.removeItem(R.id.managementFragment)
+
 
         }
 
