@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    >
 
     <TextView
         android:id="@+id/addItemHeading"
@@ -13,6 +14,7 @@
         android:textSize="20dp"
         android:textStyle="bold"
         android:padding="10dp"
+        android:layout_marginStart="5dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -20,9 +22,11 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/itemNameLayout"
-        android:layout_width="409dp"
+        android:layout_width="390dp"
         android:layout_height="wrap_content"
         android:padding="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/addItemHeading">
@@ -36,8 +40,9 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/itemPriceLayout"
-        android:layout_width="409dp"
+        android:layout_width="390dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,4 +54,13 @@
             android:layout_height="wrap_content"
             android:hint="Item price(R)" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_marginStart="5dp"
+        android:text="Add Item"
+        app:layout_constraintStart_toStartOf="@id/itemPriceLayout"
+        app:layout_constraintTop_toBottomOf="@+id/itemPriceLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>
