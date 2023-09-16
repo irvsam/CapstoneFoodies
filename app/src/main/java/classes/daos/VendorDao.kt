@@ -22,7 +22,7 @@ interface VendorDao {
     @Query("SELECT * FROM menuitem WHERE menu_id = :id")
     suspend fun getMenuItemsByMenuId(id: Long?): List<Entities.MenuItem?>
 
-    @Query("SELECT AVG(overAllRating) FROM review WHERE vendor_id = :vendorId")
+    @Query("SELECT ROUND(AVG(overAllRating), 2) FROM review WHERE vendor_id = :vendorId")
     fun calculateAverageRating(vendorId: Long): Float?
 
     @Transaction
