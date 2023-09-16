@@ -38,7 +38,6 @@ class UserViewModel : ViewModel() {
 
     fun updateUserVoucher(userId: Long, newVoucherCode: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            Log.d(TAG, "updating in view model")
             userRepository.updateUserVoucher(userId, newVoucherCode)
             _userVoucher.postValue(newVoucherCode)
         }
@@ -72,6 +71,11 @@ class UserViewModel : ViewModel() {
             val initialTotalPoints = userRepository.getUserTotalPoints(userId)
             _userRewardPoints.postValue(initialRewardPoints)
             _userTotalPoints.postValue(initialTotalPoints)
+        }
+    }
+    fun updateUserDetails(user: Entities.User) {
+        viewModelScope.launch(Dispatchers.IO) {
+            userRepository.updateUser(user)
         }
     }
 

@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import classes.Entities
 import classes.GuestViewModel
 import classes.SharedViewModel
@@ -38,11 +40,12 @@ class AccountFragment : Fragment() {
 
         setUserDetails()
         setSignOutButton()
+
     }
 
 
     private fun setSignOutButton(){
-
+            //setting the logic for signing out
         val signOutButton = view?.findViewById<Button>(R.id.signout_button)
 
         signOutButton?.setOnClickListener {
@@ -54,6 +57,7 @@ class AccountFragment : Fragment() {
 
         }
     }
+
     private fun setUserDetails(){
         // Initialize the UserViewModel
         userViewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
@@ -70,18 +74,25 @@ class AccountFragment : Fragment() {
             val rewardTextView = view?.findViewById<TextView>(R.id.rewardTextView)
             val rewardRowTitle = view?.findViewById<TextView>(R.id.rewardRowTitle)
             val voucherTextView = view?.findViewById<TextView>(R.id.voucherTextView)
+            val voucherRowTitle = view?.findViewById<TextView>(R.id.voucherRowTitle)
+            val editButton = view?.findViewById<ImageButton>(R.id.edit_button)
 
-            if(vendor?.type=="Vendor"){
+            if(vendor?.type=="Vendor"){ // user is a vendor
                 rewardRowTitle?.visibility=View.GONE
                 rewardTextView?.visibility=View.GONE
                 nameTextView?.text = vendor?.username
                 emailTextView?.text = vendor?.email
                 phoneTextView?.text = vendor?.phone
+                voucherTextView?.visibility = View.GONE
+                voucherRowTitle?.visibility = View.GONE
+                editButton?.visibility = View.GONE
+
             }
-            else {
+            else { // user is not a vendor
                 nameTextView?.text = user?.username
                 emailTextView?.text = user?.email
                 phoneTextView?.text = user?.phone
+
                 // Observe changes to the active voucher code
                 userViewModel.userVoucher.observe(viewLifecycleOwner) { voucherCode ->
                     if (voucherTextView != null) {
@@ -94,8 +105,7 @@ class AccountFragment : Fragment() {
                 if (userId != null) {
                     userViewModel.loadUserInitialVoucher(userId)
                 }
-
-
+                //observe changes to reward points
                 userViewModel.userTotalPoints.observe(viewLifecycleOwner) { totalPoints ->
                     if (rewardTextView != null) {
                         rewardTextView.text = totalPoints.toString()
@@ -106,7 +116,23 @@ class AccountFragment : Fragment() {
                 if (userId != null) {
                     userViewModel.loadUserInitialRewardPoints(userId)
                 }
+
+                editButton?.setOnClickListener {
+                    //edit account details (only username and phone number)
+                    val navController = findNavController()
+                    navController.navigate(R.id.editDetailsFragment)
+
+
+                }
+
+
+
             }
+
+
+
+
+
 
 
         }

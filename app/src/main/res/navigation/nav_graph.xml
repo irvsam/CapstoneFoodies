@@ -42,5 +42,9 @@
         android:name="com.example.foodies.QRFragment"
         android:label="activity_scanner"
         tools:layout="@layout/fragment_qr"/>
+    <fragment
+        android:id="@+id/editDetailsFragment"
+        android:name="com.example.foodies.EditDetailsFragment"
+        android:label="EditDetailsFragment" />
 
 </navigation>

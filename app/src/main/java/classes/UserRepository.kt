@@ -28,6 +28,9 @@ class UserRepository() {
         }
     }
 
+    suspend fun updateUser(user: Entities.User) {
+        ApplicationCore.database.accountDao().updateUser(user)
+    }
 
 
     fun getUserLiveData(): LiveData<Entities.User?> {
