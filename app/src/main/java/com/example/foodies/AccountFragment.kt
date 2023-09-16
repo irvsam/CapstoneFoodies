@@ -78,14 +78,16 @@ class AccountFragment : Fragment() {
             val editButton = view?.findViewById<ImageButton>(R.id.edit_button)
 
             if(vendor?.type=="Vendor"){ // user is a vendor
+
                 rewardRowTitle?.visibility=View.GONE
                 rewardTextView?.visibility=View.GONE
-                nameTextView?.text = vendor?.username
-                emailTextView?.text = vendor?.email
-                phoneTextView?.text = vendor?.phone
                 voucherTextView?.visibility = View.GONE
                 voucherRowTitle?.visibility = View.GONE
                 editButton?.visibility = View.GONE
+                nameTextView?.text = vendor?.username
+                emailTextView?.text = vendor?.email
+                phoneTextView?.text = vendor?.phone
+
 
             }
             else { // user is not a vendor

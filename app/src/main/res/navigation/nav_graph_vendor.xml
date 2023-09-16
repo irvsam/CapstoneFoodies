@@ -33,6 +33,10 @@
         android:id="@+id/leaveReviewFragment"
         android:name="com.example.foodies.LeaveReviewFragment"
         android:label="LeaveReviewFragment" />
+    <fragment
+        android:id="@+id/viewReviewsFragment"
+        android:name="com.example.foodies.ViewReviewsFragment"
+        android:label="ViewReviewsFragment" />
 
 
 </navigation>
