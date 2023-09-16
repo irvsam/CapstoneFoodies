@@ -35,7 +35,7 @@ class FragmentHolderActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        populateStores()
+
         setContentView(R.layout.activity_fragment_holder)
 
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
@@ -139,22 +139,6 @@ class FragmentHolderActivity : AppCompatActivity() {
         }
     }
 
-    private fun populateStores() {
 
-        CoroutineScope(Dispatchers.IO).launch {
-            Log.d(ContentValues.TAG,"populating the stores" )
-            val allStores = ApplicationCore.database.vendorDao().getAllVendors()
-            withContext(Dispatchers.Main){
-                if (storeViewModel.storeList.isEmpty()) {
-                    if(allStores.isNotEmpty()){
-                        for (store in allStores){
-                            storeViewModel.storeList.add(store)
-                        }
-                    }
-                }
-            }
-
-        }
-    }
 
 }

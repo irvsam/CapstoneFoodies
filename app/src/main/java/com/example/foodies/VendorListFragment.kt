@@ -1,5 +1,6 @@
 package com.example.foodies
 
+import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
@@ -28,6 +29,7 @@ import classes.VendorViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
@@ -47,6 +49,19 @@ class VendorListFragment : Fragment(), StoreClickListener{
         Log.d(TAG, "Fragment onCreate() called")
         storeViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         vendorViewModel =  ViewModelProvider(requireActivity())[VendorViewModel::class.java]
+
+        Log.d(TAG, "list before thread: ${storeViewModel.storeList}")
+
+        while(storeViewModel.storeList.isEmpty()){
+        CoroutineScope(Dispatchers.IO).launch {
+            Log.d(TAG, "in thread")
+            //get the stores from the database
+            storeViewModel.getStores()
+        }}
+        Log.d(TAG, "list after thread: ${storeViewModel.storeList}")
+
+
+
 
     }
     override fun onCreateView(
@@ -69,7 +84,6 @@ class VendorListFragment : Fragment(), StoreClickListener{
         // adapter instance is set to the recyclerview to inflate the items.
         recyclerView.adapter = itemAdapter
     }
-
 
 
 

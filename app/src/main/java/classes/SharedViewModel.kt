@@ -11,12 +11,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import classes.Store
+import com.example.foodies.ApplicationCore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 //store list view model
 class SharedViewModel : ViewModel() {
-    val storeList = mutableListOf<Entities.Vendor?>()
+    var storeList = mutableListOf<Entities.Vendor?>()
+
+    suspend fun getStores(){
+        val allStores = ApplicationCore.database.vendorDao().getAllVendors()
+        storeList = allStores.toMutableList()
+    }
 }
 // this is to store user details
 class UserViewModel : ViewModel() {
