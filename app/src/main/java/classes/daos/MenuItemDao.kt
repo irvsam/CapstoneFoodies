@@ -18,4 +18,7 @@ interface MenuItemDao {
 
     @Query("SELECT * FROM menuitem WHERE menu_id = :menuId")
     suspend fun getMenuItemsByMenuId(menuId: Long):MutableList<Entities.MenuItem?>
+
+    @Query("SELECT * FROM menuitem ORDER BY id DESC LIMIT 1")
+    suspend fun getLastMenuItem(): Entities.MenuItem
 }
