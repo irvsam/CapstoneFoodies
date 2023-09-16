@@ -93,5 +93,8 @@ class VendorViewModel : ViewModel(){
 
 class ReviewViewModel: ViewModel(){
     val reviewList = mutableListOf<Entities.Review?>()
+}
 
+class MenuItemViewModel: ViewModel(){
+    var menuItems = mutableListOf<Entities.MenuItem?>()
 }

@@ -12,4 +12,10 @@ interface MenuItemDao {
 
     @Query("SELECT * FROM menuItem WHERE id = :id")
     suspend fun getMenuItemById(id: Long): Entities.MenuItem?
+
+    @Query("SELECT * FROM menuitem")
+    suspend fun getAllMenuItems(): List<Entities.MenuItem?>
+
+    @Query("SELECT * FROM menuitem WHERE menu_id = :menuId")
+    suspend fun getMenuItemsByMenuId(menuId: Long):MutableList<Entities.MenuItem?>
 }
