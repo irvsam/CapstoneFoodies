@@ -1,6 +1,7 @@
 package com.example.foodies
 
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -13,7 +14,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import classes.Entities
@@ -33,6 +36,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
 
         val registerLinkTextView = findViewById<TextView>(R.id.registerLink)
 

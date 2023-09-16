@@ -36,6 +36,7 @@ interface AccountDao {
     @Query("SELECT totalOverAllPoints FROM User WHERE id = :userId")
     suspend fun getUserOverallPoints(userId: Long): Int
 
+
     @Query("SELECT COUNT(*) FROM User WHERE email = :email")
     fun getCountByEmail(email: String): Int
 
@@ -44,5 +45,11 @@ interface AccountDao {
 
     @Query("SELECT COUNT(*) FROM User WHERE username = :username")
     fun getCountByUsername(username: String): Int
+
+    @Query("SELECT currentVoucher FROM User WHERE id = :userId")
+    suspend fun getUserVoucher(userId: Long): String?
+
+    @Query("UPDATE user SET currentVoucher = :voucherCode WHERE id = :userId")
+    suspend fun setUserVoucher(userId: Long, voucherCode: String)
 
 }

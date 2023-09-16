@@ -1,6 +1,8 @@
 package classes
 
 import android.app.Application
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import classes.daos.AccountDao
@@ -19,6 +21,14 @@ class UserRepository() {
             ApplicationCore.database.accountDao().updateUser(user)
         }
     }
+    suspend fun updateUserVoucher(userId: Long, voucherCode: String) {
+        val user = ApplicationCore.database.accountDao().getUserById(userId)
+        if (user != null) {
+            ApplicationCore.database.accountDao().setUserVoucher(user.id,voucherCode)
+        }
+    }
+
+
 
     fun getUserLiveData(): LiveData<Entities.User?> {
         return userLiveData
@@ -31,6 +41,10 @@ class UserRepository() {
 
     suspend fun getUserTotalPoints(userId: Long): Int {
         return accountDao.getUserOverallPoints(userId)
+    }
+
+    suspend fun getUserVoucher(userId:Long): String?{
+        return accountDao.getUserVoucher(userId)
     }
 
     suspend fun resetPoints(userId: Long) {

@@ -16,6 +16,7 @@ import classes.GuestViewModel
 import classes.SharedViewModel
 import classes.UserViewModel
 import classes.VendorViewModel
+import org.w3c.dom.Text
 
 
 class AccountFragment : Fragment() {
@@ -68,6 +69,7 @@ class AccountFragment : Fragment() {
             val phoneTextView = view?.findViewById<TextView>(R.id.phoneTextView)
             val rewardTextView = view?.findViewById<TextView>(R.id.rewardTextView)
             val rewardRowTitle = view?.findViewById<TextView>(R.id.rewardRowTitle)
+            val voucherTextView = view?.findViewById<TextView>(R.id.voucherTextView)
 
             if(vendor?.type=="Vendor"){
                 rewardRowTitle?.visibility=View.GONE
@@ -80,6 +82,19 @@ class AccountFragment : Fragment() {
                 nameTextView?.text = user?.username
                 emailTextView?.text = user?.email
                 phoneTextView?.text = user?.phone
+                // Observe changes to the active voucher code
+                userViewModel.userVoucher.observe(viewLifecycleOwner) { voucherCode ->
+                    if (voucherTextView != null) {
+                        if(voucherCode!=null)
+                        {voucherTextView.text = voucherCode}
+                    }
+                }
+                //load initial voucher
+                val userId = userViewModel.user?.id
+                if (userId != null) {
+                    userViewModel.loadUserInitialVoucher(userId)
+                }
+
 
                 userViewModel.userTotalPoints.observe(viewLifecycleOwner) { totalPoints ->
                     if (rewardTextView != null) {
@@ -88,7 +103,6 @@ class AccountFragment : Fragment() {
                 }
 
                 // Load the user's initial reward points from the database
-                val userId = userViewModel.user?.id
                 if (userId != null) {
                     userViewModel.loadUserInitialRewardPoints(userId)
                 }

@@ -132,6 +132,7 @@ class RewardsFragment: Fragment()  {
         val userId = userViewModel.user?.id // Replace with the actual user ID
         if (userId != null) {
             userViewModel.loadUserInitialRewardPoints(userId)
+
         }
 
 
@@ -142,8 +143,12 @@ class RewardsFragment: Fragment()  {
                 Toast.makeText(requireContext(), "Choose a vendor first", Toast.LENGTH_SHORT).show()
             } else {
                 // Show a notification when the button is clicked
-                Toast.makeText(requireContext(), "Voucher has been sent to your e-mail", Toast.LENGTH_SHORT).show()
+                //create a voucher code  that has the first three letters of the selectedVendor followed by 6 random digits
+                val voucherCode = generateVoucherCode(selectedVendor)
+                Log.d(TAG, "created voucher $voucherCode.")
+                Toast.makeText(requireContext(), "Voucher has been sent to your e-mail and added to your account", Toast.LENGTH_SHORT).show()
                 resetPoints()
+                updateVoucher(voucherCode)
             }
         }
 
@@ -152,12 +157,30 @@ class RewardsFragment: Fragment()  {
 
     }
 
+    private fun updateVoucher(v: String){
+        val userId = userViewModel.user?.id // Replace with the actual user ID
+        if (userId != null) {
+            userViewModel.updateUserVoucher(userId,v)
+            Log.d(TAG, "updating voucher to $v")
+        }
+
+    }
     private fun resetPoints() {
         val userId = userViewModel.user?.id // Replace with the actual user ID
         if (userId != null) {
             userViewModel.resetUserRewardPoints(userId)
         }
     }
+
+    private fun generateVoucherCode(vendorName: String): String {
+        // Extract the first two letters from the vendor name
+        val firstThreeLetters = vendorName.substring(0, 3)
+        // Generate 6 random digits
+        val randomDigits = (100_000..999_999).random()
+        // Combine the first two letters and random digits to create the voucher code
+        return "$firstThreeLetters$randomDigits"
+    }
+
 
 }
 

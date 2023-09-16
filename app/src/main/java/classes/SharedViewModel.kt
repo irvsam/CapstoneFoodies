@@ -3,6 +3,7 @@ package classes
 //this holds all the shared view models needed
 
 import android.app.Application
+import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -25,11 +26,23 @@ class UserViewModel : ViewModel() {
     private val _userRewardPoints = MutableLiveData<Int>()
     private val _userTotalPoints = MutableLiveData<Int>()
 
+    private val _userVoucher = MutableLiveData<String?>()
+    val userVoucher: LiveData<String?>
+        get() = _userVoucher
+
     val userRewardPoints: LiveData<Int>
         get() = _userRewardPoints
 
     val userTotalPoints: LiveData<Int>
         get() = _userTotalPoints
+
+    fun updateUserVoucher(userId: Long, newVoucherCode: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            Log.d(TAG, "updating in view model")
+            userRepository.updateUserVoucher(userId, newVoucherCode)
+            _userVoucher.postValue(newVoucherCode)
+        }
+    }
 
     fun updateUserRewardPoints(userId: Long, rewardPointsToAdd: Int) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -59,6 +72,13 @@ class UserViewModel : ViewModel() {
             val initialTotalPoints = userRepository.getUserTotalPoints(userId)
             _userRewardPoints.postValue(initialRewardPoints)
             _userTotalPoints.postValue(initialTotalPoints)
+        }
+    }
+
+    fun loadUserInitialVoucher(userId: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val initialVoucher = userRepository.getUserVoucher(userId)
+            _userVoucher.postValue(initialVoucher)
         }
     }
 

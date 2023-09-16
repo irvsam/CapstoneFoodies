@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="104dp"
         android:text="@string/your_account_details"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,17 +22,17 @@
         android:id="@+id/tableLayout"
         android:layout_width="337dp"
         android:layout_height="199dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView2">
+        app:layout_constraintTop_toBottomOf="@+id/accLabel">
 
         <TableRow>
 
             <TextView
                 android:layout_width="74dp"
                 android:layout_height="31dp"
-                android:text="@string/name"
+                android:text="Username"
                 android:textStyle="bold" />
 
             <TextView
@@ -55,12 +56,13 @@
                 android:layout_height="match_parent"
                 android:text="@string/users_email" />
         </TableRow>
+
         <TableRow>
 
             <TextView
                 android:layout_width="124dp"
                 android:layout_height="31dp"
-                android:text="phone number"
+                android:text="Phone number"
                 android:textStyle="bold" />
 
             <TextView
@@ -69,7 +71,9 @@
                 android:layout_height="match_parent"
                 android:text="users phone number" />
         </TableRow>
+
         <TableRow>
+
             <TextView
                 android:id="@+id/rewardRowTitle"
                 android:layout_width="124dp"
@@ -84,30 +88,50 @@
                 android:text="users reward points" />
         </TableRow>
 
+        <TableRow>
+
+            <TextView
+                android:id="@+id/voucherRowTitle"
+                android:layout_width="124dp"
+                android:layout_height="48dp"
+                android:text="Active voucher code"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/voucherTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="currently no code to show" />
+        </TableRow>
+
     </TableLayout>
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="147dp"
-        android:layout_height="153dp"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/accLabel"
-        app:srcCompat="@drawable/acc"
-        />
 
     <Button
         android:id="@+id/signout_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="124dp"
+        android:layout_height="59dp"
         android:backgroundTint="@color/white"
-        android:textColor="@color/nicegreen"
         android:text="@string/sign_out"
+        android:textColor="@color/nicegreen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tableLayout"
         app:layout_constraintTop_toBottomOf="@+id/tableLayout"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.072" />
+
+    <ImageButton
+        android:id="@+id/edit_button"
+        android:layout_width="59dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="2dp"
+        android:backgroundTint="@color/white"
+        android:outlineAmbientShadowColor="@color/grey"
+        android:scaleType="centerCrop"
+        android:src="@drawable/edit"
+        app:layout_constraintBottom_toBottomOf="@+id/accLabel"
+        app:layout_constraintStart_toEndOf="@+id/accLabel"
+        app:layout_constraintTop_toTopOf="@+id/accLabel"
+        app:tint="@color/nicegreen" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
