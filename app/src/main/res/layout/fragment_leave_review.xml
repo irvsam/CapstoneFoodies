@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:numStars="5"
             android:rating="0"
-            android:stepSize="1" />
+            android:stepSize="0.5" />
 
         <!-- Cleanliness Rating -->
         <TextView
@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:numStars="5"
             android:rating="0"
-            android:stepSize="1" />
+            android:stepSize="0.5" />
 
         <!-- Friendliness Rating -->
         <TextView
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:numStars="5"
             android:rating="0"
-            android:stepSize="1" />
+            android:stepSize="0.5" />
 
         <!-- Efficiency Rating -->
         <TextView
@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:numStars="5"
             android:rating="0"
-            android:stepSize="1" />
+            android:stepSize="0.5" />
 
         <EditText
             android:id="@+id/reviewText"

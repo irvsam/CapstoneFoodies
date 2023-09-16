@@ -6,12 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import classes.VendorViewModel
 import com.google.zxing.integration.android.IntentIntegrator
 import com.google.zxing.integration.android.IntentResult
 
 
 class QRFragment : Fragment() {
+
+    private lateinit var vendorViewModel: VendorViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,18 +42,21 @@ class QRFragment : Fragment() {
                 // The scan was successful
                 // scannedResult should be the name of a vendor
                 val scannedResult = result.contents
-                /**
-                 * If scannedResult is the name of the right vendor
-                     * 1. Log the scan
-                     * 2. Take user to review creation page
-                 * Else
-                    * 1. Inform user the wrong QR has been scanned
-                 *
-                 * **/
+
+                vendorViewModel = ViewModelProvider(requireActivity())[VendorViewModel::class.java]
+                val vendorName = vendorViewModel.vendor?.name
+                if(scannedResult==vendorName)
+                {
                 // Display success signal
                 showToast("$scannedResult code scanned successfully")
                 val navController = findNavController()
-                navController.navigate(R.id.leaveReviewFragment)
+                navController.navigate(R.id.leaveReviewFragment)}
+
+                else{
+                    showToast("Incorrect code. Please scan the code for $vendorName")
+                    val navController = findNavController()
+                    navController.navigate(R.id.leaveReviewFragment)}
+
             } else {
                 // The scan was successful, but the scanned contents are empty.
                 // This can happen if the user cancels the scan or if there was an issue with the QR code.
