@@ -61,7 +61,6 @@ class LoginActivity : AppCompatActivity() {
             emailEditedText = findViewById(R.id.email_input)
             passwordEditedText = findViewById(R.id.password_input)
 
-            // Navigate to MainActivity
             val email = emailEditedText.text.toString()
             val password = passwordEditedText.text.toString()
 
@@ -92,9 +91,9 @@ class LoginActivity : AppCompatActivity() {
         }
         val guestButton = findViewById<Button>(R.id.guestCont_btn)
         guestButton.setOnClickListener {
-            val intent = Intent(this, FragmentHolderActivity::class.java)
-            intent.putExtra("is_guest", true)
-            startActivity(intent)
+            val guestIntent = Intent(this@LoginActivity, FragmentHolderActivity::class.java)
+            guestIntent.putExtra("is_guest", true)
+            startActivity(guestIntent)
         }
     }
         private fun showToast(message: String) {

@@ -1,6 +1,7 @@
 package com.example.foodies
 
 
+import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -33,8 +34,8 @@ class FragmentHolderActivity : AppCompatActivity() {
     private lateinit var menuItemViewModel: MenuItemViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
+        populateStores()
         setContentView(R.layout.activity_fragment_holder)
 
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
@@ -53,8 +54,12 @@ class FragmentHolderActivity : AppCompatActivity() {
         val actionBar: ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
+
+
         //Initialize the bottom navigation view
         //create bottom navigation view object
+
+        Log.d(ContentValues.TAG, "setting up the nav bar")
         val bottomNavigationView = findViewById<BottomNavigationView
                 >(R.id.bottomNavigationView)
         val navController = findNavController(R.id.nav_fragment)
@@ -63,6 +68,7 @@ class FragmentHolderActivity : AppCompatActivity() {
         if(!isGuest && !isVendor) { //if they logged in then set the user view model
             bottomNavigationView.menu.removeItem(R.id.managementFragment)
             setUser()
+            Log.d(ContentValues.TAG, "not guest or vendor")
         }
         else if (vendorViewModel.isVendor){
             setVendor()
@@ -74,11 +80,12 @@ class FragmentHolderActivity : AppCompatActivity() {
         }
 
         else if (guestViewModel.isGuest) {
+            Log.d(ContentValues.TAG, "guest")
             val navGraph = navController.navInflater.inflate(R.navigation.nav_graph_guest)
             navController.graph = navGraph
-            // Remove the "Rewards" menu item
             bottomNavigationView.menu.removeItem(R.id.rewardsFragment)
             bottomNavigationView.menu.removeItem(R.id.managementFragment)
+
         }
 
     }
@@ -130,6 +137,24 @@ class FragmentHolderActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+    }
+
+    private fun populateStores() {
+
+        CoroutineScope(Dispatchers.IO).launch {
+            Log.d(ContentValues.TAG,"populating the stores" )
+            val allStores = ApplicationCore.database.vendorDao().getAllVendors()
+            withContext(Dispatchers.Main){
+                if (storeViewModel.storeList.isEmpty()) {
+                    if(allStores.isNotEmpty()){
+                        for (store in allStores){
+                            storeViewModel.storeList.add(store)
+                        }
+                    }
+                }
+            }
+
         }
     }
 

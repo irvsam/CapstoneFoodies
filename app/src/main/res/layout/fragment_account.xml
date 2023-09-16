@@ -78,7 +78,7 @@
                 android:id="@+id/rewardRowTitle"
                 android:layout_width="124dp"
                 android:layout_height="48dp"
-                android:text="Total reward  points earned"
+                android:text="Reward point history"
                 android:textStyle="bold" />
 
             <TextView

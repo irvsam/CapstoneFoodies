@@ -1,6 +1,8 @@
 package com.example.foodies
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,6 +33,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import java.lang.StringBuilder
 import java.sql.Time
+import kotlin.properties.Delegates
 
 
 class VendorListFragment : Fragment(), StoreClickListener{
@@ -41,9 +44,9 @@ class VendorListFragment : Fragment(), StoreClickListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG, "Fragment onCreate() called")
         storeViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         vendorViewModel =  ViewModelProvider(requireActivity())[VendorViewModel::class.java]
-        populateStores()
 
     }
     override fun onCreateView(
@@ -58,8 +61,7 @@ class VendorListFragment : Fragment(), StoreClickListener{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // Assign employeelist to ItemAdapter
+        // Assign store list to ItemAdapter
         val itemAdapter= Adapter(storeViewModel.storeList, this,this)
         // Set the LayoutManager that this RecyclerView will use.
         val recyclerView:RecyclerView=view.findViewById(R.id.recycler_view)
@@ -68,21 +70,7 @@ class VendorListFragment : Fragment(), StoreClickListener{
         recyclerView.adapter = itemAdapter
     }
 
-    private fun populateStores() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val allStores = ApplicationCore.database.vendorDao().getAllVendors()
-            withContext(Dispatchers.Main){
-                if (storeViewModel.storeList.isEmpty()) {
-                if(allStores.isNotEmpty()){
-                    for (store in allStores){
-                        storeViewModel.storeList.add(store)
-                    }
-                }
-            }
-        }
 
-    }
-    }
 
 
 
