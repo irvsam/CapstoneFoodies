@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import classes.Entities
 import classes.MenuItemAdapter
 import classes.MenuItemViewModel
 import classes.UserViewModel
@@ -20,12 +21,13 @@ import kotlinx.coroutines.withContext
 
 class ManagementFragment: Fragment() {
     private lateinit var menuItemViewModel : MenuItemViewModel
-    private lateinit var userViewModel : UserViewModel
+    private lateinit var vendorViewModel : VendorViewModel
+    private var vendor: Entities.Vendor? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("Entry","Entered the mangementFrag")
         menuItemViewModel = ViewModelProvider(requireActivity())[MenuItemViewModel::class.java]
-        userViewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
+        vendorViewModel = ViewModelProvider(requireActivity())[VendorViewModel::class.java]
         loadMenuItems()
     }
 
@@ -39,7 +41,7 @@ class ManagementFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val itemAdapter = MenuItemAdapter(menuItemViewModel.menuItems)
+        val itemAdapter = MenuItemAdapter(menuItemViewModel.menuItems,this)
         val recyclerView:RecyclerView = view.findViewById(R.id.menuItemsRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = itemAdapter
@@ -47,19 +49,16 @@ class ManagementFragment: Fragment() {
 
     private fun loadMenuItems(){
         CoroutineScope(Dispatchers.IO).launch {
-            Log.d("Entered","loadMenuItems")
-            val menuItems = ApplicationCore.database.menuItemDao().getAllMenuItems()
-            Log.d("VendorID",userViewModel.user?.id.toString())
-            Log.d("Passed",menuItems.size.toString())
+            val menuItems = menuItemViewModel.menuItems
             withContext(Dispatchers.Main){
-                if(menuItemViewModel.menuItems.isEmpty()){
+                /*if(menuItemViewModel.menuItems.isEmpty()){
                     if (menuItems.isNotEmpty()){
                         for(item in menuItems){
                             Log.d("Item",item!!.name)
                             menuItemViewModel.menuItems.add(item)
                         }
                     }
-                }
+                }*/
             }
         }
     }

@@ -121,9 +121,12 @@ class FragmentHolderActivity : AppCompatActivity() {
 
                 withContext(Dispatchers.Main) {
                     if (user != null) {
-                        val vendorViewModel = ViewModelProvider(this@FragmentHolderActivity)[VendorViewModel::class.java]
+                        vendorViewModel = ViewModelProvider(this@FragmentHolderActivity)[VendorViewModel::class.java]
                         vendorViewModel.user = user
+                        Log.d("User",user.username)
                         vendorViewModel.vendor = ApplicationCore.database.accountDao().getVendorStore(user.vendorId)
+                        menuItemViewModel.menuItems = ApplicationCore.database.menuItemDao().getMenuItemsByMenuId(vendorViewModel.vendor!!.menuId)
+                        Log.d("Vendor Store",vendorViewModel.vendor!!.name)
                     }
                 }
             }
