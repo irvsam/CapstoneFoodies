@@ -45,7 +45,7 @@ class ManagementFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("ENTERED", "Created")
-        val itemAdapter = MenuItemAdapter(menuItemViewModel.menuItems,this,this)
+        val itemAdapter = MenuItemAdapter(menuItemViewModel.menuItems,this)
         val recyclerView:RecyclerView = view.findViewById(R.id.menuItemsRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = itemAdapter
