@@ -45,17 +45,15 @@ class ManagementFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("ENTERED", "Created")
-        val itemAdapter = MenuItemAdapter(menuItemViewModel.menuItems,this)
+        val itemAdapter = MenuItemAdapter(menuItemViewModel.menuItems,this,this)
         val recyclerView:RecyclerView = view.findViewById(R.id.menuItemsRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = itemAdapter
-        Log.d("ENTERED", "Created")
         val addItemButton = view.findViewById<ImageButton>(R.id.addItemButton)
         addItemButton.setOnClickListener{
             val addItemFragment = AddItemFragment()
             addItemFragment.show(requireFragmentManager(),"addItemDialog")
         }
-        Log.d("ENTERED", "Created")
     }
 }
 

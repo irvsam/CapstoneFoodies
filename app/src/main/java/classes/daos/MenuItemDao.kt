@@ -1,6 +1,7 @@
 package classes.daos
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import classes.Entities
@@ -21,4 +22,7 @@ interface MenuItemDao {
 
     @Query("SELECT * FROM menuitem ORDER BY id DESC LIMIT 1")
     suspend fun getLastMenuItem(): Entities.MenuItem
+
+    @Delete
+    suspend fun deleteItem(menuItem:Entities.MenuItem?)
 }
