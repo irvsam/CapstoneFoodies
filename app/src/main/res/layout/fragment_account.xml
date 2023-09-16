@@ -70,8 +70,8 @@
                 android:text="users phone number" />
         </TableRow>
         <TableRow>
-
             <TextView
+                android:id="@+id/rewardRowTitle"
                 android:layout_width="124dp"
                 android:layout_height="48dp"
                 android:text="Total reward  points earned"

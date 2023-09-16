@@ -14,6 +14,7 @@ import androidx.navigation.NavGraphNavigator
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import classes.GuestViewModel
+import classes.MenuItemViewModel
 import classes.SharedViewModel
 import classes.UserViewModel
 import classes.VendorViewModel
@@ -29,6 +30,7 @@ class FragmentHolderActivity : AppCompatActivity() {
     private lateinit var vendorViewModel: VendorViewModel
     private lateinit var guestViewModel: GuestViewModel
     private lateinit var storeViewModel: SharedViewModel
+    private lateinit var menuItemViewModel: MenuItemViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -39,6 +41,7 @@ class FragmentHolderActivity : AppCompatActivity() {
         guestViewModel = ViewModelProvider(this)[GuestViewModel::class.java]
         vendorViewModel = ViewModelProvider(this)[VendorViewModel::class.java]
         storeViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
+        menuItemViewModel = ViewModelProvider(this)[MenuItemViewModel::class.java]
 
         val isGuest = intent.getBooleanExtra("is_guest", false)
         val isVendor = intent.getBooleanExtra("is_vendor",false)
@@ -118,9 +121,12 @@ class FragmentHolderActivity : AppCompatActivity() {
 
                 withContext(Dispatchers.Main) {
                     if (user != null) {
-                        val vendorViewModel = ViewModelProvider(this@FragmentHolderActivity)[VendorViewModel::class.java]
+                        vendorViewModel = ViewModelProvider(this@FragmentHolderActivity)[VendorViewModel::class.java]
                         vendorViewModel.user = user
+                        Log.d("User",user.username)
                         vendorViewModel.vendor = ApplicationCore.database.accountDao().getVendorStore(user.vendorId)
+                        menuItemViewModel.menuItems = ApplicationCore.database.menuItemDao().getMenuItemsByMenuId(vendorViewModel.vendor!!.menuId)
+                        Log.d("Vendor Store",vendorViewModel.vendor!!.name)
                     }
                 }
             }
