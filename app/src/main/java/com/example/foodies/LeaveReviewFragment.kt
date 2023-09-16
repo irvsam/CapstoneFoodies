@@ -11,6 +11,7 @@ import android.widget.RatingBar
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import classes.Entities
 import classes.UserViewModel
 import classes.VendorViewModel
@@ -109,7 +110,8 @@ class LeaveReviewFragment : Fragment() {
                             vendorViewModel.updateRating(newRating)
                         }
 
-                        requireActivity().supportFragmentManager.popBackStack()
+                        val navController = findNavController()
+                        navController.navigate(R.id.storeDetailsFragment)
                     }
                 }
 
