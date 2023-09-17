@@ -108,7 +108,7 @@
         app:layout_constraintStart_toStartOf="@+id/guestCont_btn"
         app:layout_constraintTop_toTopOf="@+id/login_title"
         app:srcCompat="@drawable/logo"
-        app:tint="@color/nicegreen" />
+         />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
