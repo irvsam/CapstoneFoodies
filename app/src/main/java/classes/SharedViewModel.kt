@@ -123,10 +123,26 @@ class ReviewViewModel: ViewModel(){
 
 //this is for handling the logged on vendor
 class VendorManagementViewModel: ViewModel(){
+    private val vendorRepository: VendorRepository = VendorRepository()
+    private val _ratingLiveData = MutableLiveData<Float?>()
     var isVendor: Boolean = false
     var user: Entities.User? = null //this will be the vendor user who is logged on
     var vendor: Entities.Vendor? = null
     var menuItems = mutableListOf<Entities.MenuItem?>()
+
+    val ratingLiveData: LiveData<Float?>
+        get() = _ratingLiveData
+
+    fun loadVendorInitialRating(vendorId: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val initialVendorRating = vendorRepository.getVendorRating(vendorId)
+            _ratingLiveData.postValue(initialVendorRating)
+        }
+    }
+
+    fun updateRating(rating: Float?) {
+        _ratingLiveData.postValue(rating)
+    }
 
     suspend fun setVendor(){
         vendor = ApplicationCore.database.accountDao().getVendorStore(user?.vendorId)

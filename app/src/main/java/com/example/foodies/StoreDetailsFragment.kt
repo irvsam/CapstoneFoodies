@@ -95,9 +95,7 @@ class StoreDetailsFragment : Fragment() {
                     }
 
                     val vendorId = store.id
-                    if (vendorId != null) {
-                        storeViewModel.loadVendorInitialRating(vendorId)
-                    }
+                    storeViewModel.loadVendorInitialRating(vendorId)
 
                     reviewTextView.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                     reviewTextView.setOnClickListener {
