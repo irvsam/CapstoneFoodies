@@ -57,15 +57,12 @@ class ManagementFragment: Fragment() {
             if (isLoading) {
                 // still loading so do nothing
             } else {
-
-
                 val vendorUser = vendorManagementViewModel.vendor
                 if (vendorUser != null) {
                     storeName.text = vendorUser.name
+                }
                     CoroutineScope(Dispatchers.IO).launch {
-                        val numReviews =
-                            ApplicationCore.database.vendorDao()
-                                .getReviewCountForVendor(vendorUser!!.id)
+                        val numReviews = ApplicationCore.database.vendorDao().getReviewCountForVendor(vendorUser!!.id)
                         withContext(Dispatchers.Main) {
 
                             vendorManagementViewModel.ratingLiveData.observe(viewLifecycleOwner) { rating ->
@@ -103,7 +100,7 @@ class ManagementFragment: Fragment() {
                             }
                         }
                     }
-                }
+
             }
 
         }

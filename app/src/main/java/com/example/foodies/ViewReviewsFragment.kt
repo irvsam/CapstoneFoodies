@@ -1,6 +1,8 @@
 package com.example.foodies
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import classes.adapters.ReviewAdapter
 import classes.ReviewViewModel
 import classes.StoreViewModel
+import classes.VendorManagementViewModel
 import com.example.foodies.databaseManagement.ApplicationCore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +24,7 @@ class ViewReviewsFragment : Fragment() {
 
     private lateinit var reviewsRecyclerView: RecyclerView
     private lateinit var storeViewModel: StoreViewModel
+    private lateinit var vendorManagementViewModel: VendorManagementViewModel
     private lateinit var reviewViewModel: ReviewViewModel
 
 
@@ -28,9 +32,19 @@ class ViewReviewsFragment : Fragment() {
         super.onCreate(savedInstanceState)
         storeViewModel =  ViewModelProvider(requireActivity())[StoreViewModel::class.java]
         reviewViewModel =  ViewModelProvider(requireActivity())[ReviewViewModel::class.java]
+        vendorManagementViewModel = ViewModelProvider(requireActivity())[VendorManagementViewModel::class.java]
+        Log.d(TAG, "view reviews oncreate called")
+
+        val vendorId:Long
+        if(vendorManagementViewModel.isVendor){
+            Log.d(TAG, "view reviews oncreate called for vendor")
+            vendorId = vendorManagementViewModel.vendor!!.id
+        }
+        else {vendorId = storeViewModel.vendor!!.id
+            Log.d(TAG, "view reviews oncreate called for user")}
 
         //get all reviews from database and populate the review list
-        populateReviews()
+        populateReviews(vendorId)
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,21 +67,19 @@ class ViewReviewsFragment : Fragment() {
 
 
 
-    private fun populateReviews(){
+    private fun populateReviews(id: Long){
+        Log.d(TAG, "view reviews populating")
             CoroutineScope(Dispatchers.IO).launch {
-                val id = storeViewModel.vendor?.id
-                if(id!=null) {
-                    val allReviews = ApplicationCore.database.reviewDao().getReviewsByVendorId(id)
-                    withContext(Dispatchers.Main) {
-                        //clear it each time
-                            reviewViewModel.reviewList.clear()
-                            if (allReviews.isNotEmpty()) {
-                                for (review in allReviews) {
-                                   reviewViewModel.reviewList.add(review)
-                                }
+                val allReviews = ApplicationCore.database.reviewDao().getReviewsByVendorId(id)
+                withContext(Dispatchers.Main) {
+                    //clear it each time
+                        reviewViewModel.reviewList.clear()
+                        if (allReviews.isNotEmpty()) {
+                            for (review in allReviews) {
+                               reviewViewModel.reviewList.add(review)
                             }
+                        }
 
-                    }
                 }
 
             }
