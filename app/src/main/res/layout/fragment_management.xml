@@ -1,13 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-<androidx.constraintlayout.widget.ConstraintLayout
 
-    android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
     android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="41dp"
+        android:layout_height="36dp"
+        android:src="@drawable/star"
+        app:layout_constraintStart_toStartOf="@+id/vendorStoreNameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/vendorStoreNameTextView"
+        app:tint="#FFC107" />
+
+    <TextView
+        android:id="@+id/viewReviewsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="no reviews yet"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <TextView
+        android:id="@+id/numReviewsTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="( )"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/viewReviewsTextView"
+        app:layout_constraintStart_toEndOf="@+id/viewReviewsTextView"
+        app:layout_constraintTop_toTopOf="@+id/viewReviewsTextView" />
 
     <TextView
         android:id="@+id/vendorStoreNameTextView"
@@ -15,39 +44,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="4dp"
-        android:text="@string/your_store"
+        android:text="Your Store:"
         android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/menuItemsRecyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <TextView
-        android:id="@+id/storeReviewScoreTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
-        android:layout_marginEnd="244dp"
-        android:text="@string/averagerating"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
-        app:layout_constraintStart_toStartOf="@+id/menuItemsRecyclerView"
-        app:layout_constraintTop_toBottomOf="@+id/menuItemsRecyclerView" />
-
-    <TextView
-        android:id="@+id/viewCommentsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/view_reviews"
-        android:textColor="@color/nicegreen"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/storeReviewScoreTextView"
-        app:layout_constraintTop_toBottomOf="@+id/storeReviewScoreTextView" />
+        app:layout_constraintStart_toStartOf="@+id/menuHeading"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.33" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/menuItemsRecyclerView"
@@ -55,21 +58,20 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/menuHeading"
+        app:layout_constraintVertical_bias="0.316" />
 
     <TextView
         android:id="@+id/menuHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginTop="44dp"
         android:text="@string/menu"
         android:textSize="22sp"
-        app:layout_constraintBottom_toTopOf="@+id/menuItemsRecyclerView"
         app:layout_constraintStart_toStartOf="@+id/menuItemsRecyclerView"
-        app:layout_constraintTop_toBottomOf="@+id/vendorStoreNameTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <ImageButton
         android:id="@+id/addItemButton"
@@ -78,12 +80,24 @@
         android:backgroundTint="@color/white"
         android:scaleType="centerCrop"
         android:src="@drawable/add"
-        app:layout_constraintBottom_toTopOf="@+id/storeReviewScoreTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.085"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/menuItemsRecyclerView" />
 
+    <TextView
+        android:id="@+id/storeNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="store name"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/vendorStoreNameTextView"
+        app:layout_constraintStart_toEndOf="@+id/vendorStoreNameTextView"
+        app:layout_constraintTop_toTopOf="@+id/vendorStoreNameTextView" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+
 
