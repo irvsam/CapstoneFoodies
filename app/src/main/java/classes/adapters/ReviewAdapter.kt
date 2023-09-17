@@ -3,6 +3,7 @@ package classes.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
@@ -48,6 +49,7 @@ class ReviewAdapter(private val reviews: MutableList<Entities.Review?>, private 
         private val efficiencyTitle: TextView = itemView.findViewById(R.id.efficiencyTextView)
         private val comment: TextView = itemView.findViewById(R.id.commentTextView)
         private val timestamp: TextView = itemView.findViewById(R.id.timestampTextView)
+        private val avatar: ImageView = itemView.findViewById(R.id.avatarImageView)
         // Bind review data to the UI elements here
         fun bind(review: Entities.Review?) {
             if(review!=null){
@@ -60,6 +62,16 @@ class ReviewAdapter(private val reviews: MutableList<Entities.Review?>, private 
                     // Update the UI on the main thread
                     withContext(Dispatchers.Main) {
                         userNameTextView.text = userName
+                    }
+                }// Start a coroutine to fetch the avatar
+                lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+                    val user = ApplicationCore.database.accountDao().getUserById(review.userId)
+
+                    // Update the UI on the main thread
+                    withContext(Dispatchers.Main) {
+                        if (user != null) {
+                            setAvatarImage(user.avatar, avatar)
+                        }
                     }
                 }
 
@@ -105,4 +117,22 @@ class ReviewAdapter(private val reviews: MutableList<Entities.Review?>, private 
             }
         }
     }
+
+    // Function to set the avatar image based on the avatar name
+    private fun setAvatarImage(avatarName: String?, avatarImageView: ImageView?) {
+        avatarName?.let {
+            val resourceId = avatarMap[it] // Replace avatarMap with your actual map
+            if (resourceId != null) {
+                avatarImageView?.setImageResource(resourceId)
+            }
+        }
+    }
+
+    // Define a map to map avatar names to drawable resources (you need to replace this with your actual map)
+    private val avatarMap = mapOf(
+        "penguin" to R.drawable.penguin,
+        "rabbit" to R.drawable.rabbit,
+        "sloth" to R.drawable.sloth,
+        "camel" to R.drawable.camel
+    )
 }

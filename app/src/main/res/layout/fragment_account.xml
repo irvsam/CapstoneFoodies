@@ -10,23 +10,23 @@
         android:id="@+id/accLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="52dp"
         android:text="@string/your_account_details"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.397"
+        app:layout_constraintHorizontal_bias="0.406"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TableLayout
         android:id="@+id/tableLayout"
-        android:layout_width="384dp"
-        android:layout_height="285dp"
+        android:layout_width="378dp"
+        android:layout_height="263dp"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.407"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6">
+        app:layout_constraintTop_toBottomOf="@+id/avatarImageView">
 
         <TableRow>
 
@@ -130,7 +130,6 @@
         android:backgroundTint="@color/white"
         android:text="@string/sign_out"
         android:textColor="@color/nicegreen"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tableLayout"
         app:layout_constraintTop_toBottomOf="@+id/tableLayout"
         app:layout_constraintVertical_bias="0.072" />
@@ -150,9 +149,9 @@
         app:tint="@color/nicegreen" />
 
     <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="149dp"
-        android:layout_height="133dp"
+        android:id="@+id/avatarImageView"
+        android:layout_width="113dp"
+        android:layout_height="98dp"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

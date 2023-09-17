@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -33,9 +34,11 @@ class AccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setUserDetails()
         setSignOutButton()
+        setUserDetails()
+
+
+
 
     }
 
@@ -76,9 +79,10 @@ class AccountFragment : Fragment() {
             val editButton = view?.findViewById<ImageButton>(R.id.edit_button)
             val descriptionRowTitle = view?.findViewById<TextView>(R.id.descriptionRowTitle)
             val descriptionTextView = view?.findViewById<TextView>(R.id.descriptionTextView)
+            val avatar = view?.findViewById<ImageView>(R.id.avatarImageView)
 
             if(vendor?.type=="Vendor"){ // user is a vendor
-
+                avatar?.visibility = View.GONE
                 rewardRowTitle?.visibility=View.GONE
                 rewardTextView?.visibility=View.GONE
                 voucherTextView?.visibility = View.GONE
@@ -95,6 +99,10 @@ class AccountFragment : Fragment() {
                 nameTextView?.text = user?.username
                 emailTextView?.text = user?.email
                 phoneTextView?.text = user?.phone
+
+                if(user?.avatar!=null){
+                    setAvatarImage(user?.avatar, avatar)
+                }
                 descriptionRowTitle?.visibility = View.GONE
                 descriptionTextView?.visibility = View.GONE
 
@@ -121,25 +129,65 @@ class AccountFragment : Fragment() {
                 if (userId != null) {
                     accountViewModel.loadUserInitialRewardPoints(userId)
                 }
-
+                avatar?.setOnClickListener {
+                    // Open the avatar selection dialog when the current avatar is clicked
+                    showAvatarSelectionDialog()
+                }
 
             }
+
             editButton?.setOnClickListener {
                 //edit account details (only username and phone number)
                 val navController = findNavController()
                 navController.navigate(R.id.editDetailsFragment)
 
-
             }
-
-
-
-
 
 
 
         }
 
 
+
+
     }
+
+    // Define a map to map avatar names to drawable resources
+    private val avatarMap = mapOf(
+        "penguin" to R.drawable.penguin,
+        "rabbit" to R.drawable.rabbit,
+        "sloth" to R.drawable.sloth,
+        "camel" to R.drawable.camel
+    )
+
+    // Function to set the avatar image based on the avatar name
+    private fun setAvatarImage(avatarName: String?, avatarImageView: ImageView?) {
+        avatarName?.let {
+            val resourceId = avatarMap[it]
+            if (resourceId != null) {
+                avatarImageView?.setImageResource(resourceId)
+            }
+        }
+    }
+
+    private fun showAvatarSelectionDialog() {
+        val dialogFragment = AvatarSelectionDialogFragment()
+        dialogFragment.setOnAvatarSelectedListener(object : AvatarSelectionDialogFragment.OnAvatarSelectedListener {
+            override fun onAvatarSelected(avatarResId: Int) {
+                // Handle the selected avatar here
+                updateAvatarInDatabase(avatarResId)
+            }
+        })
+        dialogFragment.show(childFragmentManager, "AvatarSelectionDialog")
+    }
+
+    private fun updateAvatarInDatabase(avatarResId: Int) {
+        val newAvatarName = avatarMap.entries.firstOrNull { it.value == avatarResId }?.key
+        user?.avatar = newAvatarName
+        user?.let { accountViewModel.updateUserDetails(it) }
+
+        val avatarImageView = view?.findViewById<ImageView>(R.id.avatarImageView)
+        avatarImageView?.setImageResource(avatarResId)
+    }
+
 }
