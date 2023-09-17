@@ -56,11 +56,6 @@ class Adapter(private val storeList: MutableList<Entities.Vendor?>, private val 
             }
 
 
-
-
-
-
-            //TODO this needs to be changed to set the actual image (temporary)
             holder.image.setImageResource(currentStore.image)
             // Set a click listener for the store card
             holder.itemView.setOnClickListener {

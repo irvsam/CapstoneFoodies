@@ -35,6 +35,7 @@ class BrowseFragment : Fragment() {
         searchButton.setOnClickListener {
             //perform the search
             //check which filters are selected?
+
         }
     }
 }
