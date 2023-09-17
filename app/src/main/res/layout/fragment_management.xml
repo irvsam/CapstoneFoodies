@@ -46,7 +46,6 @@
             android:id="@+id/vendorStoreNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="4dp"
             android:text="Your Store:"
             android:textColor="@color/black"
