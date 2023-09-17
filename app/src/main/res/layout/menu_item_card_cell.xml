@@ -35,7 +35,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
                 " />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/stock"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
@@ -48,7 +48,7 @@
                 app:layout_constraintEnd_toStartOf="@id/delete"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/delete"
                 android:layout_width="25dp"
                 android:layout_height="25dp"

@@ -17,7 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MenuItemAdapter(private val menuItemList: List<Entities.MenuItem?>, val lifecycleOwner: LifecycleOwner): RecyclerView.Adapter<MenuItemAdapter.MyViewHolder>() {
+class MenuItemAdapter(private var menuItemList: MutableList<Entities.MenuItem?>, val lifecycleOwner: LifecycleOwner): RecyclerView.Adapter<MenuItemAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.menu_item_card_cell,parent,false)
         return MyViewHolder(itemView)
@@ -30,20 +30,23 @@ class MenuItemAdapter(private val menuItemList: List<Entities.MenuItem?>, val li
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = menuItemList[position]
         if (currentItem != null) {
-            holder.menuItem.text = currentItem.name
-            holder.deleteButton.setOnClickListener {
+            holder.deleteButton.setOnClickListener{
                 // Use the existing coroutine scope from onBindViewHolder
                 lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-                        if (currentItem != null) {
                             ApplicationCore.database.menuItemDao().deleteItem(currentItem)
-                        }
+                            menuItemList.remove(currentItem)
                 }
             }
+            holder.availabilityButton.setOnClickListener{
+                holder.availabilityButton.setBackgroundResource(R.drawable.circle_pressed)
+            }
+            holder.menuItem.text = currentItem.name
         }
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val menuItem: TextView = itemView.findViewById(R.id.menuItemName)
-        val deleteButton: ImageView = itemView.findViewById(R.id.delete)
+        val deleteButton: ImageButton = itemView.findViewById(R.id.delete)
+        val availabilityButton: ImageButton = itemView.findViewById(R.id.stock)
     }
 }
