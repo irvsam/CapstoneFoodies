@@ -161,6 +161,9 @@ class StoreDetailsFragment : Fragment() {
                 val price = String.format("%.2f", item?.price)
                 menuItemsString.append("R$price   ")
                 menuItemsString.append(item?.name.toString())
+                if(item?.inStock==false){
+                    menuItemsString.append(" (Out of stock)")
+                }
                 menuItemsString.append("\n")
             }
         }

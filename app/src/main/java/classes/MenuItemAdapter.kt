@@ -30,6 +30,12 @@ class MenuItemAdapter(private var menuItemList: MutableList<Entities.MenuItem?>,
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = menuItemList[position]
         if (currentItem != null) {
+            if (!currentItem.inStock) {
+                holder.availabilityButton.setBackgroundResource(R.drawable.circle_default)
+            }
+            else {
+                holder.availabilityButton.setBackgroundResource(R.drawable.circle_pressed)
+            }
             holder.deleteButton.setOnClickListener{
                 // Use the existing coroutine scope from onBindViewHolder
                 lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
@@ -38,7 +44,17 @@ class MenuItemAdapter(private var menuItemList: MutableList<Entities.MenuItem?>,
                 }
             }
             holder.availabilityButton.setOnClickListener{
-                holder.availabilityButton.setBackgroundResource(R.drawable.circle_pressed)
+                lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+                    if (!currentItem.inStock) {
+                        holder.availabilityButton.setBackgroundResource(R.drawable.circle_pressed)
+                        currentItem.inStock = true
+                    }
+                    else {
+                        holder.availabilityButton.setBackgroundResource(R.drawable.circle_default)
+                        currentItem.inStock = false
+                    }
+                    ApplicationCore.database.menuItemDao().updateMenuItem(currentItem)
+                }
             }
             holder.menuItem.text = currentItem.name
         }

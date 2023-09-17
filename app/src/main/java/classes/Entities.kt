@@ -86,7 +86,8 @@ class Entities {
         @PrimaryKey(autoGenerate = true) val id: Long = 0,
         @ColumnInfo(name = "menu_id") val menuId: Long,
         val name: String,
-        val price: Float
+        val price: Float,
+        var inStock: Boolean
     )
 
     // REVIEW

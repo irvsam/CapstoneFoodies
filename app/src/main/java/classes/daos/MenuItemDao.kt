@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import classes.Entities
 
 @Dao
@@ -25,4 +26,7 @@ interface MenuItemDao {
 
     @Delete
     suspend fun deleteItem(menuItem:Entities.MenuItem?)
+
+    @Update
+    suspend fun updateMenuItem(menuItem: Entities.MenuItem)
 }

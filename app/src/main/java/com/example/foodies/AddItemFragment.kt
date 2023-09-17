@@ -50,7 +50,7 @@ class AddItemFragment : DialogFragment() {
                 Log.d("Item name", itemName)
                 val itemPrice = itemPriceInput.text.toString().toFloat()
                 val lastMenuItem = latestItemId()
-                val menuItem = Entities.MenuItem(id = lastMenuItem.id+1, menuId = vendorViewModel.vendor!!.menuId, name = itemName, price =itemPrice )
+                val menuItem = Entities.MenuItem(id = lastMenuItem.id+1, menuId = vendorViewModel.vendor!!.menuId, name = itemName, price =itemPrice, inStock = false )
                 withContext(Dispatchers.Main){
                     ApplicationCore.database.menuItemDao().insertMenuItem(menuItem)
                     dismiss()
