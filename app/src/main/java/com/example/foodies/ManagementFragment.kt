@@ -102,9 +102,15 @@ class ManagementFragment: Fragment() {
         }
 
 
-
+        //var menuItems: MutableList<Entities.MenuItem?>? = vendorManagementViewModel.menuItems.value
         //adapter
-        val itemAdapter = MenuItemAdapter(vendorManagementViewModel.menuItems,this)
+        val itemAdapter = MenuItemAdapter(vendorManagementViewModel.menuItems.value,this)
+        vendorManagementViewModel.menuItems.observe(viewLifecycleOwner){ newMenuItems ->
+            newMenuItems?.let {
+                itemAdapter.menuItemList = it
+                itemAdapter.notifyDataSetChanged()
+            }
+        }
         val recyclerView:RecyclerView = view.findViewById(R.id.menuItemsRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = itemAdapter

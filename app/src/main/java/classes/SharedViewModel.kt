@@ -128,16 +128,30 @@ class VendorManagementViewModel: ViewModel(){
     var isVendor: Boolean = false
     var user: Entities.User? = null //this will be the vendor user who is logged on
     var vendor: Entities.Vendor? = null
-    var menuItems = mutableListOf<Entities.MenuItem?>()
+    val _menuItems = MutableLiveData<MutableList<Entities.MenuItem?>>()
 
     val ratingLiveData: LiveData<Float?>
         get() = _ratingLiveData
 
+    val menuItems: LiveData<MutableList<Entities.MenuItem?>>
+        get() = _menuItems
+
+    init {
+        _menuItems.value = mutableListOf()
+    }
     fun loadVendorInitialRating(vendorId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             val initialVendorRating = vendorRepository.getVendorRating(vendorId)
             _ratingLiveData.postValue(initialVendorRating)
         }
+    }
+
+    fun setMenuItems(menuItemsList:MutableList<Entities.MenuItem?> ){
+        val currentList = _menuItems.value ?: mutableListOf()
+        for(item in menuItemsList){
+            currentList.add(item)
+        }
+        _menuItems.value = currentList
     }
 
     fun updateRating(rating: Float?) {
