@@ -1,5 +1,6 @@
 package com.example.foodies
 
+import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,6 +20,10 @@ import classes.Entities
 import classes.GuestViewModel
 import classes.VendorViewModel
 import com.example.foodies.databaseManagement.ApplicationCore
+import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -44,7 +49,6 @@ class StoreDetailsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_store_details, container, false)
     }
 
-    //TODO we might want to use shared view model for stores instead of bundling it, ive already set it up for leaving reviews
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -92,9 +96,7 @@ class StoreDetailsFragment : Fragment() {
                     }
 
                     val vendorId = store.id
-                    if (vendorId != null) {
-                        vendorViewModel.loadVendorInitialRating(vendorId)
-                    }
+                    vendorViewModel.loadVendorInitialRating(vendorId)
 
                     reviewTextView.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                     reviewTextView.setOnClickListener {
@@ -136,6 +138,29 @@ class StoreDetailsFragment : Fragment() {
                 }
             }
         }
+        val barChart: BarChart = view.findViewById(R.id.barChart)
+        // Sample data (replace with your actual data)
+        val sampleData = listOf(
+            BarEntry(0f, 3f),   // Hour 0: Average busy-ness of 3
+            BarEntry(1f, 5f),   // Hour 1: Average busy-ness of 5
+            BarEntry(2f, 2f),   // Hour 2: Average busy-ness of 2
+        )
+
+        barChart.setDrawBarShadow(false)
+        barChart.setDrawValueAboveBar(true)
+        barChart.description.isEnabled
+
+        val dataSet = BarDataSet(sampleData, "Average Busy-ness")
+        dataSet.setColors(Color.BLUE)
+        dataSet.valueTextColor = Color.BLACK
+        dataSet.valueTextSize = 12f
+
+        val barData = BarData(dataSet)
+
+        barChart.data = barData
+
+        barChart.invalidate()
+
     }
 
     private fun displayMenuItems(menuItems: List<Entities.MenuItem?>?): StringBuilder {
