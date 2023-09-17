@@ -14,6 +14,7 @@ import classes.Entities
 import classes.MenuItemViewModel
 import classes.VendorViewModel
 import com.google.android.material.textfield.TextInputEditText
+import com.example.foodies.databaseManagement.ApplicationCore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
