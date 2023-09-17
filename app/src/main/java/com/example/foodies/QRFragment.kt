@@ -55,7 +55,7 @@ class QRFragment : Fragment() {
                 else{
                     showToast("Incorrect code. Please scan the code for $vendorName")
                     val navController = findNavController()
-                    navController.navigate(R.id.leaveReviewFragment)}
+                    navController.navigate(R.id.storeDetailsFragment)}
 
             } else {
                 // The scan was successful, but the scanned contents are empty.
