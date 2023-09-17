@@ -46,7 +46,6 @@ class StoreDetailsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_store_details, container, false)
     }
 
-    //TODO we might want to use shared view model for stores instead of bundling it, ive already set it up for leaving reviews
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
