@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-
     android:fitsSystemWindows="true"
     android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
 
 
     <ImageView
@@ -38,54 +42,51 @@
         app:layout_constraintStart_toEndOf="@+id/viewReviewsTextView"
         app:layout_constraintTop_toTopOf="@+id/viewReviewsTextView" />
 
-    <TextView
-        android:id="@+id/vendorStoreNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="4dp"
-        android:text="Your Store:"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/menuItemsRecyclerView"
-        app:layout_constraintStart_toStartOf="@+id/menuHeading"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.33" />
+        <TextView
+            android:id="@+id/vendorStoreNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="4dp"
+            android:text="Your Store:"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@+id/menuItemsRecyclerView"
+            app:layout_constraintStart_toStartOf="@+id/menuHeading"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.214" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/menuItemsRecyclerView"
-        android:layout_width="355dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.517"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/menuHeading"
-        app:layout_constraintVertical_bias="0.316" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/menuItemsRecyclerView"
+            android:layout_width="355dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/menuHeading" />
 
-    <TextView
-        android:id="@+id/menuHeading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:text="@string/menu"
-        android:textSize="22sp"
-        app:layout_constraintStart_toStartOf="@+id/menuItemsRecyclerView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        <TextView
+            android:id="@+id/menuHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:text="@string/menu"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="@+id/menuItemsRecyclerView"
+            app:layout_constraintTop_toBottomOf="@id/imageView2" />
 
-    <ImageButton
-        android:id="@+id/addItemButton"
-        android:layout_width="69dp"
-        android:layout_height="56dp"
-        android:backgroundTint="@color/white"
-        android:scaleType="centerCrop"
-        android:src="@drawable/add"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.085"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/menuItemsRecyclerView" />
+        <ImageButton
+            android:id="@+id/addItemButton"
+            android:layout_width="69dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/white"
+            android:scaleType="centerCrop"
+            android:src="@drawable/add"
+            app:layout_constraintStart_toStartOf="@+id/menuItemsRecyclerView"
+            app:layout_constraintTop_toBottomOf="@+id/menuItemsRecyclerView" />
 
-    <TextView
+        <TextView
         android:id="@+id/storeNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -99,5 +100,6 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
 
 
