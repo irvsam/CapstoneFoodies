@@ -125,14 +125,11 @@ class ReviewViewModel: ViewModel(){
 class VendorManagementViewModel: ViewModel(){
     private val vendorRepository: VendorRepository = VendorRepository()
     private val _ratingLiveData = MutableLiveData<Float?>()
-    private val _isLoading = MutableLiveData<Boolean>()
     var isVendor: Boolean = false
     var user: Entities.User? = null //this will be the vendor user who is logged on
     var vendor: Entities.Vendor? = null
     var menuItems = mutableListOf<Entities.MenuItem?>()
 
-    val isLoading: LiveData<Boolean>
-        get() = _isLoading
     val ratingLiveData: LiveData<Float?>
         get() = _ratingLiveData
 
@@ -147,16 +144,8 @@ class VendorManagementViewModel: ViewModel(){
         _ratingLiveData.postValue(rating)
     }
 
-    suspend fun setVendor() {
-        _isLoading.postValue(true)
+    suspend fun setVendor(){
         vendor = ApplicationCore.database.accountDao().getVendorStore(user?.vendorId)
-        _isLoading.postValue(false)
-    }
-
-    suspend fun setMenu(){
-        _isLoading.postValue(true)
-        menuItems = ApplicationCore.database.menuItemDao().getMenuItemsByMenuId(vendor!!.menuId)
-        _isLoading.postValue(false)
     }
 
 

@@ -123,24 +123,19 @@ class FragmentHolderActivity : AppCompatActivity() {
 
                 withContext(Dispatchers.Main) {
                     if (user != null) {
+                        //vendorViewModel = ViewModelProvider(this@FragmentHolderActivity)[StoreViewModel::class.java]
+                        //logged on vendor user
+                        //vendorViewModel.user = user
+                        //set the vendor store
+                        //vendorViewModel.vendor = ApplicationCore.database.accountDao().getVendorStore(user.vendorId)
+                        //set the logged on vendors store
+
                         vendorManagementViewModel.user = user
                         vendorManagementViewModel.setVendor()
-
-
-                    }
-                }
-            }
-
-            vendorManagementViewModel.isLoading.observe(this) { isLoading ->
-                if (isLoading) {
-                    // still loading so do nothing
-                } else {
-                        CoroutineScope(Dispatchers.Main).launch {
-                            vendorManagementViewModel.setMenu()
-                        }
+                        // set the menu items
+                        vendorManagementViewModel.menuItems = ApplicationCore.database.menuItemDao().getMenuItemsByMenuId(vendorManagementViewModel.vendor!!.menuId)}
 
                 }
-
             }
         }
     }

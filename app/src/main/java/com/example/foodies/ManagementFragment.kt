@@ -53,72 +53,67 @@ class ManagementFragment: Fragment() {
         val reviewTextView:TextView = view.findViewById(R.id.viewReviewsTextView)
         val numRatings: TextView = view.findViewById(R.id.numReviewsTextView2)
 
-        vendorManagementViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) {
-                // still loading so do nothing
-            } else {
+        //checking to see if the vendor view model updates
+        //storeName.text = vendorViewModel.vendor?.name.toString()
+        //this one doesn't work because the vendor view model is being updated with
+        //other stores when you click on them in the vendor list
 
+        val vendorUser = vendorManagementViewModel.vendor
+        if (vendorUser != null) {
+            storeName.text = vendorUser.name
+            CoroutineScope(Dispatchers.IO).launch {
+                val numReviews =
+                    ApplicationCore.database.vendorDao().getReviewCountForVendor(vendorUser!!.id)
+                if (numReviews != 0) {
+                    numRatings.text = "(" + numReviews.toString() + ")"
+                } else {
+                    numRatings.text = ""
+                }
+                withContext(Dispatchers.Main) {
+                    vendorManagementViewModel.ratingLiveData.observe(viewLifecycleOwner) { rating ->
+                        if (rating != null) {
+                            reviewTextView.text = rating.toString()
 
-                val vendorUser = vendorManagementViewModel.vendor
-                if (vendorUser != null) {
-                    storeName.text = vendorUser.name
-                    CoroutineScope(Dispatchers.IO).launch {
-                        val numReviews =
-                            ApplicationCore.database.vendorDao()
-                                .getReviewCountForVendor(vendorUser!!.id)
-                        withContext(Dispatchers.Main) {
+                        } else {
+                            reviewTextView.text = "no reviews yet"
+                        }
+                    }
 
-                            vendorManagementViewModel.ratingLiveData.observe(viewLifecycleOwner) { rating ->
+                    vendorManagementViewModel.loadVendorInitialRating(vendorUser.id)
 
-                                if (rating != null) {
-                                    reviewTextView.text = rating.toString()
+                    reviewTextView.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+                    reviewTextView.setOnClickListener {
+                        //navigate to viewing the reviews
+                        if (numReviews != 0) {
+                            val navController = findNavController()
+                            navController.navigate(R.id.viewReviewsFragment)
+                        } else {
+                            Toast.makeText(
+                                requireContext(),
+                                "no reviews to show!",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
 
-                                } else {
-                                    reviewTextView.text = "no reviews yet"
-                                }
-                            }
-                            if (numReviews != 0) {
-                                numRatings.text = "(" + numReviews.toString() + ")"
-                            } else {
-                                numRatings.text = ""
-                            }
-
-                            vendorManagementViewModel.loadVendorInitialRating(vendorUser.id)
-
-                            reviewTextView.paintFlags = Paint.UNDERLINE_TEXT_FLAG
-                            reviewTextView.setOnClickListener {
-                                //navigate to viewing the reviews
-                                if (numReviews != 0) {
-                                    val navController = findNavController()
-                                    navController.navigate(R.id.viewReviewsFragment)
-                                } else {
-                                    Toast.makeText(
-                                        requireContext(),
-                                        "no reviews to show!",
-                                        Toast.LENGTH_SHORT
-                                    )
-                                        .show()
-
-                                }
-                            }
                         }
                     }
                 }
             }
+        }
 
 
-            //adapter
-            val itemAdapter = MenuItemAdapter(vendorManagementViewModel.menuItems, this)
-            val recyclerView: RecyclerView = view.findViewById(R.id.menuItemsRecyclerView)
-            recyclerView.layoutManager = LinearLayoutManager(context)
-            recyclerView.adapter = itemAdapter
 
-            //add item button
-            val addItemButton = view.findViewById<ImageButton>(R.id.addItemButton)
-            addItemButton.setOnClickListener {
-                val addItemFragment = AddItemFragment()
-                addItemFragment.show(requireFragmentManager(), "addItemDialog")
-            }
+        //adapter
+        val itemAdapter = MenuItemAdapter(vendorManagementViewModel.menuItems,this)
+        val recyclerView:RecyclerView = view.findViewById(R.id.menuItemsRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = itemAdapter
+
+        //add item button
+        val addItemButton = view.findViewById<ImageButton>(R.id.addItemButton)
+        addItemButton.setOnClickListener{
+            val addItemFragment = AddItemFragment()
+            addItemFragment.show(requireFragmentManager(),"addItemDialog")
         }
     }
 }
