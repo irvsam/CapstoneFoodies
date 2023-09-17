@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import classes.Entities
+import classes.ReviewViewModel
 import classes.adapters.MenuItemAdapter
 import classes.VendorManagementViewModel
 import classes.StoreViewModel
@@ -27,12 +28,14 @@ import kotlinx.coroutines.withContext
 class ManagementFragment: Fragment() {
     private lateinit var vendorManagementViewModel : VendorManagementViewModel
     private lateinit var storeViewModel : StoreViewModel
+    private lateinit var reviewViewModel: ReviewViewModel
     private var vendor: Entities.Vendor? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("Entry","Entered the managementFrag")
         vendorManagementViewModel = ViewModelProvider(requireActivity())[VendorManagementViewModel::class.java]
         storeViewModel = ViewModelProvider(requireActivity())[StoreViewModel::class.java]
+        reviewViewModel = ViewModelProvider(requireActivity())[ReviewViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -86,6 +89,8 @@ class ManagementFragment: Fragment() {
                             reviewTextView.setOnClickListener {
                                 //navigate to viewing the reviews
                                 if (numReviews != 0) {
+                                    reviewViewModel.fromVendorList = false
+                                    reviewViewModel.fromManagementPage = true
                                     val navController = findNavController()
                                     navController.navigate(R.id.viewReviewsFragment)
                                 } else {

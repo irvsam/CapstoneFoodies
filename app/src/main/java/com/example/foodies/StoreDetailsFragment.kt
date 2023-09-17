@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import classes.Entities
 import classes.GuestViewModel
+import classes.ReviewViewModel
 import classes.StoreViewModel
 import classes.VendorManagementViewModel
 import com.example.foodies.databaseManagement.ApplicationCore
@@ -37,6 +38,7 @@ class StoreDetailsFragment : Fragment() {
     private lateinit var reviewButton: Button
     private lateinit var storeViewModel: StoreViewModel
     private lateinit var vendorManagementViewModel: VendorManagementViewModel
+    private lateinit var reviewViewModel: ReviewViewModel
     private lateinit var numRatings: TextView
 
     override fun onCreateView(
@@ -57,7 +59,7 @@ class StoreDetailsFragment : Fragment() {
         numRatings = view.findViewById(R.id.numReviewsTextView)
         storeViewModel = ViewModelProvider(requireActivity())[StoreViewModel::class.java]
         vendorManagementViewModel = ViewModelProvider(requireActivity())[VendorManagementViewModel::class.java]
-
+        reviewViewModel = ViewModelProvider(requireActivity())[ReviewViewModel::class.java]
 
         //Remove the review button when displaying a store because Vendors cant review
         if(vendorManagementViewModel.user?.type=="Vendor"){
@@ -101,7 +103,11 @@ class StoreDetailsFragment : Fragment() {
                     reviewTextView.setOnClickListener {
                         //navigate to viewing the reviews
                         if(numReviews!=0)
-                        {val navController = findNavController()
+
+                        {   reviewViewModel.fromManagementPage = false
+                            reviewViewModel.fromVendorList = true
+
+                            val navController = findNavController()
                         navController.navigate(R.id.viewReviewsFragment)}
                         else{
                             Toast.makeText(requireContext(), "no reviews to show!", Toast.LENGTH_SHORT)

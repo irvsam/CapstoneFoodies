@@ -119,6 +119,8 @@ class StoreViewModel : ViewModel(){
 
 class ReviewViewModel: ViewModel(){
     val reviewList = mutableListOf<Entities.Review?>()
+    var fromVendorList: Boolean = false
+    var fromManagementPage: Boolean = false
 }
 
 //this is for handling the logged on vendor

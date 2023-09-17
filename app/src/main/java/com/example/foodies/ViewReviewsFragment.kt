@@ -36,7 +36,7 @@ class ViewReviewsFragment : Fragment() {
         Log.d(TAG, "view reviews oncreate called")
 
         val vendorId:Long
-        if(vendorManagementViewModel.isVendor){
+        if(vendorManagementViewModel.isVendor && reviewViewModel.fromManagementPage){
             Log.d(TAG, "view reviews oncreate called for vendor")
             vendorId = vendorManagementViewModel.vendor!!.id
         }
