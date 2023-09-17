@@ -68,37 +68,43 @@ class ApplicationCore : Application() {
                 id = 100,
                 menuId = 1,
                 name = "Jollof",
-                price = 40.00f
+                price = 40.00f,
+                inStock = true
             ),
             Entities.MenuItem(
-              id = 101,
-              menuId = 1,
-              name= "Afri Veg Platter (2 Starch & 2 Veg) ",
-              price = 70.00f
+                id = 101,
+                menuId = 1,
+                name= "Afri Veg Platter (2 Starch & 2 Veg) ",
+                price = 70.00f,
+                inStock = true
             ),
             Entities.MenuItem(
                 id = 102,
                 menuId = 1,
                 name= "Afri Veg Platter (2 Starch & 1 Veg)",
-                price = 55.00f
+                price = 55.00f,
+                inStock = true
             ),
             Entities.MenuItem(
                 id = 103,
                 menuId = 1,
                 name= "Half Portion (1 Starch & 2 Veg ",
-                price = 43.00f
+                price = 43.00f,
+                inStock = true
             ),
             Entities.MenuItem(
                 id = 104,
                 menuId = 1,
                 name= "Chicken Curry (Full) ",
-                price = 80.00f
+                price = 80.00f,
+                inStock = true
             ),
             Entities.MenuItem(
                 id = 105,
                 menuId = 1,
                 name= "Chicken Curry (Half)",
-                price = 42.00f
+                price = 42.00f,
+                inStock = true
             ),
 
             //Varsity Fast Foods menu items
@@ -106,31 +112,36 @@ class ApplicationCore : Application() {
                 id = 200,
                 menuId = 2,
                 name = "Beef Burger",
-                price = 40.00f
+                price = 40.00f,
+                inStock = true
             ),
             Entities.MenuItem(
                 id = 201,
                 menuId = 2,
                 name= "Cheese Sandwich ",
-                price = 15.00f
+                price = 15.00f,
+                inStock = true
             ),
             Entities.MenuItem(
                 id = 202,
                 menuId = 2,
                 name= "Cheese & Tomato Sandwich",
-                price = 20.00f
+                price = 20.00f,
+                inStock = true
             ),
             Entities.MenuItem(
                 id = 203,
                 menuId =2 ,
                 name= "Chicken Mayo Sandwich",
-                price = 25.00f
+                price = 25.00f,
+                inStock = true
             ),
             Entities.MenuItem(
                 id = 204,
                 menuId = 2,
                 name= "Steak Sandwich ",
-                price = 25.00f
+                price = 25.00f,
+                inStock = true
             ),
 
             //Best Quality menu Items
@@ -138,7 +149,8 @@ class ApplicationCore : Application() {
                 id = 300,
                 menuId = 3,
                 name = "Chicken sub",
-                price = 40.00f
+                price = 40.00f,
+                inStock = true
             ),
 
 
@@ -146,7 +158,8 @@ class ApplicationCore : Application() {
                 id = 400,
                 menuId = 4,
                 name = "Chicken Mayo Rolls",
-                price = 40.00f
+                price = 40.00f,
+                inStock = true
             ),
 
 
@@ -154,7 +167,8 @@ class ApplicationCore : Application() {
                 id = 500,
                 menuId = 5,
                 name = "Dried Fruit",
-                price = 10.00f
+                price = 10.00f,
+                inStock = true
             ),
 
 
@@ -162,7 +176,8 @@ class ApplicationCore : Application() {
                 id = 600,
                 menuId = 6,
                 name = "Filter Coffee",
-                price = 14.00f
+                price = 14.00f,
+                inStock = true
             ),
 
 
@@ -170,7 +185,8 @@ class ApplicationCore : Application() {
                 id = 700,
                 menuId = 7,
                 name = "Wrap",
-                price = 45.00f
+                price = 45.00f,
+                inStock = true
             ),
         )
 

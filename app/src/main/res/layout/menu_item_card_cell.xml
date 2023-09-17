@@ -35,12 +35,25 @@
                 app:layout_constraintTop_toTopOf="parent" />
                 " />
 
-            <ImageView
-                android:id="@+id/imageView6"
+            <ImageButton
+                android:id="@+id/stock"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:background="@drawable/stock_background"
+                android:clickable="true"
+                android:padding="5dp"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/delete"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/delete"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bin"
                 android:clickable="true"
                 android:padding="5dp"
                 android:layout_marginEnd="10dp"
