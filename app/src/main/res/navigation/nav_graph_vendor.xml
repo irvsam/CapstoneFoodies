@@ -37,6 +37,10 @@
         android:id="@+id/viewReviewsFragment"
         android:name="com.example.foodies.ViewReviewsFragment"
         android:label="ViewReviewsFragment" />
+    <fragment
+        android:id="@+id/editDetailsFragment"
+        android:name="com.example.foodies.EditDetailsFragment"
+        android:label="EditDetailsFragment" />
 
 
 </navigation>

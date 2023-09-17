@@ -11,13 +11,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import classes.Entities
 import classes.AccountViewModel
+import classes.VendorManagementViewModel
 
 class EditDetailsFragment : Fragment() {
     private lateinit var accountViewModel: AccountViewModel
+    private lateinit var vendorManagementViewModel: VendorManagementViewModel
     private lateinit var usernameEditText: EditText
     private lateinit var phoneEditText: EditText
+    private lateinit var descriptionEditText: EditText
     private lateinit var saveButton: Button
     private var user: Entities.User? = null
+    private var vendor: Entities.Vendor? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,13 +34,53 @@ class EditDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         accountViewModel = ViewModelProvider(requireActivity())[AccountViewModel::class.java]
+        vendorManagementViewModel = ViewModelProvider(requireActivity())[VendorManagementViewModel::class.java]
+
 
         usernameEditText = view.findViewById(R.id.edit_username)
         phoneEditText = view.findViewById(R.id.edit_phone)
+        descriptionEditText = view.findViewById(R.id.edit_description)
         saveButton = view.findViewById(R.id.save_button)
 
+
+        if(vendorManagementViewModel.isVendor){
+            //vendor stuff
+            user = vendorManagementViewModel.user
+            vendor = vendorManagementViewModel.vendor
+            // Set the initial values for the username and phone EditText fields
+            usernameEditText.setText(user?.username)
+            phoneEditText.setText(user?.phone)
+            descriptionEditText.setText(vendor?.description)
+
+            saveButton.setOnClickListener {
+                // Update the user's details with the values in the EditText fields
+                val newUsername = usernameEditText.text.toString()
+                val newPhone = phoneEditText.text.toString()
+                val newDescription = descriptionEditText.text.toString()
+
+                if (user != null) {
+                    // Update the user object
+                    user!!.username = newUsername
+                    user!!.phone = newPhone
+                    vendor!!.description = newDescription
+
+                    //ViewModel to update the user's details in the database
+                    vendorManagementViewModel.updateUserDetails(user!!)
+                    vendorManagementViewModel.updateVendorDetails(vendor!!)
+
+                    // Navigate back
+                    val navController = findNavController()
+                    navController.navigate(R.id.accountFragment)
+                }
+            }
+
+
+        }
+        else{
         // Get the user from the UserViewModel
         user = accountViewModel.user
+
+            descriptionEditText.visibility = View.GONE
 
         // Set the initial values for the username and phone EditText fields
         usernameEditText.setText(user?.username)
@@ -58,6 +102,7 @@ class EditDetailsFragment : Fragment() {
                 // Navigate back
                 val navController = findNavController()
                 navController.navigate(R.id.accountFragment)
+            }
             }
         }
     }

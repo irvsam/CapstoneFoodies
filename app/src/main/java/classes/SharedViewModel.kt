@@ -145,6 +145,18 @@ class VendorManagementViewModel: ViewModel(){
         }
     }
 
+    fun updateUserDetails(user: Entities.User) {
+        viewModelScope.launch(Dispatchers.IO) {
+            ApplicationCore.database.accountDao().updateUser(user)
+        }
+    }
+
+    fun updateVendorDetails(vendor: Entities.Vendor) {
+        viewModelScope.launch(Dispatchers.IO) {
+            ApplicationCore.database.vendorDao().updateVendor(vendor)
+        }
+    }
+
     fun updateRating(rating: Float?) {
         _ratingLiveData.postValue(rating)
     }

@@ -83,7 +83,7 @@ class AccountFragment : Fragment() {
                 rewardTextView?.visibility=View.GONE
                 voucherTextView?.visibility = View.GONE
                 voucherRowTitle?.visibility = View.GONE
-                editButton?.visibility = View.GONE
+                //editButton?.visibility = View.GONE
                 nameTextView?.text = vendor?.username
                 emailTextView?.text = vendor?.email
                 phoneTextView?.text = vendor?.phone
@@ -122,14 +122,12 @@ class AccountFragment : Fragment() {
                     accountViewModel.loadUserInitialRewardPoints(userId)
                 }
 
-                editButton?.setOnClickListener {
-                    //edit account details (only username and phone number)
-                    val navController = findNavController()
-                    navController.navigate(R.id.editDetailsFragment)
 
-
-                }
-
+            }
+            editButton?.setOnClickListener {
+                //edit account details (only username and phone number)
+                val navController = findNavController()
+                navController.navigate(R.id.editDetailsFragment)
 
 
             }

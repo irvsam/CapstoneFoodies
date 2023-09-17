@@ -48,7 +48,7 @@ class Entities {
         @PrimaryKey(autoGenerate = true) val id: Long = 0,
         val name: String,
         val cuisine: String,
-        val description: String,
+        var description: String,
         @ColumnInfo(name = "menu_id") val menuId: Long,
         val rating: String = "no reviews yet",
         @ColumnInfo(name = "openTime") val openTime: String,
