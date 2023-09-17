@@ -154,6 +154,18 @@ class VendorManagementViewModel: ViewModel(){
         _menuItems.value = currentList
     }
 
+    fun addMenuItem(item:Entities.MenuItem?){
+        val currentList = _menuItems.value ?: mutableListOf()
+        currentList.add(item)
+        _menuItems.value = currentList
+    }
+
+    fun deleteItem(item:Entities.MenuItem?){
+        val currentList = _menuItems.value ?: mutableListOf()
+        currentList.remove(item)
+        _menuItems.postValue(currentList)
+    }
+
     fun updateRating(rating: Float?) {
         _ratingLiveData.postValue(rating)
     }

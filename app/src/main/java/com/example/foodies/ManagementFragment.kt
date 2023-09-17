@@ -104,7 +104,7 @@ class ManagementFragment: Fragment() {
 
         //var menuItems: MutableList<Entities.MenuItem?>? = vendorManagementViewModel.menuItems.value
         //adapter
-        val itemAdapter = MenuItemAdapter(vendorManagementViewModel.menuItems.value,this)
+        val itemAdapter = MenuItemAdapter(vendorManagementViewModel,vendorManagementViewModel.menuItems.value,this)
         vendorManagementViewModel.menuItems.observe(viewLifecycleOwner){ newMenuItems ->
             newMenuItems?.let {
                 itemAdapter.menuItemList = it

@@ -52,6 +52,7 @@ class AddItemFragment : DialogFragment() {
                 val menuItem = Entities.MenuItem(id = lastMenuItem.id+1, menuId = vendorManagementViewModel.vendor!!.menuId, name = itemName, price =itemPrice, inStock = false )
                 withContext(Dispatchers.Main){
                     ApplicationCore.database.menuItemDao().insertMenuItem(menuItem)
+                    vendorManagementViewModel.addMenuItem(menuItem)
                     dismiss()
                 }
             }

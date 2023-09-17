@@ -9,20 +9,20 @@ import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Recycler
 import com.example.foodies.databaseManagement.ApplicationCore
 import classes.Entities
+import classes.VendorManagementViewModel
 import com.example.foodies.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MenuItemAdapter(var menuItemList: MutableList<Entities.MenuItem?>?, private val lifecycleOwner: LifecycleOwner): RecyclerView.Adapter<MenuItemAdapter.MyViewHolder>() {
-
-    //var menuItemList:LiveData<MutableList<Entities.MenuItem?>> = menuItemListOrginal
+class MenuItemAdapter(private val vendorManagementViewModel: VendorManagementViewModel, var menuItemList: MutableList<Entities.MenuItem?>?, private val lifecycleOwner: LifecycleOwner): RecyclerView.Adapter<MenuItemAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.menu_item_card_cell,parent,false)
@@ -46,7 +46,7 @@ class MenuItemAdapter(var menuItemList: MutableList<Entities.MenuItem?>?, privat
                 // Use the existing coroutine scope from onBindViewHolder
                 lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
                             ApplicationCore.database.menuItemDao().deleteItem(currentItem)
-                            menuItemList?.remove(currentItem)
+                            vendorManagementViewModel.deleteItem(currentItem)
                 }
             }
             holder.availabilityButton.setOnClickListener{
