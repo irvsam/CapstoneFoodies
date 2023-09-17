@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,7 +17,9 @@ import androidx.recyclerview.widget.RecyclerView.Recycler
 import com.example.foodies.databaseManagement.ApplicationCore
 import classes.Entities
 import classes.VendorManagementViewModel
+import com.example.foodies.EditItemFragment
 import com.example.foodies.R
+import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,6 +45,7 @@ class MenuItemAdapter(private val vendorManagementViewModel: VendorManagementVie
             else {
                 holder.availabilityButton.setBackgroundResource(R.drawable.circle_pressed)
             }
+
             holder.deleteButton.setOnClickListener{
                 // Use the existing coroutine scope from onBindViewHolder
                 lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
@@ -49,6 +53,15 @@ class MenuItemAdapter(private val vendorManagementViewModel: VendorManagementVie
                             vendorManagementViewModel.deleteItem(currentItem)
                 }
             }
+
+            holder.editCardView.setOnLongClickListener{view->
+                val editFragment= EditItemFragment(currentItem.id)
+                val context = view.context
+                val fragmentManager = (context as AppCompatActivity).supportFragmentManager
+                editFragment.show(fragmentManager,"EditItemDialog")
+                true
+            }
+
             holder.availabilityButton.setOnClickListener{
                 lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
                     if (!currentItem.inStock) {
@@ -62,6 +75,7 @@ class MenuItemAdapter(private val vendorManagementViewModel: VendorManagementVie
                     ApplicationCore.database.menuItemDao().updateMenuItem(currentItem)
                 }
             }
+
             holder.menuItem.text = currentItem.name
         }
     }
@@ -70,5 +84,6 @@ class MenuItemAdapter(private val vendorManagementViewModel: VendorManagementVie
         val menuItem: TextView = itemView.findViewById(R.id.menuItemName)
         val deleteButton: ImageButton = itemView.findViewById(R.id.delete)
         val availabilityButton: ImageButton = itemView.findViewById(R.id.stock)
+        val editCardView: MaterialCardView = itemView.findViewById(R.id.menuItemCardView)
     }
 }

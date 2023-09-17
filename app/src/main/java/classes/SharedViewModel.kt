@@ -160,6 +160,12 @@ class VendorManagementViewModel: ViewModel(){
         _menuItems.value = currentList
     }
 
+    fun swapEditMenuItem(orginalItem:Entities.MenuItem?,editedItem:Entities.MenuItem?){
+        val currentList = _menuItems.value ?: mutableListOf()
+        val newList:MutableList<Entities.MenuItem?>? = currentList.map{if (it==orginalItem) editedItem else it}.toMutableList()
+        _menuItems.value = newList
+    }
+
     fun deleteItem(item:Entities.MenuItem?){
         val currentList = _menuItems.value ?: mutableListOf()
         currentList.remove(item)
