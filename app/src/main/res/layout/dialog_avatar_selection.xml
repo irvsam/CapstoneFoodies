@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:columnCount="2"
+    android:rowCount="2"
+    android:orientation="horizontal">
+
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:clickable="true"
+        android:contentDescription="penguin"
+        android:onClick="onAvatarSelected"
+        android:src="@drawable/penguin" />
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:clickable="true"
+        android:contentDescription="rabbit"
+        android:onClick="onAvatarSelected"
+        android:src="@drawable/rabbit" />
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:clickable="true"
+        android:contentDescription="sloth"
+        android:onClick="onAvatarSelected"
+        android:src="@drawable/sloth" />
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:clickable="true"
+        android:contentDescription="camel"
+        android:onClick="onAvatarSelected"
+        android:src="@drawable/camel" />
+
+</GridLayout>

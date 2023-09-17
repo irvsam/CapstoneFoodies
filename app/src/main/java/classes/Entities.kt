@@ -23,7 +23,8 @@ class Entities {
         val vendorId: Long?,
         var rewardPoints: Int,
         var totalOverAllPoints: Int,
-        var currentVoucher: String? = null
+        var currentVoucher: String? = null,
+        var avatar: String? = null
     )
 
     // VENDOR

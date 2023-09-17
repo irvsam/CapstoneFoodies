@@ -10,11 +10,11 @@
         android:id="@+id/accLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="84dp"
         android:text="@string/your_account_details"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.397"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,10 +22,11 @@
         android:id="@+id/tableLayout"
         android:layout_width="384dp"
         android:layout_height="285dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.407"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/accLabel">
+        app:layout_constraintTop_toBottomOf="@+id/imageView6">
 
         <TableRow>
 
@@ -122,7 +123,6 @@
 
     </TableLayout>
 
-
     <Button
         android:id="@+id/signout_button"
         android:layout_width="124dp"
@@ -148,6 +148,16 @@
         app:layout_constraintStart_toEndOf="@+id/accLabel"
         app:layout_constraintTop_toTopOf="@+id/accLabel"
         app:tint="@color/nicegreen" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="149dp"
+        android:layout_height="133dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accLabel"
+        app:srcCompat="@drawable/penguin" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
