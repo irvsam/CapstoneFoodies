@@ -10,10 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import classes.Entities
-import classes.UserViewModel
+import classes.AccountViewModel
 
 class EditDetailsFragment : Fragment() {
-    private lateinit var userViewModel: UserViewModel
+    private lateinit var accountViewModel: AccountViewModel
     private lateinit var usernameEditText: EditText
     private lateinit var phoneEditText: EditText
     private lateinit var saveButton: Button
@@ -29,14 +29,14 @@ class EditDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        userViewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
+        accountViewModel = ViewModelProvider(requireActivity())[AccountViewModel::class.java]
 
         usernameEditText = view.findViewById(R.id.edit_username)
         phoneEditText = view.findViewById(R.id.edit_phone)
         saveButton = view.findViewById(R.id.save_button)
 
         // Get the user from the UserViewModel
-        user = userViewModel.user
+        user = accountViewModel.user
 
         // Set the initial values for the username and phone EditText fields
         usernameEditText.setText(user?.username)
@@ -53,7 +53,7 @@ class EditDetailsFragment : Fragment() {
                 user!!.phone = newPhone
 
                 //UserViewModel to update the user's details in the database
-                userViewModel.updateUserDetails(user!!)
+                accountViewModel.updateUserDetails(user!!)
 
                 // Navigate back
                 val navController = findNavController()

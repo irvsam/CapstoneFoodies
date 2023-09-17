@@ -1,14 +1,6 @@
 package com.example.foodies
 
-import android.Manifest
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.NotificationManager.IMPORTANCE_DEFAULT
 import android.content.ContentValues.TAG
-import android.content.Context
-import android.content.pm.PackageManager
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,25 +13,19 @@ import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.app.ActivityCompat
-import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
-import classes.UserViewModel
+import classes.AccountViewModel
 import classes.VendorRepository
-import classes.VendorViewModel
 import com.google.android.material.textfield.TextInputLayout
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class RewardsFragment: Fragment()  {
 
-    private lateinit var userViewModel: UserViewModel
+    private lateinit var accountViewModel: AccountViewModel
     private lateinit var autoCompleteUserTextView: AutoCompleteTextView
     private lateinit var adapterItems: ArrayAdapter<String>
     private val vendorRepository: VendorRepository = VendorRepository()
@@ -62,7 +48,7 @@ class RewardsFragment: Fragment()  {
 
         rewardAmtTextView = view.findViewById(R.id.rewardAmt)
         // Load the user's points and update the UI
-        userViewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
+        accountViewModel = ViewModelProvider(requireActivity())[AccountViewModel::class.java]
 
 
         //get the list of vendors and load it into the auto complete text thing
@@ -93,7 +79,7 @@ class RewardsFragment: Fragment()  {
 
 
         // Observe the LiveData for reward points
-        userViewModel.userRewardPoints.observe(viewLifecycleOwner) { rewardPoints ->
+        accountViewModel.userRewardPoints.observe(viewLifecycleOwner) { rewardPoints ->
             rewardAmtTextView.text = rewardPoints.toString()
             val claimButton = view.findViewById<Button>(R.id.claimButton)
             val goodNewsText = view.findViewById<TextView>(R.id.goodNewsText)
@@ -129,9 +115,9 @@ class RewardsFragment: Fragment()  {
         }
 
         // Load the user's initial reward points from the database
-        val userId = userViewModel.user?.id // Replace with the actual user ID
+        val userId = accountViewModel.user?.id // Replace with the actual user ID
         if (userId != null) {
-            userViewModel.loadUserInitialRewardPoints(userId)
+            accountViewModel.loadUserInitialRewardPoints(userId)
 
         }
 
@@ -158,17 +144,17 @@ class RewardsFragment: Fragment()  {
     }
 
     private fun updateVoucher(v: String){
-        val userId = userViewModel.user?.id // Replace with the actual user ID
+        val userId = accountViewModel.user?.id // Replace with the actual user ID
         if (userId != null) {
-            userViewModel.updateUserVoucher(userId,v)
+            accountViewModel.updateUserVoucher(userId,v)
             Log.d(TAG, "updating voucher to $v")
         }
 
     }
     private fun resetPoints() {
-        val userId = userViewModel.user?.id // Replace with the actual user ID
+        val userId = accountViewModel.user?.id // Replace with the actual user ID
         if (userId != null) {
-            userViewModel.resetUserRewardPoints(userId)
+            accountViewModel.resetUserRewardPoints(userId)
         }
     }
 

@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import classes.Entities
 import classes.daos.AccountDao
+import com.example.foodies.databaseManagement.ApplicationCore
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

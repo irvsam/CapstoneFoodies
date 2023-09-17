@@ -5,22 +5,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import classes.Entities
-import classes.MenuItemAdapter
+import classes.adapters.MenuItemAdapter
 import classes.MenuItemViewModel
-import classes.UserViewModel
 import classes.VendorViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class ManagementFragment: Fragment() {
     private lateinit var menuItemViewModel : MenuItemViewModel

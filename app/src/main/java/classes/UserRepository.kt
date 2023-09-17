@@ -1,15 +1,12 @@
 package classes
 
-import android.app.Application
-import android.content.ContentValues.TAG
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import classes.daos.AccountDao
-import com.example.foodies.ApplicationCore
+import com.example.foodies.databaseManagement.ApplicationCore
 
 class UserRepository() {
-
+    //organised way of getting user data from the database using the account dao
     private val userLiveData = MutableLiveData<Entities.User?>()
     private val accountDao: AccountDao = ApplicationCore.database.accountDao()
 

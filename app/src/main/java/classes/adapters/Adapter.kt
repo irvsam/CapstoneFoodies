@@ -1,4 +1,4 @@
-package classes
+package classes.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,9 @@ import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
-import com.example.foodies.ApplicationCore
+import classes.Entities
+import classes.StoreClickListener
+import com.example.foodies.databaseManagement.ApplicationCore
 import com.example.foodies.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

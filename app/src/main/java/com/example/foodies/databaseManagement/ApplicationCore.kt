@@ -1,13 +1,12 @@
-package com.example.foodies
+package com.example.foodies.databaseManagement
 
 import android.app.Application
 import android.util.Log
-import androidx.room.Database
 import androidx.room.Room
 import classes.AppDatabase
 import classes.DatabaseSeeder
 import classes.Entities
-import com.example.foodies.ApplicationCore.Companion.database
+import com.example.foodies.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

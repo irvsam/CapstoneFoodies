@@ -1,65 +1,46 @@
 package com.example.foodies
 
-import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorBoundsInfo
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.withCreated
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import classes.Adapter
-import classes.AppDatabase
-import classes.DietaryReq
+import classes.adapters.Adapter
 import classes.Entities
-import classes.Menu
-import classes.Review
-import classes.STORE_EXTRA
-import classes.STORE_MENU_EXTRA
-import classes.SharedViewModel
-import classes.Store
+import classes.StoreListViewModel
 import classes.StoreClickListener
 import classes.VendorViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
-import java.lang.StringBuilder
-import java.sql.Time
-import kotlin.properties.Delegates
 
 
 class VendorListFragment : Fragment(), StoreClickListener{
 
-    private lateinit var storeViewModel: SharedViewModel
+    private lateinit var storeViewModel: StoreListViewModel
     private lateinit var vendorViewModel: VendorViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "Fragment onCreate() called")
-        storeViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
+        storeViewModel = ViewModelProvider(requireActivity())[StoreListViewModel::class.java]
         vendorViewModel =  ViewModelProvider(requireActivity())[VendorViewModel::class.java]
 
-        Log.d(TAG, "list before thread: ${storeViewModel.storeList}")
 
+        //launch a thread to get the store list from the database
+        //make sure that the list is fully updated before moving on
         while(storeViewModel.storeList.isEmpty()){
         CoroutineScope(Dispatchers.IO).launch {
-            Log.d(TAG, "in thread")
             //get the stores from the database
             storeViewModel.getStores()
         }}
-        Log.d(TAG, "list after thread: ${storeViewModel.storeList}")
-
 
 
 
@@ -75,6 +56,7 @@ class VendorListFragment : Fragment(), StoreClickListener{
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        //set up the adapter to display the stores
         super.onViewCreated(view, savedInstanceState)
         // Assign store list to ItemAdapter
         val itemAdapter= Adapter(storeViewModel.storeList, this,this)

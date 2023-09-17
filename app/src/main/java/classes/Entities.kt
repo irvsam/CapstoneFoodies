@@ -9,6 +9,7 @@ import java.sql.Blob
 
 
 class Entities {
+    //here we store all the entities for our database
 
     // USER
     @Entity(tableName = "user")

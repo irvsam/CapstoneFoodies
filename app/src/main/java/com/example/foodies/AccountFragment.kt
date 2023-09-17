@@ -2,7 +2,6 @@ package com.example.foodies
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,19 +9,15 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import classes.Entities
-import classes.GuestViewModel
-import classes.SharedViewModel
-import classes.UserViewModel
+import classes.AccountViewModel
 import classes.VendorViewModel
-import org.w3c.dom.Text
 
 
 class AccountFragment : Fragment() {
-    private lateinit var userViewModel: UserViewModel // Declare the UserViewModel
+    private lateinit var accountViewModel: AccountViewModel // Declare the UserViewModel
     private lateinit var vendorViewModel: VendorViewModel
     private var user: Entities.User? = null // Declare the User property as nullable
     private var vendor: Entities.User?=null
@@ -60,10 +55,10 @@ class AccountFragment : Fragment() {
 
     private fun setUserDetails(){
         // Initialize the UserViewModel
-        userViewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
+        accountViewModel = ViewModelProvider(requireActivity())[AccountViewModel::class.java]
         vendorViewModel = ViewModelProvider(requireActivity())[VendorViewModel::class.java]
         // Get the user from the UserViewModel
-        user = userViewModel.user
+        user = accountViewModel.user
         vendor = vendorViewModel.user
 
         // Check if the user is not null before accessing its properties
@@ -96,19 +91,19 @@ class AccountFragment : Fragment() {
                 phoneTextView?.text = user?.phone
 
                 // Observe changes to the active voucher code
-                userViewModel.userVoucher.observe(viewLifecycleOwner) { voucherCode ->
+                accountViewModel.userVoucher.observe(viewLifecycleOwner) { voucherCode ->
                     if (voucherTextView != null) {
                         if(voucherCode!=null)
                         {voucherTextView.text = voucherCode}
                     }
                 }
                 //load initial voucher
-                val userId = userViewModel.user?.id
+                val userId = accountViewModel.user?.id
                 if (userId != null) {
-                    userViewModel.loadUserInitialVoucher(userId)
+                    accountViewModel.loadUserInitialVoucher(userId)
                 }
                 //observe changes to reward points
-                userViewModel.userTotalPoints.observe(viewLifecycleOwner) { totalPoints ->
+                accountViewModel.userTotalPoints.observe(viewLifecycleOwner) { totalPoints ->
                     if (rewardTextView != null) {
                         rewardTextView.text = totalPoints.toString()
                     }
@@ -116,7 +111,7 @@ class AccountFragment : Fragment() {
 
                 // Load the user's initial reward points from the database
                 if (userId != null) {
-                    userViewModel.loadUserInitialRewardPoints(userId)
+                    accountViewModel.loadUserInitialRewardPoints(userId)
                 }
 
                 editButton?.setOnClickListener {

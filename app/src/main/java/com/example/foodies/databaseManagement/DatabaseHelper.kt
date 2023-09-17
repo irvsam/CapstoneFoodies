@@ -1,4 +1,4 @@
-package com.example.foodies
+package com.example.foodies.databaseManagement
 
 import android.content.ContentValues
 import android.content.Context

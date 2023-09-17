@@ -1,14 +1,10 @@
 package classes
 
-import android.app.Application
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import classes.daos.AccountDao
 import classes.daos.VendorDao
-import com.example.foodies.ApplicationCore
+import com.example.foodies.databaseManagement.ApplicationCore
 class VendorRepository {
-
+    //getting vendor (store) data from database using dao
     private val vendorLiveData = MutableLiveData<Entities.Vendor?>()
     private val vendorDao: VendorDao = ApplicationCore.database.vendorDao()
 

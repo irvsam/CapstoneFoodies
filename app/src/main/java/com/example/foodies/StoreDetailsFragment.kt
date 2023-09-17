@@ -1,13 +1,8 @@
 package com.example.foodies
 
-import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.style.ClickableSpan
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -18,25 +13,15 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.withCreated
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import classes.Entities
 import classes.GuestViewModel
-import classes.STORE_EXTRA
-import classes.STORE_MENU_EXTRA
-import classes.Store
-import classes.UserViewModel
 import classes.VendorViewModel
-import classes.storeList
-import com.example.foodies.R
-import com.google.android.material.snackbar.Snackbar
+import com.example.foodies.databaseManagement.ApplicationCore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import java.lang.StringBuilder
 

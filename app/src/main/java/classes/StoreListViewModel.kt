@@ -2,21 +2,16 @@ package classes
 
 //this holds all the shared view models needed
 
-import android.app.Application
-import android.content.ContentValues.TAG
-import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import classes.Store
-import com.example.foodies.ApplicationCore
+import com.example.foodies.databaseManagement.ApplicationCore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 //store list view model
-class SharedViewModel : ViewModel() {
+class StoreListViewModel : ViewModel() {
     var storeList = mutableListOf<Entities.Vendor?>()
 
     suspend fun getStores(){
@@ -24,8 +19,8 @@ class SharedViewModel : ViewModel() {
         storeList = allStores.toMutableList()
     }
 }
-// this is to store user details
-class UserViewModel : ViewModel() {
+// this is to store account details
+class AccountViewModel : ViewModel() {
 
     var user: Entities.User? = null
     private val userRepository: UserRepository = UserRepository()
@@ -95,10 +90,13 @@ class UserViewModel : ViewModel() {
 
 }
 
+//handling guest actions
 class GuestViewModel : ViewModel() {
     var isGuest: Boolean = false
 }
 
+
+//view model to handle all the stores
 class VendorViewModel : ViewModel(){
     var user: Entities.User? = null
     var vendor: Entities.Vendor? = null

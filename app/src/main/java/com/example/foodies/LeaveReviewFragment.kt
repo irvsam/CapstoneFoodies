@@ -13,16 +13,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import classes.Entities
-import classes.UserViewModel
+import classes.AccountViewModel
 import classes.VendorViewModel
+import com.example.foodies.databaseManagement.ApplicationCore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.Date
 
 class LeaveReviewFragment : Fragment() {
 
-    private lateinit var userViewModel: UserViewModel
+    private lateinit var accountViewModel: AccountViewModel
     private lateinit var vendorViewModel: VendorViewModel
     private var vendor : Entities.Vendor? = null
     private var user: Entities.User? = null // Declare the User property as nullable
@@ -74,9 +74,9 @@ class LeaveReviewFragment : Fragment() {
 
 
                 val userReview = reviewText.text.toString()
-                userViewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
+                accountViewModel = ViewModelProvider(requireActivity())[AccountViewModel::class.java]
                 vendorViewModel = ViewModelProvider(requireActivity())[VendorViewModel::class.java]
-                user = userViewModel.user
+                user = accountViewModel.user
                 vendor = vendorViewModel.vendor
                 if (user != null) {
                     val review = Entities.Review(
@@ -100,7 +100,7 @@ class LeaveReviewFragment : Fragment() {
                         // Navigate back to the previous fragment
 
                         withContext(Dispatchers.IO) {
-                            userViewModel.updateUserRewardPoints(user!!.id, 10)
+                            accountViewModel.updateUserRewardPoints(user!!.id, 10)
                         }
                         withContext(Dispatchers.IO) {
                             ApplicationCore.database.vendorDao()

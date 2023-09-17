@@ -1,4 +1,4 @@
-package classes
+package classes.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,11 +10,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodies.R // Replace with the appropriate resource import
 import classes.Entities // Import your entity package
-import com.example.foodies.ApplicationCore
+import com.example.foodies.databaseManagement.ApplicationCore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.Date
 
