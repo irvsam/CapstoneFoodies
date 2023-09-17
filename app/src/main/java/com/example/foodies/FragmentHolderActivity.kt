@@ -10,10 +10,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import classes.GuestViewModel
-import classes.MenuItemViewModel
-import classes.StoreListViewModel
+import classes.VendorManagementViewModel
+import classes.SharedViewModel
 import classes.AccountViewModel
-import classes.VendorViewModel
+import classes.StoreViewModel
 import com.example.foodies.databaseManagement.ApplicationCore
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
@@ -24,10 +24,10 @@ import kotlinx.coroutines.withContext
 
 class FragmentHolderActivity : AppCompatActivity() {
     private lateinit var accountViewModel: AccountViewModel
-    private lateinit var vendorViewModel: VendorViewModel
+    private lateinit var vendorViewModel: StoreViewModel
     private lateinit var guestViewModel: GuestViewModel
-    private lateinit var storeViewModel: StoreListViewModel
-    private lateinit var menuItemViewModel: MenuItemViewModel
+    private lateinit var storeViewModel: SharedViewModel
+    private lateinit var vendorManagementViewModel: VendorManagementViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,15 +36,15 @@ class FragmentHolderActivity : AppCompatActivity() {
 
         accountViewModel = ViewModelProvider(this)[AccountViewModel::class.java]
         guestViewModel = ViewModelProvider(this)[GuestViewModel::class.java]
-        vendorViewModel = ViewModelProvider(this)[VendorViewModel::class.java]
-        storeViewModel = ViewModelProvider(this)[StoreListViewModel::class.java]
-        menuItemViewModel = ViewModelProvider(this)[MenuItemViewModel::class.java]
+        vendorViewModel = ViewModelProvider(this)[StoreViewModel::class.java]
+        storeViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
+        vendorManagementViewModel = ViewModelProvider(this)[VendorManagementViewModel::class.java]
 
         val isGuest = intent.getBooleanExtra("is_guest", false)
         val isVendor = intent.getBooleanExtra("is_vendor",false)
 
         guestViewModel.isGuest = isGuest
-        vendorViewModel.isVendor = isVendor
+        vendorManagementViewModel.isVendor = isVendor
 
         // calling the action bar
         val actionBar: ActionBar? = supportActionBar
@@ -64,7 +64,7 @@ class FragmentHolderActivity : AppCompatActivity() {
             setUser()
             Log.d(ContentValues.TAG, "not guest or vendor")
         }
-        else if (vendorViewModel.isVendor){
+        else if (vendorManagementViewModel.isVendor){
             setVendor()
             Log.d("Vendor","Entered vendor statement")
             val navGraph = navController.navInflater.inflate((R.navigation.nav_graph_vendor))
@@ -123,13 +123,18 @@ class FragmentHolderActivity : AppCompatActivity() {
 
                 withContext(Dispatchers.Main) {
                     if (user != null) {
-                        vendorViewModel = ViewModelProvider(this@FragmentHolderActivity)[VendorViewModel::class.java]
-                        vendorViewModel.user = user
-                        Log.d("User",user.username)
-                        vendorViewModel.vendor = ApplicationCore.database.accountDao().getVendorStore(user.vendorId)
-                        menuItemViewModel.menuItems = ApplicationCore.database.menuItemDao().getMenuItemsByMenuId(vendorViewModel.vendor!!.menuId)
-                        Log.d("Vendor Store",vendorViewModel.vendor!!.name)
-                    }
+                        //vendorViewModel = ViewModelProvider(this@FragmentHolderActivity)[StoreViewModel::class.java]
+                        //logged on vendor user
+                        //vendorViewModel.user = user
+                        //set the vendor store
+                        //vendorViewModel.vendor = ApplicationCore.database.accountDao().getVendorStore(user.vendorId)
+                        //set the logged on vendors store
+
+                        vendorManagementViewModel.user = user
+                        vendorManagementViewModel.setVendor()
+                        // set the menu items
+                        vendorManagementViewModel.menuItems = ApplicationCore.database.menuItemDao().getMenuItemsByMenuId(vendorManagementViewModel.vendor!!.menuId)}
+
                 }
             }
         }

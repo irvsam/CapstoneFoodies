@@ -17,7 +17,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import classes.Entities
 import classes.GuestViewModel
-import classes.VendorViewModel
+import classes.StoreViewModel
+import classes.VendorManagementViewModel
 import com.example.foodies.databaseManagement.ApplicationCore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -34,7 +35,8 @@ class StoreDetailsFragment : Fragment() {
     private lateinit var menuTextView: TextView
     private lateinit var reviewTextView: TextView
     private lateinit var reviewButton: Button
-    private lateinit var vendorViewModel: VendorViewModel
+    private lateinit var storeViewModel: StoreViewModel
+    private lateinit var vendorManagementViewModel: VendorManagementViewModel
     private lateinit var numRatings: TextView
 
     override fun onCreateView(
@@ -54,14 +56,16 @@ class StoreDetailsFragment : Fragment() {
         reviewTextView = view.findViewById(R.id.reviewTextView)
         reviewButton = view.findViewById(R.id.reviewButton)
         numRatings = view.findViewById(R.id.numReviewsTextView)
-        vendorViewModel = ViewModelProvider(requireActivity())[VendorViewModel::class.java]
+        storeViewModel = ViewModelProvider(requireActivity())[StoreViewModel::class.java]
+        vendorManagementViewModel = ViewModelProvider(requireActivity())[VendorManagementViewModel::class.java]
+
 
         //Remove the review button when displaying a store because Vendors cant review
-        if(vendorViewModel.user?.type=="Vendor"){
+        if(vendorManagementViewModel.user?.type=="Vendor"){
             reviewButton.visibility = View.GONE
         }
 
-        val store = vendorViewModel.vendor
+        val store = storeViewModel.vendor
 
         CoroutineScope(Dispatchers.IO).launch {
             storeMenu = ApplicationCore.database.vendorDao().getMenuItemsByMenuId(store?.menuId)
@@ -81,7 +85,7 @@ class StoreDetailsFragment : Fragment() {
                         numRatings.text = "("+numReviews.toString()+")"}
                     else{numRatings.text =""}
 
-                    vendorViewModel.ratingLiveData.observe(viewLifecycleOwner) { rating ->
+                    storeViewModel.ratingLiveData.observe(viewLifecycleOwner) { rating ->
                         if (rating != null) {
                             reviewTextView.text = rating.toString()
 
@@ -93,7 +97,7 @@ class StoreDetailsFragment : Fragment() {
 
                     val vendorId = store.id
                     if (vendorId != null) {
-                        vendorViewModel.loadVendorInitialRating(vendorId)
+                        storeViewModel.loadVendorInitialRating(vendorId)
                     }
 
                     reviewTextView.paintFlags = Paint.UNDERLINE_TEXT_FLAG

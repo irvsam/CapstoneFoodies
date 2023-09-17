@@ -2,7 +2,6 @@ package com.example.foodies
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +10,8 @@ import android.widget.EditText
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import classes.Entities
-import classes.MenuItemViewModel
-import classes.VendorViewModel
-import com.google.android.material.textfield.TextInputEditText
+import classes.VendorManagementViewModel
+import classes.StoreViewModel
 import com.example.foodies.databaseManagement.ApplicationCore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,13 +20,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class AddItemFragment : DialogFragment() {
-    private lateinit var vendorViewModel: VendorViewModel
-    private lateinit var menuItemViewModel: MenuItemViewModel
+    private lateinit var storeViewModel: StoreViewModel
+    private lateinit var vendorManagementViewModel: VendorManagementViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        vendorViewModel= ViewModelProvider(requireActivity())[VendorViewModel::class.java]
-        menuItemViewModel = ViewModelProvider(requireActivity())[MenuItemViewModel::class.java]
+        storeViewModel= ViewModelProvider(requireActivity())[StoreViewModel::class.java]
+        vendorManagementViewModel = ViewModelProvider(requireActivity())[VendorManagementViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -51,7 +49,7 @@ class AddItemFragment : DialogFragment() {
                 Log.d("Item name", itemName)
                 val itemPrice = itemPriceInput.text.toString().toFloat()
                 val lastMenuItem = latestItemId()
-                val menuItem = Entities.MenuItem(id = lastMenuItem.id+1, menuId = vendorViewModel.vendor!!.menuId, name = itemName, price =itemPrice, inStock = false )
+                val menuItem = Entities.MenuItem(id = lastMenuItem.id+1, menuId = storeViewModel.vendor!!.menuId, name = itemName, price =itemPrice, inStock = false )
                 withContext(Dispatchers.Main){
                     ApplicationCore.database.menuItemDao().insertMenuItem(menuItem)
                     dismiss()

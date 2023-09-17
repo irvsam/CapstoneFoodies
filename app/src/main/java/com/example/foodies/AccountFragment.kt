@@ -13,12 +13,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import classes.Entities
 import classes.AccountViewModel
-import classes.VendorViewModel
+import classes.StoreViewModel
+import classes.VendorManagementViewModel
 
 
 class AccountFragment : Fragment() {
     private lateinit var accountViewModel: AccountViewModel // Declare the UserViewModel
-    private lateinit var vendorViewModel: VendorViewModel
+    private lateinit var vendorManagementViewModel: VendorManagementViewModel
     private var user: Entities.User? = null // Declare the User property as nullable
     private var vendor: Entities.User?=null
 
@@ -56,10 +57,12 @@ class AccountFragment : Fragment() {
     private fun setUserDetails(){
         // Initialize the UserViewModel
         accountViewModel = ViewModelProvider(requireActivity())[AccountViewModel::class.java]
-        vendorViewModel = ViewModelProvider(requireActivity())[VendorViewModel::class.java]
+        vendorManagementViewModel = ViewModelProvider(requireActivity())[VendorManagementViewModel::class.java]
         // Get the user from the UserViewModel
         user = accountViewModel.user
-        vendor = vendorViewModel.user
+
+        //this is the logged on user
+        vendor = vendorManagementViewModel.user
 
         // Check if the user is not null before accessing its properties
         if (user != null || vendor!=null) {

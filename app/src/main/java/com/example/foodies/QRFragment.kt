@@ -8,14 +8,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import classes.VendorViewModel
+import classes.StoreViewModel
 import com.google.zxing.integration.android.IntentIntegrator
 import com.google.zxing.integration.android.IntentResult
 
 
 class QRFragment : Fragment() {
 
-    private lateinit var vendorViewModel: VendorViewModel
+    private lateinit var storeViewModel: StoreViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,8 +43,8 @@ class QRFragment : Fragment() {
                 // scannedResult should be the name of a vendor
                 val scannedResult = result.contents
 
-                vendorViewModel = ViewModelProvider(requireActivity())[VendorViewModel::class.java]
-                val vendorName = vendorViewModel.vendor?.name
+                storeViewModel = ViewModelProvider(requireActivity())[StoreViewModel::class.java]
+                val vendorName = storeViewModel.vendor?.name
                 if(scannedResult==vendorName)
                 {
                 // Display success signal

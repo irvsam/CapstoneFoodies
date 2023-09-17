@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import classes.adapters.Adapter
 import classes.Entities
-import classes.StoreListViewModel
+import classes.SharedViewModel
 import classes.StoreClickListener
-import classes.VendorViewModel
+import classes.StoreViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,15 +23,15 @@ import kotlinx.coroutines.launch
 
 class VendorListFragment : Fragment(), StoreClickListener{
 
-    private lateinit var storeViewModel: StoreListViewModel
-    private lateinit var vendorViewModel: VendorViewModel
+    private lateinit var storeViewModel: SharedViewModel
+    private lateinit var vendorViewModel: StoreViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "Fragment onCreate() called")
-        storeViewModel = ViewModelProvider(requireActivity())[StoreListViewModel::class.java]
-        vendorViewModel =  ViewModelProvider(requireActivity())[VendorViewModel::class.java]
+        storeViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
+        vendorViewModel =  ViewModelProvider(requireActivity())[StoreViewModel::class.java]
 
 
         //launch a thread to get the store list from the database

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import classes.adapters.ReviewAdapter
 import classes.ReviewViewModel
-import classes.VendorViewModel
+import classes.StoreViewModel
 import com.example.foodies.databaseManagement.ApplicationCore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,13 +20,13 @@ import kotlinx.coroutines.withContext
 class ViewReviewsFragment : Fragment() {
 
     private lateinit var reviewsRecyclerView: RecyclerView
-    private lateinit var vendorViewModel: VendorViewModel
+    private lateinit var storeViewModel: StoreViewModel
     private lateinit var reviewViewModel: ReviewViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        vendorViewModel =  ViewModelProvider(requireActivity())[VendorViewModel::class.java]
+        storeViewModel =  ViewModelProvider(requireActivity())[StoreViewModel::class.java]
         reviewViewModel =  ViewModelProvider(requireActivity())[ReviewViewModel::class.java]
 
         //get all reviews from database and populate the review list
@@ -55,7 +55,7 @@ class ViewReviewsFragment : Fragment() {
 
     private fun populateReviews(){
             CoroutineScope(Dispatchers.IO).launch {
-                val id = vendorViewModel.vendor?.id
+                val id = storeViewModel.vendor?.id
                 if(id!=null) {
                     val allReviews = ApplicationCore.database.reviewDao().getReviewsByVendorId(id)
                     withContext(Dispatchers.Main) {

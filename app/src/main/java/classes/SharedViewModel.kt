@@ -11,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 //store list view model
-class StoreListViewModel : ViewModel() {
+class SharedViewModel : ViewModel() {
     var storeList = mutableListOf<Entities.Vendor?>()
 
     suspend fun getStores(){
@@ -96,11 +96,9 @@ class GuestViewModel : ViewModel() {
 }
 
 
-//view model to handle all the stores
-class VendorViewModel : ViewModel(){
-    var user: Entities.User? = null
+//view model to handle all the stores for the vendor list
+class StoreViewModel : ViewModel(){
     var vendor: Entities.Vendor? = null
-    var isVendor: Boolean = false
     private val vendorRepository: VendorRepository = VendorRepository()
     private val _ratingLiveData = MutableLiveData<Float?>()
 
@@ -123,6 +121,16 @@ class ReviewViewModel: ViewModel(){
     val reviewList = mutableListOf<Entities.Review?>()
 }
 
-class MenuItemViewModel: ViewModel(){
+//this is for handling the logged on vendor
+class VendorManagementViewModel: ViewModel(){
+    var isVendor: Boolean = false
+    var user: Entities.User? = null //this will be the vendor user who is logged on
+    var vendor: Entities.Vendor? = null
     var menuItems = mutableListOf<Entities.MenuItem?>()
+
+    suspend fun setVendor(){
+        vendor = ApplicationCore.database.accountDao().getVendorStore(user?.vendorId)
+    }
+
+
 }

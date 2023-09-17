@@ -14,7 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import classes.Entities
 import classes.AccountViewModel
-import classes.VendorViewModel
+import classes.StoreViewModel
 import com.example.foodies.databaseManagement.ApplicationCore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,7 +23,7 @@ import kotlinx.coroutines.withContext
 class LeaveReviewFragment : Fragment() {
 
     private lateinit var accountViewModel: AccountViewModel
-    private lateinit var vendorViewModel: VendorViewModel
+    private lateinit var storeViewModel: StoreViewModel
     private var vendor : Entities.Vendor? = null
     private var user: Entities.User? = null // Declare the User property as nullable
 
@@ -75,9 +75,9 @@ class LeaveReviewFragment : Fragment() {
 
                 val userReview = reviewText.text.toString()
                 accountViewModel = ViewModelProvider(requireActivity())[AccountViewModel::class.java]
-                vendorViewModel = ViewModelProvider(requireActivity())[VendorViewModel::class.java]
+                storeViewModel = ViewModelProvider(requireActivity())[StoreViewModel::class.java]
                 user = accountViewModel.user
-                vendor = vendorViewModel.vendor
+                vendor = storeViewModel.vendor
                 if (user != null) {
                     val review = Entities.Review(
                         userId = user!!.id,
@@ -106,8 +106,8 @@ class LeaveReviewFragment : Fragment() {
                             ApplicationCore.database.vendorDao()
                                 .updateVendorAverageRating(vendor!!.id)
                             val newRating = ApplicationCore.database.vendorDao()
-                                .calculateAverageRating(vendorViewModel.vendor!!.id)
-                            vendorViewModel.updateRating(newRating)
+                                .calculateAverageRating(storeViewModel.vendor!!.id)
+                            storeViewModel.updateRating(newRating)
                         }
 
                         val navController = findNavController()
