@@ -79,7 +79,7 @@
                 android:layout_marginBottom="24dp">
 
                 <TextView
-                    android:id="@+id/qualityRatingTextView"
+                    android:id="@+id/stockRatingTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -87,11 +87,11 @@
                     android:textSize="11sp" />
 
                 <TextView
-                    android:id="@+id/foodQualityTextView"
+                    android:id="@+id/stockTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="Food Quality"
+                    android:text="Stock availability"
                     android:textSize="11sp" />
 
                 <TextView

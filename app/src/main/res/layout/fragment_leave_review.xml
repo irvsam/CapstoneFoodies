@@ -35,15 +35,15 @@
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/FoodQualityTitle"
+            android:id="@+id/stockTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Food quality"
-            android:textSize="20sp"
+            android:text="Stock availability"
+            android:textSize="18sp"
             android:layout_marginTop="8dp"/>
 
         <RatingBar
-            android:id="@+id/QualityRatingBar"
+            android:id="@+id/stockRatingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:numStars="5"

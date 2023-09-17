@@ -38,8 +38,8 @@ class ReviewAdapter(private val reviews: MutableList<Entities.Review?>, private 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val userNameTextView: TextView = itemView.findViewById(R.id.userName)
         private val ratingBar: RatingBar = itemView.findViewById(R.id.ratingBar)
-        private val quality: TextView = itemView.findViewById(R.id.qualityRatingTextView)
-        private val qualityTitle: TextView = itemView.findViewById(R.id.foodQualityTextView)
+        private val quality: TextView = itemView.findViewById(R.id.stockRatingTextView)
+        private val qualityTitle: TextView = itemView.findViewById(R.id.stockTextView)
         private val cleanliness: TextView = itemView.findViewById(R.id.cleanlinessRatingTextView)
         private val cleanlinessTitle: TextView = itemView.findViewById(R.id.cleanlinessTextView)
         private val friendliness: TextView = itemView.findViewById(R.id.friendlinessRatingTextView)

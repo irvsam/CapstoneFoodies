@@ -41,7 +41,7 @@ class LeaveReviewFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_leave_review, container, false)
 
         // Initialize views
-        qualityRatingBar = rootView.findViewById(R.id.QualityRatingBar)
+        qualityRatingBar = rootView.findViewById(R.id.stockRatingBar)
         cleanlinessRatingBar = rootView.findViewById(R.id.cleanlinessRatingBar)
         friendlinessRatingBar = rootView.findViewById(R.id.friendlinessRatingBar)
         efficiencyRatingBar = rootView.findViewById(R.id.efficiencyRatingBar)

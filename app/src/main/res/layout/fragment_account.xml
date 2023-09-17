@@ -20,8 +20,8 @@
 
     <TableLayout
         android:id="@+id/tableLayout"
-        android:layout_width="337dp"
-        android:layout_height="199dp"
+        android:layout_width="384dp"
+        android:layout_height="285dp"
         android:layout_marginTop="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,6 +102,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="currently no code to show" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/descriptionRowTitle"
+                android:layout_width="124dp"
+                android:layout_height="48dp"
+                android:text="Your store's description"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/descriptionTextView"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="description" />
         </TableRow>
 
     </TableLayout>

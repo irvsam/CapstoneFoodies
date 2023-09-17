@@ -1,4 +1,5 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,6 +7,8 @@
     tools:context=".StoreDetailsFragment"
     android:orientation="vertical"
     >
+
+
 
 
     <TextView
@@ -20,12 +23,12 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="437dp"
-        android:layout_height="188dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="452dp"
+        android:layout_height="172dp"
         android:scaleType="centerCrop"
         android:src="@drawable/coffees"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,13 +50,13 @@
         android:id="@+id/reviewButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="280dp"
         android:text="leave a review"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.015"
         app:layout_constraintStart_toStartOf="@+id/storeName"
-        app:layout_constraintTop_toBottomOf="@+id/storeName" />
+        app:layout_constraintTop_toBottomOf="@+id/descriptionTextView" />
 
     <TextView
         android:id="@+id/reviewTextView"
@@ -110,9 +113,20 @@
         android:layout_width="31dp"
         android:layout_height="24dp"
         android:src="@drawable/star"
-        app:layout_constraintStart_toStartOf="@+id/storeName"
-        app:layout_constraintTop_toBottomOf="@+id/storeName"
+        app:layout_constraintBottom_toBottomOf="@+id/storeName"
+        app:layout_constraintStart_toEndOf="@+id/storeName"
         app:tint="#FFC107" />
+
+    <TextView
+        android:id="@+id/descriptionTextView"
+        android:layout_width="384dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/storeName" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

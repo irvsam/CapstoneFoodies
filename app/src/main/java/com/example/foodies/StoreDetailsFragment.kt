@@ -35,6 +35,7 @@ class StoreDetailsFragment : Fragment() {
     private lateinit var storeName: TextView
     private lateinit var menuTextView: TextView
     private lateinit var reviewTextView: TextView
+    private lateinit var description: TextView
     private lateinit var reviewButton: Button
     private lateinit var storeViewModel: StoreViewModel
     private lateinit var vendorManagementViewModel: VendorManagementViewModel
@@ -57,6 +58,8 @@ class StoreDetailsFragment : Fragment() {
         reviewTextView = view.findViewById(R.id.reviewTextView)
         reviewButton = view.findViewById(R.id.reviewButton)
         numRatings = view.findViewById(R.id.numReviewsTextView)
+        description = view.findViewById(R.id.descriptionTextView)
+
         storeViewModel = ViewModelProvider(requireActivity())[StoreViewModel::class.java]
         vendorManagementViewModel = ViewModelProvider(requireActivity())[VendorManagementViewModel::class.java]
         reviewViewModel = ViewModelProvider(requireActivity())[ReviewViewModel::class.java]
@@ -74,6 +77,7 @@ class StoreDetailsFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 if (store != null) {
                     imageView.setImageResource(store.image)
+                    description.text = store.description
                     storeName.text = store.name
                     if (menu.length != 0) {
                         menuTextView.text = menu

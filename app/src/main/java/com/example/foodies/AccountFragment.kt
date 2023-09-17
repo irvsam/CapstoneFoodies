@@ -74,6 +74,8 @@ class AccountFragment : Fragment() {
             val voucherTextView = view?.findViewById<TextView>(R.id.voucherTextView)
             val voucherRowTitle = view?.findViewById<TextView>(R.id.voucherRowTitle)
             val editButton = view?.findViewById<ImageButton>(R.id.edit_button)
+            val descriptionRowTitle = view?.findViewById<TextView>(R.id.descriptionRowTitle)
+            val descriptionTextView = view?.findViewById<TextView>(R.id.descriptionTextView)
 
             if(vendor?.type=="Vendor"){ // user is a vendor
 
@@ -85,6 +87,7 @@ class AccountFragment : Fragment() {
                 nameTextView?.text = vendor?.username
                 emailTextView?.text = vendor?.email
                 phoneTextView?.text = vendor?.phone
+                descriptionTextView?.text = vendorManagementViewModel.vendor?.description
 
 
             }
@@ -92,6 +95,8 @@ class AccountFragment : Fragment() {
                 nameTextView?.text = user?.username
                 emailTextView?.text = user?.email
                 phoneTextView?.text = user?.phone
+                descriptionRowTitle?.visibility = View.GONE
+                descriptionTextView?.visibility = View.GONE
 
                 // Observe changes to the active voucher code
                 accountViewModel.userVoucher.observe(viewLifecycleOwner) { voucherCode ->
