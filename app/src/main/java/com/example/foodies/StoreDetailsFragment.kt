@@ -36,6 +36,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.Math.ceil
 import java.lang.StringBuilder
+import com.example.foodies.*
 
 class StoreDetailsFragment : Fragment() {
 

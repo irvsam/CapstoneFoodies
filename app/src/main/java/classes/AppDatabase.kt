@@ -34,4 +34,6 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun menuItemDao(): MenuItemDao
 
+    abstract fun scanDao(): ScanDao
+
 }

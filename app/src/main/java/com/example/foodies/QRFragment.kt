@@ -47,16 +47,21 @@ class QRFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val result: IntentResult? = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+
+        storeViewModel = ViewModelProvider(requireActivity())[StoreViewModel::class.java]
+        val vendorName = storeViewModel.vendor?.name
+
         if (result != null) {
+
+            // The scan was successful
             if (result.contents != null) {
-                // The scan was successful
+
                 // scannedResult should be the name of a vendor
                 val scannedResult = result.contents
 
-                storeViewModel = ViewModelProvider(requireActivity())[StoreViewModel::class.java]
-                val vendorName = storeViewModel.vendor?.name
-                if(scannedResult==vendorName)
-                {
+
+                // if the QR is for the right vendor
+                if(scannedResult==vendorName) {
                 // Display success signal
                 showToast("$scannedResult code scanned successfully")
                 val navController = findNavController()
@@ -70,9 +75,7 @@ class QRFragment : Fragment() {
                         insertScanInBackground(scan)
                     }
                 }
-
-
-
+                //
                 } else {
                     showToast("Incorrect code. Please scan the code for $vendorName")
                     val navController = findNavController()
@@ -82,15 +85,13 @@ class QRFragment : Fragment() {
             } else {
                 // The scan was successful, but the scanned contents are empty.
                 // This can happen if the user cancels the scan or if there was an issue with the QR code.
-            }
-        } else {
-            // The result is null, which indicates an issue with the scanning process.
-            // IDK what to do here
         }
+    }
 
 
     private suspend fun insertScanInBackground(scan: Entities.Scan) {
         withContext(Dispatchers.IO) {
+
             ApplicationCore.database.scanDao().insert(scan)
         }
     }
