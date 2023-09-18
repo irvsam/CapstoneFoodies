@@ -133,7 +133,7 @@ class FragmentHolderActivity : AppCompatActivity() {
                         vendorManagementViewModel.user = user
                         vendorManagementViewModel.setVendor()
                         // set the menu items
-                        vendorManagementViewModel.menuItems = ApplicationCore.database.menuItemDao().getMenuItemsByMenuId(vendorManagementViewModel.vendor!!.menuId)}
+                        vendorManagementViewModel.setMenuItems(ApplicationCore.database.menuItemDao().getMenuItemsByMenuId(vendorManagementViewModel.vendor!!.menuId))}
 
                 }
             }

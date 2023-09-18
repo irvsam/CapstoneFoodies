@@ -131,13 +131,19 @@ class VendorManagementViewModel: ViewModel(){
     var isVendor: Boolean = false
     var user: Entities.User? = null //this will be the vendor user who is logged on
     var vendor: Entities.Vendor? = null
-    var menuItems = mutableListOf<Entities.MenuItem?>()
+    val _menuItems = MutableLiveData<MutableList<Entities.MenuItem?>>()
 
     val isLoading: LiveData<Boolean>
         get() = _isLoading
     val ratingLiveData: LiveData<Float?>
         get() = _ratingLiveData
 
+    val menuItems: LiveData<MutableList<Entities.MenuItem?>>
+        get() = _menuItems
+
+    init {
+        _menuItems.value = mutableListOf()
+    }
     fun loadVendorInitialRating(vendorId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             val initialVendorRating = vendorRepository.getVendorRating(vendorId)
@@ -155,6 +161,32 @@ class VendorManagementViewModel: ViewModel(){
         viewModelScope.launch(Dispatchers.IO) {
             ApplicationCore.database.vendorDao().updateVendor(vendor)
         }
+    }
+
+    fun setMenuItems(menuItemsList:MutableList<Entities.MenuItem?> ){
+        val currentList = _menuItems.value ?: mutableListOf()
+        for(item in menuItemsList){
+            currentList.add(item)
+        }
+        _menuItems.value = currentList
+    }
+
+    fun addMenuItem(item:Entities.MenuItem?){
+        val currentList = _menuItems.value ?: mutableListOf()
+        currentList.add(item)
+        _menuItems.value = currentList
+    }
+
+    fun swapEditMenuItem(orginalItem:Entities.MenuItem?,editedItem:Entities.MenuItem?){
+        val currentList = _menuItems.value ?: mutableListOf()
+        val newList:MutableList<Entities.MenuItem?>? = currentList.map{if (it==orginalItem) editedItem else it}.toMutableList()
+        _menuItems.value = newList
+    }
+
+    fun deleteItem(item:Entities.MenuItem?){
+        val currentList = _menuItems.value ?: mutableListOf()
+        currentList.remove(item)
+        _menuItems.postValue(currentList)
     }
 
     fun updateRating(rating: Float?) {
