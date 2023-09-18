@@ -14,6 +14,8 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import classes.Entities
@@ -42,6 +44,9 @@ class StoreDetailsFragment : Fragment() {
     private lateinit var vendorViewModel: VendorViewModel
     private lateinit var numRatings: TextView
 
+    // LiveData to hold the calculated averages
+    private val averageScansData = MutableLiveData<List<Float>>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -61,7 +66,7 @@ class StoreDetailsFragment : Fragment() {
         vendorViewModel = ViewModelProvider(requireActivity())[VendorViewModel::class.java]
 
         //Remove the review button when displaying a store because Vendors cant review
-        if(vendorViewModel.user?.type=="Vendor"){
+        if (vendorViewModel.user?.type == "Vendor") {
             reviewButton.visibility = View.GONE
         }
 
@@ -79,18 +84,20 @@ class StoreDetailsFragment : Fragment() {
                     } else {
                         menuTextView.text = getString(R.string.currently_no_menu_to_display)
                     }
-                    val numReviews = ApplicationCore.database.vendorDao().getReviewCountForVendor(store.id)
+                    val numReviews =
+                        ApplicationCore.database.vendorDao().getReviewCountForVendor(store.id)
 
-                    if(numReviews!=0){
-                        numRatings.text = "("+numReviews.toString()+")"}
-                    else{numRatings.text =""}
+                    if (numReviews != 0) {
+                        numRatings.text = "(" + numReviews.toString() + ")"
+                    } else {
+                        numRatings.text = ""
+                    }
 
                     vendorViewModel.ratingLiveData.observe(viewLifecycleOwner) { rating ->
                         if (rating != null) {
                             reviewTextView.text = rating.toString()
 
-                        }
-                        else{
+                        } else {
                             reviewTextView.text = "no reviews yet"
                         }
                     }
@@ -101,11 +108,15 @@ class StoreDetailsFragment : Fragment() {
                     reviewTextView.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                     reviewTextView.setOnClickListener {
                         //navigate to viewing the reviews
-                        if(numReviews!=0)
-                        {val navController = findNavController()
-                        navController.navigate(R.id.viewReviewsFragment)}
-                        else{
-                            Toast.makeText(requireContext(), "no reviews to show!", Toast.LENGTH_SHORT)
+                        if (numReviews != 0) {
+                            val navController = findNavController()
+                            navController.navigate(R.id.viewReviewsFragment)
+                        } else {
+                            Toast.makeText(
+                                requireContext(),
+                                "no reviews to show!",
+                                Toast.LENGTH_SHORT
+                            )
                                 .show()
 
                         }
@@ -129,8 +140,8 @@ class StoreDetailsFragment : Fragment() {
             reviewButton.setOnClickListener {
                 if (!guestViewModel.isGuest) {
                     // User is logged in, take them to the QR code scanner
-                        val navController = findNavController()
-                        navController.navigate(R.id.QRFragment)
+                    val navController = findNavController()
+                    navController.navigate(R.id.QRFragment)
                 } else {
                     //they are guest
                     Toast.makeText(requireContext(), "you are not logged in!", Toast.LENGTH_SHORT)
@@ -138,29 +149,60 @@ class StoreDetailsFragment : Fragment() {
                 }
             }
         }
-        val barChart: BarChart = view.findViewById(R.id.barChart)
-        // Sample data (replace with your actual data)
-        val sampleData = listOf(
-            BarEntry(0f, 3f),   // Hour 0: Average busy-ness of 3
-            BarEntry(1f, 5f),   // Hour 1: Average busy-ness of 5
-            BarEntry(2f, 2f),   // Hour 2: Average busy-ness of 2
-        )
-        // Loop 8 times to fill each Bar with the average of all
-        barChart.setDrawBarShadow(false)
-        barChart.setDrawValueAboveBar(true)
-        barChart.description.isEnabled
+        observeAverageScansData(store!!.id)
+    }
 
-        val dataSet = BarDataSet(sampleData, "Average Busy-ness")
-        dataSet.setColors(Color.BLUE)
-        dataSet.valueTextColor = Color.BLACK
-        dataSet.valueTextSize = 12f
+    private fun calculateAverageScansForVendor(vendorId: Long) {
 
-        val barData = BarData(dataSet)
+        val scanDataForVendor = ApplicationCore.database.scanDao().getScansByVendor(vendorId)
+        // Group scan data by hour and initialize an array to store averages
+        val groupedData = scanDataForVendor.groupBy { it.hour }
+        val averages = MutableList(9) { 0f } // Initialize with 0 for each hour
 
-        barChart.data = barData
+        // Calculate average scans for each hour
+        for (hour in 9..16) { // Hours from 9 am to 5 pm
+            val scansForHour = groupedData[hour] ?: emptyList()
+            val average = if (scansForHour.isNotEmpty()) {
+                scansForHour.size.toFloat() / /* Number of days or time periods */ 7
+            } else {
+                0f // No scans for this hour
+            }
+            averages[hour - 9] = average
+        }
 
-        barChart.invalidate()
+        // Update the LiveData with the calculated averages
+        averageScansData.postValue(averages)
+    }
 
+    private fun getAverageScansData(vendorId: Long): LiveData<List<Float>> {
+        calculateAverageScansForVendor(vendorId)
+        return averageScansData
+    }
+
+    private fun observeAverageScansData(vendorId: Long) {
+        val barChart: BarChart = requireView().findViewById(R.id.barChart)
+
+        getAverageScansData(vendorId).observe(viewLifecycleOwner) { averages ->
+            // Update the graph using the 'averages' data
+            // You can replace the sampleData with 'averages' to use the calculated data
+            val sampleData = mutableListOf<BarEntry>()
+            for ((index, average) in averages.withIndex()) {
+                sampleData.add(BarEntry(index.toFloat(), average))
+            }
+            // Rest of your code to set up the BarChart with sampleData
+            barChart.setDrawBarShadow(false)
+            barChart.setDrawValueAboveBar(true)
+            barChart.description.isEnabled
+
+            val dataSet = BarDataSet(sampleData, "Average Busy-ness")
+            dataSet.setColors(Color.BLUE)
+            dataSet.valueTextColor = Color.BLACK
+            dataSet.valueTextSize = 12f
+
+            val barData = BarData(dataSet)
+            barChart.data = barData
+            barChart.invalidate()
+        }
     }
 
     private fun displayMenuItems(menuItems: List<Entities.MenuItem?>?): StringBuilder {
@@ -171,7 +213,7 @@ class StoreDetailsFragment : Fragment() {
                 val price = String.format("%.2f", item?.price)
                 menuItemsString.append("R$price   ")
                 menuItemsString.append(item?.name.toString())
-                if(item?.inStock==false){
+                if (item?.inStock == false) {
                     menuItemsString.append(" (Out of stock)")
                 }
                 menuItemsString.append("\n")
