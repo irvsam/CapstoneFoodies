@@ -1,14 +1,18 @@
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.core.widget.NestedScrollView
+    android:id="@+id/nestedScroll"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".StoreDetailsFragment"
-    android:orientation="vertical"
     >
 
-
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".StoreDetailsFragment"
+        android:orientation="vertical"
+        >
 
 
     <TextView
@@ -23,12 +27,12 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="452dp"
-        android:layout_height="172dp"
+        android:layout_width="437dp"
+        android:layout_height="188dp"
+        android:layout_marginTop="16dp"
         android:scaleType="centerCrop"
         android:src="@drawable/coffees"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -108,14 +112,14 @@
         </LinearLayout>
     </ScrollView>
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="31dp"
-        android:layout_height="24dp"
-        android:src="@drawable/star"
-        app:layout_constraintBottom_toBottomOf="@+id/storeName"
-        app:layout_constraintStart_toEndOf="@+id/storeName"
-        app:tint="#FFC107" />
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="31dp"
+            android:layout_height="24dp"
+            android:src="@drawable/star"
+            app:layout_constraintStart_toStartOf="@+id/storeName"
+            app:layout_constraintTop_toBottomOf="@+id/storeName"
+            app:tint="#FFC107" />
 
     <TextView
         android:id="@+id/descriptionTextView"
@@ -128,5 +132,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/storeName" />
 
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/scroll"
+            android:layout_gravity="center_horizontal"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

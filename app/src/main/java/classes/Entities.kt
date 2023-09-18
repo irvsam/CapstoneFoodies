@@ -56,7 +56,7 @@ class Entities {
         @ColumnInfo(name = "closeTime") val closeTime: String,
         @ColumnInfo(name = "dietaryReq_id") val dietaryReqId: Long,
         val image: Int,
-    ):Serializable
+    ) : Serializable
 
     @Entity(tableName = "dietary_req")
     data class DietaryRequirement(
@@ -73,7 +73,6 @@ class Entities {
         val name: String
     )
 
-
     // MENU_ITEM
     @Entity(
         tableName = "menuitem",
@@ -86,6 +85,7 @@ class Entities {
             )
         ]
     )
+
     data class MenuItem(
         @PrimaryKey(autoGenerate = true) val id: Long = 0,
         @ColumnInfo(name = "menu_id") val menuId: Long,
@@ -103,8 +103,7 @@ class Entities {
                 parentColumns = ["id"],
                 childColumns = ["user_id"],
                 onDelete = ForeignKey.CASCADE
-            )
-            ,
+            ),
             ForeignKey(
                 entity = Vendor::class,
                 parentColumns = ["id"],
@@ -124,7 +123,23 @@ class Entities {
         val cleanliness: Float,
         val friendliness: Float,
         val efficiency: Float,
+    )
 
+    @Entity(
+        tableName = "Scans",
+        foreignKeys = [
+            ForeignKey(
+                entity = Vendor::class,
+                parentColumns = ["id"],
+                childColumns = ["vendorId"],
+                onDelete = ForeignKey.CASCADE
+            )
+        ]
+    )
+    data class Scan(
+        @PrimaryKey(autoGenerate = true) val id: Long = 0,
+        val vendorId: Long, // Foreign key referencing Vendor's id
+        val hour: Int // Store the day of the week as an integer
     )
 
 }

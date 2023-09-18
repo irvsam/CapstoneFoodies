@@ -25,6 +25,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.execSQL(CREATE_MENU_ITEM_TABLE)
         db.execSQL(CREATE_REVIEW_TABLE)
         db.execSQL(CREATE_USER_TABLE)
+        db.execSQL(CREATE_SCANS_TABLE)
     }
 
      fun seedDatabase(db : SQLiteDatabase) {
@@ -114,6 +115,15 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             FOREIGN KEY(user_id) REFERENCES user(id)
         )
     """.trimIndent()
+
+    private val CREATE_SCANS_TABLE = """
+    CREATE TABLE scans (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        vendor_id INTEGER,
+        day_of_week INTEGER,
+        FOREIGN KEY(vendor_id) REFERENCES vendor(id)
+    )
+""".trimIndent()
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         // Handle database upgrades

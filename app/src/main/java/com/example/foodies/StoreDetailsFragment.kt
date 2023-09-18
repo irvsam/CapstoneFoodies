@@ -1,5 +1,6 @@
 package com.example.foodies
 
+import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,6 +14,8 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import classes.Entities
@@ -21,10 +24,17 @@ import classes.ReviewViewModel
 import classes.StoreViewModel
 import classes.VendorManagementViewModel
 import com.example.foodies.databaseManagement.ApplicationCore
+import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.Math.ceil
 import java.lang.StringBuilder
 
 class StoreDetailsFragment : Fragment() {
@@ -35,12 +45,14 @@ class StoreDetailsFragment : Fragment() {
     private lateinit var storeName: TextView
     private lateinit var menuTextView: TextView
     private lateinit var reviewTextView: TextView
-    private lateinit var description: TextView
     private lateinit var reviewButton: Button
     private lateinit var storeViewModel: StoreViewModel
     private lateinit var vendorManagementViewModel: VendorManagementViewModel
     private lateinit var reviewViewModel: ReviewViewModel
     private lateinit var numRatings: TextView
+
+    // LiveData to hold the calculated averages
+    private val averageScansData = MutableLiveData<List<Float>>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,6 +61,7 @@ class StoreDetailsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_store_details, container, false)
     }
 
+    //TODO we might want to use shared view model for stores instead of bundling it, ive already set it up for leaving reviews
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -84,18 +97,20 @@ class StoreDetailsFragment : Fragment() {
                     } else {
                         menuTextView.text = getString(R.string.currently_no_menu_to_display)
                     }
-                    val numReviews = ApplicationCore.database.vendorDao().getReviewCountForVendor(store.id)
+                    val numReviews =
+                        ApplicationCore.database.vendorDao().getReviewCountForVendor(store.id)
 
-                    if(numReviews!=0){
-                        numRatings.text = "("+numReviews.toString()+")"}
-                    else{numRatings.text =""}
+                    if (numReviews != 0) {
+                        numRatings.text = "(" + numReviews.toString() + ")"
+                    } else {
+                        numRatings.text = ""
+                    }
 
                     storeViewModel.ratingLiveData.observe(viewLifecycleOwner) { rating ->
                         if (rating != null) {
                             reviewTextView.text = rating.toString()
 
-                        }
-                        else{
+                        } else {
                             reviewTextView.text = "no reviews yet"
                         }
                     }
@@ -138,14 +153,89 @@ class StoreDetailsFragment : Fragment() {
             reviewButton.setOnClickListener {
                 if (!guestViewModel.isGuest) {
                     // User is logged in, take them to the QR code scanner
-                        val navController = findNavController()
-                        navController.navigate(R.id.QRFragment)
+                    val navController = findNavController()
+                    navController.navigate(R.id.QRFragment)
                 } else {
                     //they are guest
                     Toast.makeText(requireContext(), "you are not logged in!", Toast.LENGTH_SHORT)
                         .show()
                 }
             }
+        }
+
+        observeAverageScansData(store!!.id)
+    }
+
+    private fun calculateAverageScansForVendor(vendorId: Long) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val scanDataForVendor = getScansForVendor(vendorId)
+            // Group scan data by hour and initialize an array to store averages
+            val groupedData = scanDataForVendor.groupBy { it.hour }
+            val averages = MutableList(9) { 0f } // Initialize with 0 for each hour
+
+            // Calculate average scans for each hour
+            for (hour in 9..16) { // Hours from 9 am to 5 pm
+                val scansForHour = groupedData[hour] ?: emptyList()
+                val average = if (scansForHour.isNotEmpty()) {
+                    (scansForHour.size / 7.0).toFloat() // Average without rounding
+                } else {
+                    0f // No scans for this hour
+                }
+                averages[hour - 9] = average
+            }
+            withContext(Dispatchers.Main){
+                // Update the LiveData with the calculated averages
+                averageScansData.postValue(averages)
+            }
+        }
+    }
+
+    private suspend fun getScansForVendor(vendorId: Long): List<Entities.Scan> {
+        var scans: List<Entities.Scan>
+        withContext(Dispatchers.IO) {
+            scans = ApplicationCore.database.scanDao().getScansByVendor(vendorId)
+        }
+        return scans
+    }
+    private fun getAverageScansData(vendorId: Long): LiveData<List<Float>> {
+        calculateAverageScansForVendor(vendorId)
+        return averageScansData
+    }
+
+    private fun observeAverageScansData(vendorId: Long) {
+        val barChart: BarChart = requireView().findViewById(R.id.barChart)
+
+        getAverageScansData(vendorId).observe(viewLifecycleOwner) { averages ->
+            // Update the graph using the 'averages' data
+            // You can replace the sampleData with 'averages' to use the calculated data
+            val data = mutableListOf<BarEntry>()
+            for ((index, average) in averages.withIndex()) {
+                data.add(BarEntry(index.toFloat(), average))
+            }
+
+            val xLabels = listOf("9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00")
+            val dataSet = BarDataSet(data, "Avg. number of reviews per day")
+
+            dataSet.setColors(Color.BLUE)
+            dataSet.valueTextColor = Color.BLACK
+            dataSet.valueTextSize = 12f
+            val barData = BarData(dataSet)
+            barChart.data = barData
+
+            // Get the x-axis and set a custom value formatter
+            val xAxis = barChart.xAxis
+            xAxis.valueFormatter = IndexAxisValueFormatter(xLabels)
+            xAxis.position = XAxis.XAxisPosition.BOTTOM
+            xAxis.setDrawGridLines(false)
+            xAxis.setDrawAxisLine(true)
+            xAxis.granularity = 1f // Set granularity to 1 to avoid displaying non-integer values
+
+            // Rest of your code to set up the BarChart with sampleData
+            barChart.setDrawBarShadow(false)
+            barChart.setDrawValueAboveBar(true)
+            barChart.legend.isEnabled = false
+            dataSet.setDrawValues(false)
+            barChart.invalidate()
         }
     }
 
@@ -157,7 +247,7 @@ class StoreDetailsFragment : Fragment() {
                 val price = String.format("%.2f", item?.price)
                 menuItemsString.append("R$price   ")
                 menuItemsString.append(item?.name.toString())
-                if(item?.inStock==false){
+                if (item?.inStock == false) {
                     menuItemsString.append(" (Out of stock)")
                 }
                 menuItemsString.append("\n")
