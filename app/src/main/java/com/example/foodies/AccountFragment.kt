@@ -22,7 +22,7 @@ class AccountFragment : Fragment() {
     private lateinit var accountViewModel: AccountViewModel // Declare the UserViewModel
     private lateinit var vendorManagementViewModel: VendorManagementViewModel
     private var user: Entities.User? = null // Declare the User property as nullable
-    private var vendor: Entities.User?=null
+    private var vendor: Entities.User? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,14 +37,10 @@ class AccountFragment : Fragment() {
         setSignOutButton()
         setUserDetails()
 
-
-
-
     }
 
-
-    private fun setSignOutButton(){
-            //setting the logic for signing out
+    private fun setSignOutButton() {
+        //setting the logic for signing out
         val signOutButton = view?.findViewById<Button>(R.id.signout_button)
 
         signOutButton?.setOnClickListener {
@@ -57,10 +53,11 @@ class AccountFragment : Fragment() {
         }
     }
 
-    private fun setUserDetails(){
+    private fun setUserDetails() {
         // Initialize the UserViewModel
         accountViewModel = ViewModelProvider(requireActivity())[AccountViewModel::class.java]
-        vendorManagementViewModel = ViewModelProvider(requireActivity())[VendorManagementViewModel::class.java]
+        vendorManagementViewModel =
+            ViewModelProvider(requireActivity())[VendorManagementViewModel::class.java]
         // Get the user from the UserViewModel
         user = accountViewModel.user
 
@@ -68,7 +65,7 @@ class AccountFragment : Fragment() {
         vendor = vendorManagementViewModel.user
 
         // Check if the user is not null before accessing its properties
-        if (user != null || vendor!=null) {
+        if (user != null || vendor != null) {
             val nameTextView = view?.findViewById<TextView>(R.id.nameTextView)
             val emailTextView = view?.findViewById<TextView>(R.id.emailTextView)
             val phoneTextView = view?.findViewById<TextView>(R.id.phoneTextView)
@@ -81,10 +78,10 @@ class AccountFragment : Fragment() {
             val descriptionTextView = view?.findViewById<TextView>(R.id.descriptionTextView)
             val avatar = view?.findViewById<ImageView>(R.id.avatarImageView)
 
-            if(vendor?.type=="Vendor"){ // user is a vendor
+            if (vendor?.type == "Vendor") { // user is a vendor
                 avatar?.visibility = View.GONE
-                rewardRowTitle?.visibility=View.GONE
-                rewardTextView?.visibility=View.GONE
+                rewardRowTitle?.visibility = View.GONE
+                rewardTextView?.visibility = View.GONE
                 voucherTextView?.visibility = View.GONE
                 voucherRowTitle?.visibility = View.GONE
                 //editButton?.visibility = View.GONE
@@ -94,13 +91,12 @@ class AccountFragment : Fragment() {
                 descriptionTextView?.text = vendorManagementViewModel.vendor?.description
 
 
-            }
-            else { // user is not a vendor
+            } else { // user is not a vendor
                 nameTextView?.text = user?.username
                 emailTextView?.text = user?.email
                 phoneTextView?.text = user?.phone
 
-                if(user?.avatar!=null){
+                if (user?.avatar != null) {
                     setAvatarImage(user?.avatar, avatar)
                 }
                 descriptionRowTitle?.visibility = View.GONE
@@ -109,8 +105,9 @@ class AccountFragment : Fragment() {
                 // Observe changes to the active voucher code
                 accountViewModel.userVoucher.observe(viewLifecycleOwner) { voucherCode ->
                     if (voucherTextView != null) {
-                        if(voucherCode!=null)
-                        {voucherTextView.text = voucherCode}
+                        if (voucherCode != null) {
+                            voucherTextView.text = voucherCode
+                        }
                     }
                 }
                 //load initial voucher
@@ -142,13 +139,7 @@ class AccountFragment : Fragment() {
                 navController.navigate(R.id.editDetailsFragment)
 
             }
-
-
-
         }
-
-
-
 
     }
 
@@ -157,7 +148,8 @@ class AccountFragment : Fragment() {
         "penguin" to R.drawable.penguin,
         "rabbit" to R.drawable.rabbit,
         "sloth" to R.drawable.sloth,
-        "camel" to R.drawable.camel
+        "camel" to R.drawable.camel,
+        "secret" to R.drawable.secret
     )
 
     // Function to set the avatar image based on the avatar name
@@ -172,7 +164,8 @@ class AccountFragment : Fragment() {
 
     private fun showAvatarSelectionDialog() {
         val dialogFragment = AvatarSelectionDialogFragment()
-        dialogFragment.setOnAvatarSelectedListener(object : AvatarSelectionDialogFragment.OnAvatarSelectedListener {
+        dialogFragment.setOnAvatarSelectedListener(object :
+            AvatarSelectionDialogFragment.OnAvatarSelectedListener {
             override fun onAvatarSelected(avatarResId: Int) {
                 // Handle the selected avatar here
                 updateAvatarInDatabase(avatarResId)
