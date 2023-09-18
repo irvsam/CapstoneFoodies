@@ -14,4 +14,5 @@ interface ScanDao {
     @Query("SELECT * FROM Scans")
     fun getAllScans(): LiveData<List<Entities.Scan>>
 
+
 }

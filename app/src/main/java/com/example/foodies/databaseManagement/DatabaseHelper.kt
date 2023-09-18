@@ -120,7 +120,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     CREATE TABLE scans (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         vendor_id INTEGER,
-        scan_time DATETIME,
+        day_of_week INTEGER,
         FOREIGN KEY(vendor_id) REFERENCES vendor(id)
     )
 """.trimIndent()

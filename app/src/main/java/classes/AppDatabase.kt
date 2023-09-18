@@ -7,6 +7,7 @@ import classes.daos.DietaryReqDao
 import classes.daos.MenuDao
 import classes.daos.MenuItemDao
 import classes.daos.ReviewDao
+import classes.daos.ScanDao
 import classes.daos.VendorDao
 
 @Database(
@@ -15,8 +16,9 @@ import classes.daos.VendorDao
     Entities.DietaryRequirement::class,
     Entities.MenuItem::class,
     Entities.Menu::class,
-    Entities.Review::class],
-    version = 24, exportSchema = false
+    Entities.Review::class,
+        Entities.Scan::class],
+    version = 28, exportSchema = false
 )
 
 abstract class AppDatabase : RoomDatabase() {
@@ -32,5 +34,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun menuDao(): MenuDao
 
     abstract fun menuItemDao(): MenuItemDao
+
+    abstract fun scanDao(): ScanDao
 
 }

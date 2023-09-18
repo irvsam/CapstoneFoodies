@@ -145,7 +145,7 @@ class StoreDetailsFragment : Fragment() {
             BarEntry(1f, 5f),   // Hour 1: Average busy-ness of 5
             BarEntry(2f, 2f),   // Hour 2: Average busy-ness of 2
         )
-
+        // Loop 8 times to fill each Bar with the average of all
         barChart.setDrawBarShadow(false)
         barChart.setDrawValueAboveBar(true)
         barChart.description.isEnabled

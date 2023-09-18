@@ -6,7 +6,6 @@ import androidx.room.*
 import io.reactivex.internal.observers.BlockingLastObserver
 import java.io.Serializable
 import java.sql.Blob
-import java.sql.Date
 
 
 class Entities {
@@ -55,7 +54,7 @@ class Entities {
         @ColumnInfo(name = "closeTime") val closeTime: String,
         @ColumnInfo(name = "dietaryReq_id") val dietaryReqId: Long,
         val image: Int,
-    ):Serializable
+    ) : Serializable
 
     @Entity(tableName = "dietary_req")
     data class DietaryRequirement(
@@ -138,7 +137,7 @@ class Entities {
     data class Scan(
         @PrimaryKey(autoGenerate = true) val id: Long = 0,
         val vendorId: Long, // Foreign key referencing Vendor's id
-        val timestamp: Date
+        val hour: Int // Store the day of the week as an integer
     )
 
 }

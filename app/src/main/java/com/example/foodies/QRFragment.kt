@@ -1,4 +1,5 @@
 package com.example.foodies
+
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,10 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.room.Room
+import classes.Entities
 import classes.VendorViewModel
+import classes.daos.ScanDao
+import com.example.foodies.databaseManagement.ApplicationCore
 import com.google.zxing.integration.android.IntentIntegrator
 import com.google.zxing.integration.android.IntentResult
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.util.Calendar
 
 
 class QRFragment : Fragment() {
@@ -36,7 +46,8 @@ class QRFragment : Fragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        val result: IntentResult? = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+        val result: IntentResult? =
+            IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
         if (result != null) {
             if (result.contents != null) {
                 // The scan was successful
@@ -45,17 +56,27 @@ class QRFragment : Fragment() {
 
                 vendorViewModel = ViewModelProvider(requireActivity())[VendorViewModel::class.java]
                 val vendorName = vendorViewModel.vendor?.name
-                if(scannedResult==vendorName)
-                {
-                // Display success signal
-                showToast("$scannedResult code scanned successfully")
-                val navController = findNavController()
-                navController.navigate(R.id.leaveReviewFragment)}
+                if (scannedResult == vendorName) {
+                    // Display success signal
+                    showToast("$scannedResult code scanned successfully")
+                    val navController = findNavController()
+                    navController.navigate(R.id.leaveReviewFragment)
 
-                else{
+                    // Create scan object
+                    val vendorId = vendorViewModel.vendor!!.id
+                    val currentTime = Calendar.getInstance()
+                    val currentHour = currentTime.get(Calendar.HOUR_OF_DAY)
+
+                    val scan = Entities.Scan(vendorId = vendorId, hour = currentHour)
+                    lifecycleScope.launch {
+                        insertScanInBackground(scan)
+                    }
+
+                } else {
                     showToast("Incorrect code. Please scan the code for $vendorName")
                     val navController = findNavController()
-                    navController.navigate(R.id.storeDetailsFragment)}
+                    navController.navigate(R.id.storeDetailsFragment)
+                }
 
             } else {
                 // The scan was successful, but the scanned contents are empty.
@@ -66,6 +87,13 @@ class QRFragment : Fragment() {
             // IDK what to do here
         }
     }
+
+    private suspend fun insertScanInBackground(scan: Entities.Scan) {
+        withContext(Dispatchers.IO) {
+            ApplicationCore.database.scanDao().insert(scan)
+        }
+    }
+
     private fun showToast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }

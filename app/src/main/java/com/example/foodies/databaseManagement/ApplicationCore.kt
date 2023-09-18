@@ -25,7 +25,7 @@ class ApplicationCore : Application() {
         database = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "app-database")
             .fallbackToDestructiveMigration()
             .build()
-        // TODO: finish writing out the vendor details
+
         // Here is where we create the list of MenuEntities that need to prepopulate the database
         val menuEntitiesToSeed = listOf(
 
@@ -208,8 +208,8 @@ class ApplicationCore : Application() {
                 name = "AfriQuezeen",
                 cuisine = "Meat",
                 menuId = 1,
-                openTime = "7:00",
-                closeTime = "18:00",
+                openTime = "9:00",
+                closeTime = "17:00",
                 dietaryReqId = 1,
                 image = R.drawable.curry
             ),
