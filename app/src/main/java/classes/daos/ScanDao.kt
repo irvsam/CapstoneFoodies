@@ -14,8 +14,5 @@ interface ScanDao {
     @Query("SELECT * FROM Scans")
     fun getAllScans(): LiveData<List<Entities.Scan>>
 
-    @Query("SELECT * FROM Scans WHERE vendorId = :vendorId")
-    fun getScansByVendor(vendorId: Long): List<Entities.Scan>
-
 
 }

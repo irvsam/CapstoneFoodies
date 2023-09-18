@@ -14,14 +14,11 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import classes.Entities
 import classes.GuestViewModel
 import classes.VendorViewModel
-import classes.daos.ScanDao
 import com.example.foodies.databaseManagement.ApplicationCore
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.data.BarData
@@ -29,7 +26,6 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.StringBuilder
@@ -45,9 +41,6 @@ class StoreDetailsFragment : Fragment() {
     private lateinit var reviewButton: Button
     private lateinit var vendorViewModel: VendorViewModel
     private lateinit var numRatings: TextView
-    // LiveData to hold the calculated averages
-    private val averageScansData = MutableLiveData<List<Float>>()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -114,6 +107,7 @@ class StoreDetailsFragment : Fragment() {
                         else{
                             Toast.makeText(requireContext(), "no reviews to show!", Toast.LENGTH_SHORT)
                                 .show()
+
                         }
                     }
                 }
@@ -145,11 +139,6 @@ class StoreDetailsFragment : Fragment() {
             }
         }
         val barChart: BarChart = view.findViewById(R.id.barChart)
-
-        // get list of averages
-
-
-
         // Sample data (replace with your actual data)
         val sampleData = listOf(
             BarEntry(0f, 3f),   // Hour 0: Average busy-ness of 3
@@ -190,48 +179,4 @@ class StoreDetailsFragment : Fragment() {
         }
         return menuItemsString
     }
-
-    /**
-     * Function to return a populated list of the average number of scans per hour for the
-     * current Vendor.
-     */
-    private suspend fun calculateAverageScansForVendor(vendorId: Long) {
-
-        // Retrieve all scans for the current vendor
-        val scans = getScansForVendor(vendorId)
-        // Create a map in the form: <Int, Scans>
-        // to be able to reference all the scans made in a specific hour
-        val groupedScans = scans.groupBy { it.hour }
-        // create a list that contains 8 "empty" hours
-        val averages = MutableList(9) { 0f }
-
-        // Calculate the vendor's average scans for each hour
-        for(hour in 9..16) {
-            // if there are no scans present for the current hour, fill with an empty list
-            val scansForHour = groupedScans[hour] ?: emptyList()
-            val average = scansForHour.size.toFloat() / 5
-            averages[hour - 9] = average
-        }
-        // Update the LiveData with the calculated values
-        averageScansData.postValue(averages)
-
-    }
-
-    private suspend fun getScansForVendor(vendorId: Long): List<Entities.Scan> {
-        var scans: List<Entities.Scan>
-        withContext(Dispatchers.IO) {
-            scans = ApplicationCore.database.scanDao().getScansByVendor(vendorId)
-        }
-        return scans
-    }
-
-
-    fun getAverageScansData(vendorId: Long): LiveData<List<Float>> {
-
-        GlobalScope.launch {
-            calculateAverageScansForVendor(vendorId)
-        }
-        return averageScansData
-    }
-
 }
