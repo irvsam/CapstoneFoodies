@@ -41,19 +41,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         }
         db.insert("vendor", null, campusCafe)
 
-
-
-        // Creating a User for testing:
-        // for ease of testing:
-        // email = 1
-        // password = p
-        val testUserValues = ContentValues().apply {
-            put("id", 1)
-            put("email", "1")
-            put("password", "p")
-            put("rewardPoints", 200)
-        }
-        db.insert("user",null, testUserValues)
     }
 
     private val CREATE_USER_TABLE = """

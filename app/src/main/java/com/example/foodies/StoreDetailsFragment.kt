@@ -34,7 +34,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.Math.ceil
 import java.lang.StringBuilder
 import com.example.foodies.*
 
@@ -47,6 +46,7 @@ class StoreDetailsFragment : Fragment() {
     private lateinit var menuTextView: TextView
     private lateinit var reviewTextView: TextView
     private lateinit var reviewButton: Button
+    private lateinit var description: TextView
     private lateinit var storeViewModel: StoreViewModel
     private lateinit var vendorManagementViewModel: VendorManagementViewModel
     private lateinit var reviewViewModel: ReviewViewModel
@@ -72,7 +72,9 @@ class StoreDetailsFragment : Fragment() {
         reviewTextView = view.findViewById(R.id.reviewTextView)
         reviewButton = view.findViewById(R.id.reviewButton)
         numRatings = view.findViewById(R.id.numReviewsTextView)
-        description = view.findViewById(R.id.descriptionTextView)
+        description = view.findViewById(R.id.storeDescriptionTextView)
+
+
 
         storeViewModel = ViewModelProvider(requireActivity())[StoreViewModel::class.java]
         vendorManagementViewModel = ViewModelProvider(requireActivity())[VendorManagementViewModel::class.java]
