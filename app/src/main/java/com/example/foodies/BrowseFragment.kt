@@ -38,6 +38,7 @@ class BrowseFragment : Fragment(),StoreClickListener {
         super.onCreate(savedInstanceState)
         sharedViewModel=ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         searchSharedViewModel = ViewModelProvider(requireActivity())[SearchSharedViewModel::class.java]
+        vendorViewModel = ViewModelProvider(requireActivity())[StoreViewModel::class.java]
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
