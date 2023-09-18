@@ -26,7 +26,8 @@ class AvatarSelectionDialogFragment : DialogFragment() {
             R.drawable.penguin,
             R.drawable.rabbit,
             R.drawable.sloth,
-            R.drawable.camel
+            R.drawable.camel,
+            R.drawable.secret
         )
 
         // Array of avatar option names (optional)
@@ -34,7 +35,8 @@ class AvatarSelectionDialogFragment : DialogFragment() {
             "penguin",
             "rabbit",
             "sloth",
-            "camel"
+            "camel",
+            "secret"
         )
 
         // Set the list of avatar options
