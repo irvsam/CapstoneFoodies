@@ -31,6 +31,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.StringBuilder
+import kotlin.math.ceil
+import kotlin.math.roundToInt
+import kotlin.math.roundToLong
 
 class StoreDetailsFragment : Fragment() {
 
@@ -149,31 +152,41 @@ class StoreDetailsFragment : Fragment() {
                 }
             }
         }
+
         observeAverageScansData(store!!.id)
     }
 
     private fun calculateAverageScansForVendor(vendorId: Long) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val scanDataForVendor = getScansForVendor(vendorId)
+            // Group scan data by hour and initialize an array to store averages
+            val groupedData = scanDataForVendor.groupBy { it.hour }
+            val averages = MutableList(9) { 0f } // Initialize with 0 for each hour
 
-        val scanDataForVendor = ApplicationCore.database.scanDao().getScansByVendor(vendorId)
-        // Group scan data by hour and initialize an array to store averages
-        val groupedData = scanDataForVendor.groupBy { it.hour }
-        val averages = MutableList(9) { 0f } // Initialize with 0 for each hour
-
-        // Calculate average scans for each hour
-        for (hour in 9..16) { // Hours from 9 am to 5 pm
-            val scansForHour = groupedData[hour] ?: emptyList()
-            val average = if (scansForHour.isNotEmpty()) {
-                scansForHour.size.toFloat() / /* Number of days or time periods */ 7
-            } else {
-                0f // No scans for this hour
+            // Calculate average scans for each hour
+            for (hour in 9..16) { // Hours from 9 am to 5 pm
+                val scansForHour = groupedData[hour] ?: emptyList()
+                val average = if (scansForHour.isNotEmpty()) {
+                    scansForHour.size.toFloat() / 1
+                } else {
+                    0f // No scans for this hour
+                }
+                averages[hour - 9] = average
             }
-            averages[hour - 9] = average
+            withContext(Dispatchers.Main){
+                // Update the LiveData with the calculated averages
+                averageScansData.postValue(averages)
+            }
         }
-
-        // Update the LiveData with the calculated averages
-        averageScansData.postValue(averages)
     }
 
+    private suspend fun getScansForVendor(vendorId: Long): List<Entities.Scan> {
+        var scans: List<Entities.Scan>
+        withContext(Dispatchers.IO) {
+            scans = ApplicationCore.database.scanDao().getScansByVendor(vendorId)
+        }
+        return scans
+    }
     private fun getAverageScansData(vendorId: Long): LiveData<List<Float>> {
         calculateAverageScansForVendor(vendorId)
         return averageScansData
