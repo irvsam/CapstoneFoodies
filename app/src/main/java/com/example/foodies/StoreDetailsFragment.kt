@@ -23,17 +23,17 @@ import classes.GuestViewModel
 import classes.VendorViewModel
 import com.example.foodies.databaseManagement.ApplicationCore
 import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.Math.ceil
 import java.lang.StringBuilder
-import kotlin.math.ceil
-import kotlin.math.roundToInt
-import kotlin.math.roundToLong
 
 class StoreDetailsFragment : Fragment() {
 
@@ -167,7 +167,7 @@ class StoreDetailsFragment : Fragment() {
             for (hour in 9..16) { // Hours from 9 am to 5 pm
                 val scansForHour = groupedData[hour] ?: emptyList()
                 val average = if (scansForHour.isNotEmpty()) {
-                    scansForHour.size.toFloat() / 1
+                    (scansForHour.size / 7.0).toFloat() // Average without rounding
                 } else {
                     0f // No scans for this hour
                 }
@@ -198,22 +198,33 @@ class StoreDetailsFragment : Fragment() {
         getAverageScansData(vendorId).observe(viewLifecycleOwner) { averages ->
             // Update the graph using the 'averages' data
             // You can replace the sampleData with 'averages' to use the calculated data
-            val sampleData = mutableListOf<BarEntry>()
+            val data = mutableListOf<BarEntry>()
             for ((index, average) in averages.withIndex()) {
-                sampleData.add(BarEntry(index.toFloat(), average))
+                data.add(BarEntry(index.toFloat(), average))
             }
-            // Rest of your code to set up the BarChart with sampleData
-            barChart.setDrawBarShadow(false)
-            barChart.setDrawValueAboveBar(true)
-            barChart.description.isEnabled
 
-            val dataSet = BarDataSet(sampleData, "Average Busy-ness")
+            val xLabels = listOf("9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00")
+            val dataSet = BarDataSet(data, "Avg. number of reviews per day")
+
             dataSet.setColors(Color.BLUE)
             dataSet.valueTextColor = Color.BLACK
             dataSet.valueTextSize = 12f
-
             val barData = BarData(dataSet)
             barChart.data = barData
+
+            // Get the x-axis and set a custom value formatter
+            val xAxis = barChart.xAxis
+            xAxis.valueFormatter = IndexAxisValueFormatter(xLabels)
+            xAxis.position = XAxis.XAxisPosition.BOTTOM
+            xAxis.setDrawGridLines(false)
+            xAxis.setDrawAxisLine(true)
+            xAxis.granularity = 1f // Set granularity to 1 to avoid displaying non-integer values
+
+            // Rest of your code to set up the BarChart with sampleData
+            barChart.setDrawBarShadow(false)
+            barChart.setDrawValueAboveBar(true)
+            barChart.legend.isEnabled = false
+            dataSet.setDrawValues(false)
             barChart.invalidate()
         }
     }
