@@ -199,11 +199,6 @@ class VendorManagementViewModel: ViewModel(){
         _isLoading.postValue(false)
     }
 
-    suspend fun setMenu(){
-        _isLoading.postValue(true)
-        menuItems = ApplicationCore.database.menuItemDao().getMenuItemsByMenuId(vendor!!.menuId)
-        _isLoading.postValue(false)
-    }
 
 
 }
