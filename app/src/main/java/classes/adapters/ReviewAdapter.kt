@@ -6,12 +6,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodies.R
 import classes.Entities
+import com.example.foodies.ReplyReviewFragment
 import com.example.foodies.databaseManagement.ApplicationCore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -121,13 +123,11 @@ class ReviewAdapter(private val reviews: MutableList<Entities.Review?>,
                 if(isVendor){
                     if(review.reply == null){
                         reply.text = "Reply"
-                        reply.setOnClickListener {
-                            reply.text = "Reply"
-                            reply.setOnClickListener {
-                                //TODO
-                                //this is where you need to set it to open up either a fragment or dialog
-
-                            }
+                        reply.setOnClickListener {view->
+                            val replyFragment = ReplyReviewFragment(review)
+                            val context = view.context
+                            val fragmentManager = (context as AppCompatActivity).supportFragmentManager
+                            replyFragment.show(fragmentManager,"ReplyReviewDialog")
                         }
                     }
                     else{reply.text = review.reply}
@@ -137,7 +137,10 @@ class ReviewAdapter(private val reviews: MutableList<Entities.Review?>,
                     //just a user dont allow replying
                     if (review.reply ==null){
                         reply.visibility = View.GONE}
-                    else{reply.text = review.reply}
+                    else{
+                        reply.text = review.reply
+
+                    }
                 }
 
 

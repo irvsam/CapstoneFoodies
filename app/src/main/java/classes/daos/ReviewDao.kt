@@ -24,7 +24,8 @@ interface ReviewDao {
     @Query("SELECT * FROM review WHERE vendor_id = :vendorId")
     suspend fun getReviewsByVendorId(vendorId: Long): List<Entities.Review>
 
-
+    @Query("UPDATE review SET reply =:replyString WHERE id =:reviewId")
+    suspend fun updateReply(replyString:String,reviewId:Long)
 
     // Add other query methods as needed
 }
