@@ -149,10 +149,18 @@
                 android:id="@+id/commentTextView"
                 android:layout_width="354dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
                 android:layout_marginStart="16dp"
-                android:textSize="20sp"
-                android:text="no comment"/>
+                android:layout_marginBottom="24dp"
+                android:text="no comment"
+                android:textSize="20sp" />
+            <TextView
+                android:id="@+id/replyTextView"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginBottom="24dp"
+                android:text="no reply"
+                android:textSize="16sp" />
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
