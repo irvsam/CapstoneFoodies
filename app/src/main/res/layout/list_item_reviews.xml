@@ -149,17 +149,20 @@
                 android:id="@+id/commentTextView"
                 android:layout_width="354dp"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="24dp"
                 android:text="no comment"
                 android:textSize="20sp" />
+
             <TextView
                 android:id="@+id/replyTextView"
                 android:layout_width="320dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="35dp"
                 android:layout_marginBottom="24dp"
-                android:text="no reply"
+                android:text="reply"
+                android:textColor="@color/blue"
                 android:textSize="16sp" />
 
         </LinearLayout>

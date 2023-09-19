@@ -37,11 +37,11 @@ class ViewReviewsFragment : Fragment() {
 
         val vendorId:Long
         if(vendorManagementViewModel.isVendor && reviewViewModel.fromManagementPage){
-            Log.d(TAG, "view reviews oncreate called for vendor")
+            //it is a vendor viewing the reviews for their store
             vendorId = vendorManagementViewModel.vendor!!.id
         }
-        else {vendorId = storeViewModel.vendor!!.id
-            Log.d(TAG, "view reviews oncreate called for user")}
+        else { //it is a user viewing the stores reviews
+            vendorId = storeViewModel.vendor!!.id }
 
         //get all reviews from database and populate the review list
         populateReviews(vendorId)
@@ -58,7 +58,7 @@ class ViewReviewsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         // Sort the reviews list by timestamp in descending order (latest first)
         reviewViewModel.reviewList.sortByDescending { it?.timestamp }
-        val itemAdapter= ReviewAdapter(reviewViewModel.reviewList, this)
+        val itemAdapter= ReviewAdapter(reviewViewModel.reviewList, this, vendorManagementViewModel.isVendor)
         val recyclerView:RecyclerView=view.findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = itemAdapter
