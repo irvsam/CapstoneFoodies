@@ -65,6 +65,7 @@ class QRFragment : Fragment() {
                 // Display success signal
                 showToast("$scannedResult code scanned successfully")
                 val navController = findNavController()
+                    navController.popBackStack()
                 navController.navigate(R.id.leaveReviewFragment)
                     // Create scan object
                     val vendorId = storeViewModel.vendor!!.id

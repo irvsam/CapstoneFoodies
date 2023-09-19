@@ -111,6 +111,7 @@ class LeaveReviewFragment : Fragment() {
                         }
 
                         val navController = findNavController()
+                        navController.popBackStack()
                         navController.navigate(R.id.storeDetailsFragment)
                     }
                 }
