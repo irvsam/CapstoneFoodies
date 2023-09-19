@@ -19,6 +19,36 @@ class SharedViewModel : ViewModel() {
         storeList = allStores.toMutableList()
     }
 }
+
+class SearchSharedViewModel : ViewModel(){
+    private val _searchStoreList = MutableLiveData<MutableList<Entities.Vendor?>>()
+    val searchStoreList: LiveData<MutableList<Entities.Vendor?>>
+        get() = _searchStoreList
+
+    init {
+        _searchStoreList.value = mutableListOf()
+    }
+    /*fun setMenuItems(menuItemsList:MutableList<Entities.MenuItem?> ){
+        val currentList = _menuItems.value ?: mutableListOf()
+        for(item in menuItemsList){
+            currentList.add(item)
+        }
+        _menuItems.value = currentList
+    }
+
+    fun addMenuItem(item:Entities.MenuItem?){
+        val currentList = _menuItems.value ?: mutableListOf()
+        currentList.add(item)
+        _menuItems.value = currentList
+    }*/
+    fun addStoreToSearch(store: Entities.Vendor?){
+        val currentList = _searchStoreList.value ?: mutableListOf()
+        currentList.add(store)
+        _searchStoreList.value=currentList
+    }
+}
+
+
 // this is to store account details
 class AccountViewModel : ViewModel() {
 
