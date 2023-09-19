@@ -34,8 +34,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.StringBuilder
-import com.example.foodies.*
 
 class StoreDetailsFragment : Fragment() {
 
@@ -219,7 +217,7 @@ class StoreDetailsFragment : Fragment() {
             val xLabels = listOf("9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00")
             val dataSet = BarDataSet(data, "Avg. number of reviews per day")
 
-            dataSet.setColors(Color.BLUE)
+            dataSet.color = Color.BLUE
             dataSet.valueTextColor = Color.BLACK
             dataSet.valueTextSize = 12f
             val barData = BarData(dataSet)
@@ -233,8 +231,18 @@ class StoreDetailsFragment : Fragment() {
             xAxis.setDrawAxisLine(true)
             xAxis.granularity = 1f // Set granularity to 1 to avoid displaying non-integer values
 
+            // Customize the left Y-axis
+            val leftAxis = barChart.axisLeft
+            leftAxis.setDrawLabels(false) // Hide axis labels
+
+            // Customize the right Y-axis
+            val rightAxis = barChart.axisRight
+            rightAxis.setDrawLabels(false) // Hide axis labels
+
+
             // Rest of your code to set up the BarChart with sampleData
             barChart.setDrawBarShadow(false)
+            barChart.description = null
             barChart.setDrawValueAboveBar(true)
             barChart.legend.isEnabled = false
             dataSet.setDrawValues(false)
