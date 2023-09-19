@@ -101,7 +101,7 @@ class BrowseFragment : Fragment(),StoreClickListener {
         val charSequenceLower = charSequence.toString().toLowerCase()
         val inputStringLower = inputString.toLowerCase()
 
-        return inputStringLower.contains(charSequenceLower)
+        return inputStringLower.startsWith(charSequenceLower)
     }
 
     override fun onClick(store: Entities.Vendor?) {
