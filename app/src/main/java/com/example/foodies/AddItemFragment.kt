@@ -89,16 +89,14 @@ class AddItemFragment : DialogFragment() {
             lastID
         }.await()
     }
-
-    private fun checkPrice(input:String):Boolean{
-        return try {
-            if(input.toFloat()<0)return false
-            input.toFloat()
-            input.toInt()
-            true
-        }catch (e: NumberFormatException){
-            false
-        }
+}
+fun checkPrice(input:String):Boolean{
+    return try {
+        if(input.toFloat()<0)return false
+        input.toFloat()
+        input.toInt()
+        true
+    }catch (e: NumberFormatException){
+        false
     }
-
 }

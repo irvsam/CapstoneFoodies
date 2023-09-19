@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import classes.Entities
 import classes.VendorManagementViewModel
 import com.example.foodies.databaseManagement.ApplicationCore
+import com.example.foodies.AddItemFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,18 +44,43 @@ class EditItemFragment(private val menuItemID: Long) : DialogFragment() {
         val confirmButton = view.findViewById<Button>(R.id.confirmEditButton)
 
         confirmButton.setOnClickListener{
-            CoroutineScope(Dispatchers.IO).launch {
-                val itemName = editName.text.toString()
-                val itemPrice = editPrice.text.toString().toFloat()
-                val orginalMenuItem = ApplicationCore.database.menuItemDao().getMenuItemById(menuItemID)
-                val editedMenuItem = Entities.MenuItem(id=menuItemID, menuId = vendorManagementViewModel.vendor!!.menuId, name = itemName, price = itemPrice,inStock = true)
-                withContext(Dispatchers.Main){
-                    ApplicationCore.database.menuItemDao().updateMenuItem(editedMenuItem)
-                    vendorManagementViewModel.swapEditMenuItem(orginalMenuItem,editedMenuItem)
+            val itemName = editName.text.toString()
+            var itemPrice = 0.0F
+            if(checkPrice(editPrice.text.toString())) {
+                itemPrice = editPrice.text.toString().toFloat()
+                if (itemName.isNotBlank() && itemPrice != null) {
+                    CoroutineScope(Dispatchers.IO).launch {
 
+                        val orginalMenuItem =
+                            ApplicationCore.database.menuItemDao().getMenuItemById(menuItemID)
+                        val editedMenuItem = Entities.MenuItem(
+                            id = menuItemID,
+                            menuId = vendorManagementViewModel.vendor!!.menuId,
+                            name = itemName,
+                            price = itemPrice,
+                            inStock = true
+                        )
+                        withContext(Dispatchers.Main) {
+                            ApplicationCore.database.menuItemDao().updateMenuItem(editedMenuItem)
+                            vendorManagementViewModel.swapEditMenuItem(
+                                orginalMenuItem,
+                                editedMenuItem
+                            )
+
+                        }
+                    }
+                }
+                else{
+                    activity?.runOnUiThread {
+                        Toast.makeText(context, "Please fill in both fields", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            else{
+                activity?.runOnUiThread {
+                    Toast.makeText(context, "Please enter a valid price", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
-
 }
