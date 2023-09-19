@@ -24,7 +24,7 @@
                 android:layout_marginEnd="10dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="20dp"
-                android:text="Are you sure you wish to delete this item?"
+                android:text="Do you wish to delete this item?"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
 

@@ -66,7 +66,7 @@ class EditItemFragment(private val menuItemID: Long) : DialogFragment() {
                                 orginalMenuItem,
                                 editedMenuItem
                             )
-
+                            dismiss()
                         }
                     }
                 }
