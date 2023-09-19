@@ -8,8 +8,8 @@
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         tools:context=".StoreDetailsFragment"
         android:orientation="vertical"
         >
@@ -27,7 +27,7 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="437dp"
+        android:layout_width="match_parent"
         android:layout_height="188dp"
         android:layout_marginTop="16dp"
         android:scaleType="centerCrop"
@@ -117,8 +117,8 @@
             android:layout_width="31dp"
             android:layout_height="24dp"
             android:src="@drawable/star"
-            app:layout_constraintStart_toStartOf="@+id/storeName"
-            app:layout_constraintTop_toBottomOf="@+id/storeName"
+            app:layout_constraintBottom_toBottomOf="@+id/storeName"
+            app:layout_constraintStart_toEndOf="@+id/storeName"
             app:tint="#FFC107" />
 
     <TextView
