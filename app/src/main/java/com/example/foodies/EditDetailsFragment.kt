@@ -96,6 +96,7 @@ class EditDetailsFragment : Fragment() {
                 user!!.username = newUsername
                 user!!.phone = newPhone
 
+
                 //UserViewModel to update the user's details in the database
                 accountViewModel.updateUserDetails(user!!)
 

@@ -71,6 +71,8 @@ class AccountViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             userRepository.updateUserVoucher(userId, newVoucherCode)
             _userVoucher.postValue(newVoucherCode)
+            //also set the users voucher
+            user?.currentVoucher = newVoucherCode
         }
     }
 
@@ -82,6 +84,10 @@ class AccountViewModel : ViewModel() {
             val updatedTotalPoints = _userTotalPoints.value?.plus(rewardPointsToAdd) ?: rewardPointsToAdd
             _userRewardPoints.postValue(updatedRewardPoints)
             _userTotalPoints.postValue(updatedTotalPoints)
+
+            //also update their points
+            user?.rewardPoints = updatedRewardPoints
+            user?.totalOverAllPoints = updatedTotalPoints
         }
     }
 
