@@ -97,6 +97,7 @@ class AccountViewModel : ViewModel() {
 
             val updatedRewardPoints = 0
             _userRewardPoints.postValue(updatedRewardPoints)
+            user?.rewardPoints = 0
         }
     }
 
