@@ -30,17 +30,30 @@ import kotlinx.coroutines.withContext
 
 class MenuItemAdapter(private val fragmentManager:FragmentManager, private val vendorManagementViewModel: VendorManagementViewModel, var menuItemList: MutableList<Entities.MenuItem?>?, private val lifecycleOwner: LifecycleOwner): RecyclerView.Adapter<MenuItemAdapter.MyViewHolder>() {
 
+    /** Returns a ViewHolder object for each menuItem in the Stores RecyclerView*/
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.menu_item_card_cell,parent,false)
         return MyViewHolder(itemView)
     }
 
+    /** Returns how many items are in the RecyclerView */
     override fun getItemCount(): Int {
         return menuItemList!!.size
     }
 
+    /**
+    Cycles through RecyclerView items and uses populateMenu() method to assign the menuItem template with the appropriate details of the item
+     */
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = menuItemList!![position]
+        populateMenu(holder,currentItem)
+    }
+
+    /**
+     * Takes the currently viewed menu item and binds details regarding the name and stock availability of the item. OnClickListeners are set up for the following actions:
+     * delete, set availability, and edit item details
+     */
+    private fun populateMenu(holder:MyViewHolder,currentItem: Entities.MenuItem?){
         if (currentItem != null) {
             if (!currentItem.inStock) {
                 holder.availabilityButton.setBackgroundResource(R.drawable.circle_default)
@@ -75,11 +88,11 @@ class MenuItemAdapter(private val fragmentManager:FragmentManager, private val v
                     ApplicationCore.database.menuItemDao().updateMenuItem(currentItem)
                 }
             }
-
             holder.menuItem.text = currentItem.name
         }
     }
 
+    /** Assigns the attributes that the ViewHolder will have */
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val menuItem: TextView = itemView.findViewById(R.id.menuItemName)
         val deleteButton: ImageButton = itemView.findViewById(R.id.delete)
