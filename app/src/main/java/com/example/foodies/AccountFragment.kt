@@ -16,18 +16,17 @@ import classes.Entities
 import classes.AccountViewModel
 import classes.VendorManagementViewModel
 
-
+/** this is the account home page where accpunt details can be viewed and edited*/
 class AccountFragment : Fragment() {
-    private lateinit var accountViewModel: AccountViewModel // Declare the UserViewModel
+    private lateinit var accountViewModel: AccountViewModel
     private lateinit var vendorManagementViewModel: VendorManagementViewModel
-    private var user: Entities.User? = null // Declare the User property as nullable
+    private var user: Entities.User? = null
     private var vendor: Entities.User? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_account, container, false)
     }
 
@@ -35,35 +34,30 @@ class AccountFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setSignOutButton()
         setUserDetails()
-
     }
 
+    /** method to set up the action of the sign out button*/
+    //TODO log out all possibilities or set them to null??
     private fun setSignOutButton() {
-        //setting the logic for signing out
         val signOutButton = view?.findViewById<Button>(R.id.signout_button)
 
         signOutButton?.setOnClickListener {
-            // Perform the sign-out logic
-            // sharedViewModel.loggedIn = false
-
             val intent = Intent(requireContext(), LoginActivity::class.java)
             startActivity(intent)
-
         }
     }
 
+    /** set the UI to the users details*/
     private fun setUserDetails() {
-        // Initialize the UserViewModel
         accountViewModel = ViewModelProvider(requireActivity())[AccountViewModel::class.java]
-        vendorManagementViewModel =
-            ViewModelProvider(requireActivity())[VendorManagementViewModel::class.java]
-        // Get the user from the UserViewModel
-        user = accountViewModel.user
+        vendorManagementViewModel = ViewModelProvider(requireActivity())[VendorManagementViewModel::class.java]
 
-        //this is the logged on user
+        /** if a general user is logged in*/
+        user = accountViewModel.user
+        /** if a vendor account is logged in*/
         vendor = vendorManagementViewModel.user
 
-        // Check if the user is not null before accessing its properties
+
         if (user != null || vendor != null) {
             val nameTextView = view?.findViewById<TextView>(R.id.nameTextView)
             val emailTextView = view?.findViewById<TextView>(R.id.emailTextView)
@@ -77,20 +71,20 @@ class AccountFragment : Fragment() {
             val descriptionTextView = view?.findViewById<TextView>(R.id.descriptionTextView)
             val avatar = view?.findViewById<ImageView>(R.id.avatarImageView)
 
-            if (vendor?.type == "Vendor") { // user is a vendor
+            /** first check if a vendor account has been logged in*/
+            if (vendor?.type == "Vendor") {
                 avatar?.visibility = View.GONE
                 rewardRowTitle?.visibility = View.GONE
                 rewardTextView?.visibility = View.GONE
                 voucherTextView?.visibility = View.GONE
                 voucherRowTitle?.visibility = View.GONE
-                //editButton?.visibility = View.GONE
                 nameTextView?.text = vendor?.username
                 emailTextView?.text = vendor?.email
                 phoneTextView?.text = vendor?.phone
                 descriptionTextView?.text = vendorManagementViewModel.vendor?.description
 
-
-            } else { // user is not a vendor
+                /** otherwise it is a general user */
+            } else {
                 nameTextView?.text = user?.username
                 emailTextView?.text = user?.email
                 phoneTextView?.text = user?.phone
@@ -100,8 +94,7 @@ class AccountFragment : Fragment() {
                 }
                 descriptionRowTitle?.visibility = View.GONE
                 descriptionTextView?.visibility = View.GONE
-
-                // Observe changes to the active voucher code
+                /** observe live data for voucher codes */
                 accountViewModel.userVoucher.observe(viewLifecycleOwner) { voucherCode ->
                     if (voucherTextView != null) {
                         if (voucherCode != null) {
@@ -109,31 +102,29 @@ class AccountFragment : Fragment() {
                         }
                     }
                 }
-                //load initial voucher
                 val userId = accountViewModel.user?.id
                 if (userId != null) {
                     accountViewModel.loadUserInitialVoucher(userId)
                 }
-                //observe changes to reward points
+                /** observe live data for reward points*/
                 accountViewModel.userTotalPoints.observe(viewLifecycleOwner) { totalPoints ->
                     if (rewardTextView != null) {
                         rewardTextView.text = totalPoints.toString()
                     }
                 }
-
-                // Load the user's initial reward points from the database
                 if (userId != null) {
                     accountViewModel.loadUserInitialRewardPoints(userId)
                 }
+
+                /** edit avatar */
                 avatar?.setOnClickListener {
-                    // Open the avatar selection dialog when the current avatar is clicked
                     showAvatarSelectionDialog()
                 }
 
             }
 
+            /** edit account details */
             editButton?.setOnClickListener {
-                //edit account details (only username and phone number)
                 val navController = findNavController()
                 navController.navigate(R.id.editDetailsFragment)
 
@@ -142,7 +133,8 @@ class AccountFragment : Fragment() {
 
     }
 
-    // Define a map to map avatar names to drawable resources
+    /** some avatar setting logic*/
+
     private val avatarMap = mapOf(
         "penguin" to R.drawable.penguin,
         "rabbit" to R.drawable.rabbit,
@@ -151,7 +143,6 @@ class AccountFragment : Fragment() {
         "secret" to R.drawable.secret
     )
 
-    // Function to set the avatar image based on the avatar name
     private fun setAvatarImage(avatarName: String?, avatarImageView: ImageView?) {
         avatarName?.let {
             val resourceId = avatarMap[it]
