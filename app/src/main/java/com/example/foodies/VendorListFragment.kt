@@ -20,7 +20,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
+/** list of vendors */
 class VendorListFragment : Fragment(), StoreClickListener{
 
     private lateinit var storeViewModel: SharedViewModel
@@ -33,12 +33,10 @@ class VendorListFragment : Fragment(), StoreClickListener{
         storeViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         vendorViewModel =  ViewModelProvider(requireActivity())[StoreViewModel::class.java]
 
-
-        //launch a thread to get the store list from the database
-        //make sure that the list is fully updated before moving on
+        /** if the store list hasnt been populated yet get the stores from the database*/
         while(storeViewModel.storeList.isEmpty()){
         CoroutineScope(Dispatchers.IO).launch {
-            //get the stores from the database
+
             storeViewModel.getStores()
         }}
 
@@ -50,29 +48,24 @@ class VendorListFragment : Fragment(), StoreClickListener{
         savedInstanceState: Bundle?
     ): View? {
 
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_vendor_list, container, false)
 
     }
 
+    /** set up the adapter*/
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        //set up the adapter to display the stores
         super.onViewCreated(view, savedInstanceState)
-        // Assign store list to ItemAdapter
         val itemAdapter= Adapter(storeViewModel.storeList, this,this)
-        // Set the LayoutManager that this RecyclerView will use.
         val recyclerView:RecyclerView=view.findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        // adapter instance is set to the recyclerview to inflate the items.
         recyclerView.adapter = itemAdapter
     }
 
 
 
-
+    /** open store page if they click on a store*/
     override fun onClick(store: Entities.Vendor?) {
         vendorViewModel.vendor = store
-        // Open a new fragment when a store is clicked
         val navController = findNavController()
         navController.navigate(R.id.storeDetailsFragment)
     }

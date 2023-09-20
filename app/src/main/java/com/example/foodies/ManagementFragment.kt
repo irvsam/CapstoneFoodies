@@ -26,14 +26,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+/** this is the vendor management page where a vendor can manage their store menu and ratings etc*/
 class ManagementFragment: Fragment() {
     private lateinit var vendorManagementViewModel : VendorManagementViewModel
     private lateinit var storeViewModel : StoreViewModel
     private lateinit var reviewViewModel: ReviewViewModel
-    private var vendor: Entities.Vendor? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("Entry","Entered the managementFrag")
         vendorManagementViewModel = ViewModelProvider(requireActivity())[VendorManagementViewModel::class.java]
         storeViewModel = ViewModelProvider(requireActivity())[StoreViewModel::class.java]
         reviewViewModel = ViewModelProvider(requireActivity())[ReviewViewModel::class.java]
@@ -50,9 +49,7 @@ class ManagementFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("ENTERED", "Created")
-
-        //loading store details
+        /** load store details */
         val storeName: TextView = view.findViewById(R.id.storeNameTextView)
         val reviewTextView:TextView = view.findViewById(R.id.viewReviewsTextView)
         val numRatings: TextView = view.findViewById(R.id.numReviewsTextView2)
@@ -65,6 +62,7 @@ class ManagementFragment: Fragment() {
                 if (vendorUser != null) {
                     storeName.text = vendorUser.name
                 }
+                /** review data */
                     CoroutineScope(Dispatchers.IO).launch {
                         val numReviews = ApplicationCore.database.vendorDao().getReviewCountForVendor(vendorUser!!.id)
                         withContext(Dispatchers.Main) {
@@ -85,10 +83,10 @@ class ManagementFragment: Fragment() {
                             }
 
                             vendorManagementViewModel.loadVendorInitialRating(vendorUser.id)
-
+                            /** clicking on rating to view the reviews*/
                             reviewTextView.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                             reviewTextView.setOnClickListener {
-                                //navigate to viewing the reviews
+
                                 if (numReviews != 0) {
                                     reviewViewModel.fromVendorList = false
                                     reviewViewModel.fromManagementPage = true
@@ -102,18 +100,10 @@ class ManagementFragment: Fragment() {
                                     )
                                         .show()
 
-                                }
-                            }
-                        }
-                    }
-
-            }
-
-        }
+                                } } } } } }
 
 
-        //var menuItems: MutableList<Entities.MenuItem?>? = vendorManagementViewModel.menuItems.value
-        //adapter
+        /** set up the adapter */
         val recyclerView: RecyclerView = view.findViewById(R.id.menuItemsRecyclerView)
         val itemAdapter = MenuItemAdapter(requireFragmentManager(), vendorManagementViewModel,vendorManagementViewModel.menuItems.value,this)
         vendorManagementViewModel.menuItems.observe(viewLifecycleOwner){ newMenuItems ->
@@ -125,7 +115,7 @@ class ManagementFragment: Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = itemAdapter
 
-        //add item button
+        /** add an item */
         val addItemButton = view.findViewById<ImageButton>(R.id.addItemButton)
         addItemButton.setOnClickListener {
             val addItemFragment = AddItemFragment()

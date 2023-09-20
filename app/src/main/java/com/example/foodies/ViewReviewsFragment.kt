@@ -21,33 +21,29 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+/** viewing a list of reviews*/
 class ViewReviewsFragment : Fragment() {
 
-    private lateinit var reviewsRecyclerView: RecyclerView
     private lateinit var storeViewModel: StoreViewModel
     private lateinit var vendorManagementViewModel: VendorManagementViewModel
     private lateinit var reviewViewModel: ReviewViewModel
-    private lateinit var reply: TextView
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         storeViewModel =  ViewModelProvider(requireActivity())[StoreViewModel::class.java]
         reviewViewModel =  ViewModelProvider(requireActivity())[ReviewViewModel::class.java]
         vendorManagementViewModel = ViewModelProvider(requireActivity())[VendorManagementViewModel::class.java]
-        Log.d(TAG, "view reviews oncreate called")
 
         val vendorId:Long
+        /** it is a vendor viewing the reviews for their store*/
         if(vendorManagementViewModel.isVendor && reviewViewModel.fromManagementPage){
-            //it is a vendor viewing the reviews for their store
             vendorId = vendorManagementViewModel.vendor!!.id
         }
-        else { //it is a user viewing the stores reviews
+        else {
+            /** viewing reviews for the store clicked on from the vendor list */
             vendorId = storeViewModel.vendor!!.id
 
         }
-
-        //get all reviews from database and populate the review list
         populateReviews(vendorId)
     }
     override fun onCreateView(
@@ -60,7 +56,8 @@ class ViewReviewsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Sort the reviews list by timestamp in descending order (latest first)
+
+        /** set up the adapter */
         reviewViewModel.reviewList.sortByDescending { it?.timestamp }
         val itemAdapter= ReviewAdapter(reviewViewModel.reviewList, this, reviewViewModel.fromManagementPage)
         val recyclerView:RecyclerView=view.findViewById(R.id.recycler_view)
@@ -71,23 +68,20 @@ class ViewReviewsFragment : Fragment() {
 
 
 
+    /** get the reviews from the database and populate */
     private fun populateReviews(id: Long){
-        Log.d(TAG, "view reviews populating")
             CoroutineScope(Dispatchers.IO).launch {
                 val allReviews = ApplicationCore.database.reviewDao().getReviewsByVendorId(id)
                 withContext(Dispatchers.Main) {
-                    //clear it each time
+                        /** nb to clear the list first */
                         reviewViewModel.reviewList.clear()
                         if (allReviews.isNotEmpty()) {
                             for (review in allReviews) {
                                reviewViewModel.reviewList.add(review)
                             }
                         }
-
                 }
-
             }
-
     }
 
 

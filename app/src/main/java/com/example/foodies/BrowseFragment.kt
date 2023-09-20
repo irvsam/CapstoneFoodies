@@ -24,11 +24,10 @@ import classes.VendorManagementViewModel
 import classes.adapters.MenuItemAdapter
 import classes.adapters.SearchAdapter
 
-// BrowseFragment.kt
+/** the browse page where a user can search the list of vendors*/
 class BrowseFragment : Fragment(),StoreClickListener {
 
     private lateinit var searchEditText: EditText
-    private lateinit var filterOption1: CheckBox
     private lateinit var searchButton: ImageButton
     private lateinit var sharedViewModel: SharedViewModel
     private lateinit var searchSharedViewModel: SearchSharedViewModel
@@ -52,10 +51,10 @@ class BrowseFragment : Fragment(),StoreClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val recyclerView: RecyclerView = view.findViewById(R.id.resultRecyclerView)
         val itemAdapter = SearchAdapter(sharedViewModel.storeList,this,this)
 
+        /** watch the text as the user types */
         searchEditText.addTextChangedListener(object : TextWatcher{
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val filteredSuggestions = filterSuggestions(s)
@@ -104,9 +103,9 @@ class BrowseFragment : Fragment(),StoreClickListener {
         return inputStringLower.startsWith(charSequenceLower)
     }
 
+    /** navigate to store details page when a store is clicked */
     override fun onClick(store: Entities.Vendor?) {
         vendorViewModel.vendor = store
-        // Open a new fragment when a store is clicked
         val navController = findNavController()
         navController.navigate(R.id.storeDetailsFragment)
     }

@@ -21,13 +21,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+/** this fragment shows up when a user wants to leave a review */
 class LeaveReviewFragment : Fragment() {
 
     private lateinit var accountViewModel: AccountViewModel
     private lateinit var storeViewModel: StoreViewModel
     private var vendor : Entities.Vendor? = null
-    private var user: Entities.User? = null // Declare the User property as nullable
-
+    private var user: Entities.User? = null
     private lateinit var qualityRatingBar:RatingBar
     private lateinit var cleanlinessRatingBar: RatingBar
     private lateinit var friendlinessRatingBar: RatingBar
@@ -41,7 +41,6 @@ class LeaveReviewFragment : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_leave_review, container, false)
 
-        // Initialize views
         qualityRatingBar = rootView.findViewById(R.id.stockRatingBar)
         cleanlinessRatingBar = rootView.findViewById(R.id.cleanlinessRatingBar)
         friendlinessRatingBar = rootView.findViewById(R.id.friendlinessRatingBar)
@@ -49,16 +48,15 @@ class LeaveReviewFragment : Fragment() {
         reviewText = rootView.findViewById(R.id.reviewText)
         submitReviewButton = rootView.findViewById(R.id.submitReviewButton)
 
-        // Set a click listener for the Submit Review button
+
+        /** when a user submits their review */
         submitReviewButton.setOnClickListener {
-            // Get the ratings and review text from the user
-
-
             val qualityRating = qualityRatingBar.rating
             val cleanlinessRating = cleanlinessRatingBar.rating
             val friendlinessRating = friendlinessRatingBar.rating
             val efficiencyRating = efficiencyRatingBar.rating
 
+            /** make sure the user has rated at least 2*/
             val filledRatings = listOf(
                 qualityRating,
                 cleanlinessRating,
@@ -66,14 +64,12 @@ class LeaveReviewFragment : Fragment() {
                 efficiencyRating
             )
 
-            // Count how many rating bars were filled
             val numberOfRatings = filledRatings.count { it > 0 }
             if (numberOfRatings > 1) {
-                // Calculate the average rating based on the filled ratings
                 val total = filledRatings.sum()
                 val average = total / numberOfRatings
 
-
+                /** set the review data*/
                 val userReview = reviewText.text.toString()
                 accountViewModel = ViewModelProvider(requireActivity())[AccountViewModel::class.java]
                 storeViewModel = ViewModelProvider(requireActivity())[StoreViewModel::class.java]
@@ -93,24 +89,22 @@ class LeaveReviewFragment : Fragment() {
 
                     )
 
-                    // Launch a coroutine to insert the review into the database
+                    /** insert review into database */
                     lifecycleScope.launch {
                         insertReviewIntoDatabase(review)
                         Toast.makeText(requireContext(), "review submitted", Toast.LENGTH_SHORT)
                             .show()
-                        // Navigate back to the previous fragment
 
                         withContext(Dispatchers.IO) {
                             accountViewModel.updateUserRewardPoints(user!!.id, 10)
                         }
                         withContext(Dispatchers.IO) {
-                            ApplicationCore.database.vendorDao()
-                                .updateVendorAverageRating(vendor!!.id)
-                            val newRating = ApplicationCore.database.vendorDao()
-                                .calculateAverageRating(storeViewModel.vendor!!.id)
+                            ApplicationCore.database.vendorDao().updateVendorAverageRating(vendor!!.id)
+                            val newRating = ApplicationCore.database.vendorDao().calculateAverageRating(storeViewModel.vendor!!.id)
                             storeViewModel.updateRating(newRating)
                         }
-
+                        /** navigate back to store details and forget
+                         * this fragment so back button cannot return to it*/
                         val navController = findNavController()
                         navController.popBackStack()
                         navController.navigate(R.id.storeDetailsFragment)
@@ -118,12 +112,10 @@ class LeaveReviewFragment : Fragment() {
                 }
 
             } else {
-                Toast.makeText(
-                    requireContext(),
-                    "Please rate at least two aspects.",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
+                /** if the user did not fill in enough rating
+                 * aspects then send them a prompt*/
+
+                Toast.makeText(requireContext(), "Please rate at least two aspects.", Toast.LENGTH_SHORT).show()
             }
         }
 

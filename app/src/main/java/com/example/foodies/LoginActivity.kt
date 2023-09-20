@@ -17,22 +17,18 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-
+/** the first page to open, allows a user to login or continue as a guest or asks them to register */
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var emailEditedText: EditText
     private lateinit var passwordEditedText: EditText
 
-    //private val sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
-
         val registerLinkTextView = findViewById<TextView>(R.id.registerLink)
 
-        // Set the ClickableSpan to the TextView
+        /** registration link */
         val spannableString = SpannableString(registerLinkTextView.text)
         spannableString.setSpan(object : ClickableSpan() {
 
@@ -46,23 +42,22 @@ class LoginActivity : AppCompatActivity() {
         registerLinkTextView.text = spannableString
         registerLinkTextView.movementMethod = LinkMovementMethod.getInstance()
 
-        // Set click listener for the login button
+        /** login button logic*/
         val loginButton = findViewById<Button>(R.id.login_btn)
         loginButton.setOnClickListener {
 
             emailEditedText = findViewById(R.id.email_input)
             passwordEditedText = findViewById(R.id.password_input)
-
             val email = emailEditedText.text.toString()
             val password = passwordEditedText.text.toString()
 
             CoroutineScope(Dispatchers.IO).launch {
                 val user = ApplicationCore.database.accountDao().getUserByEmailAndPassword(email, password)
                 withContext(Dispatchers.Main) {
-                    if (user != null) {  //If login credentials are correct open main screen
+                    if (user != null) {
                         showToast("Login Successful")
 
-                        //pass the user through in the intent
+                        /** send user data in the intent and open fragment holder activity*/
                         val intent = Intent(this@LoginActivity, FragmentHolderActivity::class.java)
                         intent.putExtra("user", user.id)
                         intent.putExtra("user_name", user.username)
@@ -71,7 +66,6 @@ class LoginActivity : AppCompatActivity() {
                         if(user.type=="Vendor"){
                             intent.putExtra("is_vendor",true)
                         }
-
                         startActivity(intent)
 
                     } else {
@@ -81,6 +75,7 @@ class LoginActivity : AppCompatActivity() {
             }
 
         }
+        /** continue as guest */
         val guestButton = findViewById<Button>(R.id.guestCont_btn)
         guestButton.setOnClickListener {
             val guestIntent = Intent(this@LoginActivity, FragmentHolderActivity::class.java)

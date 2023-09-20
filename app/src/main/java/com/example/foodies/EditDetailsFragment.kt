@@ -13,6 +13,7 @@ import classes.Entities
 import classes.AccountViewModel
 import classes.VendorManagementViewModel
 
+/** editing account details*/
 class EditDetailsFragment : Fragment() {
     private lateinit var accountViewModel: AccountViewModel
     private lateinit var vendorManagementViewModel: VendorManagementViewModel
@@ -35,40 +36,32 @@ class EditDetailsFragment : Fragment() {
 
         accountViewModel = ViewModelProvider(requireActivity())[AccountViewModel::class.java]
         vendorManagementViewModel = ViewModelProvider(requireActivity())[VendorManagementViewModel::class.java]
-
-
         usernameEditText = view.findViewById(R.id.edit_username)
         phoneEditText = view.findViewById(R.id.edit_phone)
         descriptionEditText = view.findViewById(R.id.edit_description)
         saveButton = view.findViewById(R.id.save_button)
 
-
+        /** if the current user is a vendor */
         if(vendorManagementViewModel.isVendor){
-            //vendor stuff
             user = vendorManagementViewModel.user
             vendor = vendorManagementViewModel.vendor
-            // Set the initial values for the username and phone EditText fields
             usernameEditText.setText(user?.username)
             phoneEditText.setText(user?.phone)
             descriptionEditText.setText(vendor?.description)
 
             saveButton.setOnClickListener {
-                // Update the user's details with the values in the EditText fields
                 val newUsername = usernameEditText.text.toString()
                 val newPhone = phoneEditText.text.toString()
                 val newDescription = descriptionEditText.text.toString()
 
                 if (user != null) {
-                    // Update the user object
+                    /** set new details and update */
                     user!!.username = newUsername
                     user!!.phone = newPhone
                     vendor!!.description = newDescription
-
-                    //ViewModel to update the user's details in the database
                     vendorManagementViewModel.updateUserDetails(user!!)
                     vendorManagementViewModel.updateVendorDetails(vendor!!)
-
-                    // Navigate back
+                    /** navigate back when done */
                     val navController = findNavController()
                     navController.navigate(R.id.accountFragment)
                 }
@@ -76,35 +69,27 @@ class EditDetailsFragment : Fragment() {
 
 
         }
-        else{
-        // Get the user from the UserViewModel
-        user = accountViewModel.user
-
+        else{ /** user is not a vendor account*/
+            user = accountViewModel.user
             descriptionEditText.visibility = View.GONE
+            usernameEditText.setText(user?.username)
+            phoneEditText.setText(user?.phone)
 
-        // Set the initial values for the username and phone EditText fields
-        usernameEditText.setText(user?.username)
-        phoneEditText.setText(user?.phone)
+            saveButton.setOnClickListener {
+                val newUsername = usernameEditText.text.toString()
+                val newPhone = phoneEditText.text.toString()
 
-        saveButton.setOnClickListener {
-            // Update the user's details with the values in the EditText fields
-            val newUsername = usernameEditText.text.toString()
-            val newPhone = phoneEditText.text.toString()
+                if (user != null) {
+                    /**  set the new details and update */
+                    user!!.username = newUsername
+                    user!!.phone = newPhone
+                    accountViewModel.updateUserDetails(user!!)
 
-            if (user != null) {
-                // Update the user object
-                user!!.username = newUsername
-                user!!.phone = newPhone
-
-
-                //UserViewModel to update the user's details in the database
-                accountViewModel.updateUserDetails(user!!)
-
-                // Navigate back
-                val navController = findNavController()
-                navController.navigate(R.id.accountFragment)
+                    /** navigate back when done */
+                    val navController = findNavController()
+                    navController.navigate(R.id.accountFragment)
+                }
+                }
             }
-            }
-        }
     }
 }

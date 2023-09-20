@@ -35,6 +35,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+/** storefront page*/
 class StoreDetailsFragment : Fragment() {
 
     private lateinit var guestViewModel: GuestViewModel
@@ -49,8 +50,6 @@ class StoreDetailsFragment : Fragment() {
     private lateinit var vendorManagementViewModel: VendorManagementViewModel
     private lateinit var reviewViewModel: ReviewViewModel
     private lateinit var numRatings: TextView
-
-    // LiveData to hold the calculated averages
     private val averageScansData = MutableLiveData<List<Float>>()
 
     override fun onCreateView(
@@ -60,7 +59,6 @@ class StoreDetailsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_store_details, container, false)
     }
 
-    //TODO we might want to use shared view model for stores instead of bundling it, ive already set it up for leaving reviews
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -71,20 +69,18 @@ class StoreDetailsFragment : Fragment() {
         reviewButton = view.findViewById(R.id.reviewButton)
         numRatings = view.findViewById(R.id.numReviewsTextView)
         description = view.findViewById(R.id.storeDescriptionTextView)
-
-
-
         storeViewModel = ViewModelProvider(requireActivity())[StoreViewModel::class.java]
         vendorManagementViewModel = ViewModelProvider(requireActivity())[VendorManagementViewModel::class.java]
         reviewViewModel = ViewModelProvider(requireActivity())[ReviewViewModel::class.java]
 
-        //Remove the review button when displaying a store because Vendors cant review
+        /** vendor can't leave a review */
         if(vendorManagementViewModel.user?.type=="Vendor"){
             reviewButton.visibility = View.GONE
         }
-
+        /** store whos page we are on*/
         val store = storeViewModel.vendor
 
+        /** set up the menu and other details*/
         CoroutineScope(Dispatchers.IO).launch {
             storeMenu = ApplicationCore.database.vendorDao().getMenuItemsByMenuId(store?.menuId)
             val menu = displayMenuItems(storeMenu).toString()
@@ -119,9 +115,9 @@ class StoreDetailsFragment : Fragment() {
                     val vendorId = store.id
                     storeViewModel.loadVendorInitialRating(vendorId)
 
+                    /** click on rating to go to review list */
                     reviewTextView.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                     reviewTextView.setOnClickListener {
-                        //navigate to viewing the reviews
                         if(numReviews!=0)
 
                         {   reviewViewModel.fromManagementPage = false
@@ -141,7 +137,7 @@ class StoreDetailsFragment : Fragment() {
             val actionBar: ActionBar? = (activity as AppCompatActivity).supportActionBar
             actionBar?.setDisplayHomeAsUpEnabled(true)
 
-            //setting guest behavior
+            /** guest user cannot leave reviews, update UI */
             guestViewModel = ViewModelProvider(requireActivity())[GuestViewModel::class.java]
             if (guestViewModel.isGuest) {
                 reviewButton.setBackgroundColor(
@@ -153,11 +149,11 @@ class StoreDetailsFragment : Fragment() {
             }
             reviewButton.setOnClickListener {
                 if (!guestViewModel.isGuest) {
-                    // User is logged in, take them to the QR code scanner
+                    /** logged on user can go to the QR scanner*/
                     val navController = findNavController()
                     navController.navigate(R.id.QRFragment)
                 } else {
-                    //they are guest
+                    /** guest cannot */
                     Toast.makeText(requireContext(), "you are not logged in!", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -250,6 +246,7 @@ class StoreDetailsFragment : Fragment() {
         }
     }
 
+    /** display the menu items */
     private fun displayMenuItems(menuItems: List<Entities.MenuItem?>?): StringBuilder {
         val menuItemsString = StringBuilder()
 

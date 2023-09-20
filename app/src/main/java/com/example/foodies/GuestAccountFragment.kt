@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 
+/** this is the account page for a guest user which prompts them to log in */
 class GuestAccountFragment : Fragment() {
 
     override fun onCreateView(
@@ -21,17 +22,14 @@ class GuestAccountFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_guest_account, container, false)
 
-        // Find the TextView with the clickable link
+        /** set the link logic to navigate back to the login page */
         val guestRegisterLink = view.findViewById<TextView>(R.id.guestRegisterLink)
-
-        // Set the ClickableSpan to the TextView
         val spannableString = SpannableString(guestRegisterLink.text)
         spannableString.setSpan(object : ClickableSpan() {
 
             override fun onClick(widget: View) {
                 val intent = Intent(requireContext(), LoginActivity::class.java)
                 startActivity(intent)
-
             }
         }, 27,37, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
