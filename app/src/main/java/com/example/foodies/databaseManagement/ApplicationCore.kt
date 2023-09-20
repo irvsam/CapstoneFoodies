@@ -212,7 +212,7 @@ class ApplicationCore : Application() {
                 openTime = "9:00",
                 closeTime = "17:00",
                 dietaryReqId = 1,
-                image = R.drawable.curry_platter
+                image = R.drawable.curry
             ),
             //Varisty Fast Foods store
             Entities.Vendor(
