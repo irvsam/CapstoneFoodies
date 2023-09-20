@@ -115,7 +115,7 @@ class ManagementFragment: Fragment() {
         //var menuItems: MutableList<Entities.MenuItem?>? = vendorManagementViewModel.menuItems.value
         //adapter
         val recyclerView: RecyclerView = view.findViewById(R.id.menuItemsRecyclerView)
-        val itemAdapter = MenuItemAdapter(requireFragmentManager(), vendorManagementViewModel,vendorManagementViewModel.menuItems.value,this)
+        val itemAdapter = MenuItemAdapter(requireFragmentManager(),vendorManagementViewModel.menuItems.value,this)
         vendorManagementViewModel.menuItems.observe(viewLifecycleOwner){ newMenuItems ->
             newMenuItems?.let {
                 itemAdapter.menuItemList = it
