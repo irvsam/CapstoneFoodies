@@ -6,9 +6,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 
+/** dialog which shows up when a user wants to change their avatar */
 class AvatarSelectionDialogFragment : DialogFragment() {
 
-    // Interface to communicate the selected avatar back to the calling activity/fragment
     interface OnAvatarSelectedListener {
         fun onAvatarSelected(avatarResId: Int)
     }
@@ -18,10 +18,8 @@ class AvatarSelectionDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(requireActivity())
 
-        // Set the dialog title
         builder.setTitle("Select Your Avatar")
 
-        // Array of avatar resource IDs (you can replace these with your own avatar images)
         val avatarOptions = arrayOf(
             R.drawable.penguin,
             R.drawable.rabbit,
@@ -29,8 +27,6 @@ class AvatarSelectionDialogFragment : DialogFragment() {
             R.drawable.camel,
             R.drawable.secret
         )
-
-        // Array of avatar option names (optional)
         val avatarOptionNames = arrayOf(
             "penguin",
             "rabbit",
@@ -39,17 +35,14 @@ class AvatarSelectionDialogFragment : DialogFragment() {
             "secret"
         )
 
-        // Set the list of avatar options
+        /** notify when one is selected */
         builder.setItems(avatarOptionNames) { dialog: DialogInterface, which: Int ->
-            // Notify the listener when an avatar is selected
             avatarSelectedListener?.onAvatarSelected(avatarOptions[which])
             dialog.dismiss()
         }
 
         return builder.create()
     }
-
-    // Helper function to set the listener
     fun setOnAvatarSelectedListener(listener: OnAvatarSelectedListener) {
         this.avatarSelectedListener = listener
     }
