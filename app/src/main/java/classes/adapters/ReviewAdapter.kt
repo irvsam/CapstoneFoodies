@@ -165,12 +165,13 @@ class ReviewAdapter(private val reviews: MutableList<Entities.Review?>,
         }
     }
 
-    
+
     /** avatar map */
     private val avatarMap = mapOf(
         "penguin" to R.drawable.penguin,
         "rabbit" to R.drawable.rabbit,
         "sloth" to R.drawable.sloth,
-        "camel" to R.drawable.camel
+        "camel" to R.drawable.camel,
+        "secret" to R.drawable.secret
     )
 }
