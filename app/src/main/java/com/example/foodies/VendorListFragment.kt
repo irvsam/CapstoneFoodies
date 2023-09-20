@@ -33,6 +33,8 @@ class VendorListFragment : Fragment(), StoreClickListener{
         storeViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         vendorViewModel =  ViewModelProvider(requireActivity())[StoreViewModel::class.java]
 
+
+
         /** if the store list hasnt been populated yet get the stores from the database*/
         while(storeViewModel.storeList.isEmpty()){
         CoroutineScope(Dispatchers.IO).launch {

@@ -1,7 +1,10 @@
 package com.example.foodies
 
+import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,7 +40,6 @@ class AccountFragment : Fragment() {
     }
 
     /** method to set up the action of the sign out button*/
-    //TODO log out all possibilities or set them to null??
     private fun setSignOutButton() {
         val signOutButton = view?.findViewById<Button>(R.id.signout_button)
 

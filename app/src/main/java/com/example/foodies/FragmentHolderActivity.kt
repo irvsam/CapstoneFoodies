@@ -2,6 +2,7 @@ package com.example.foodies
 
 
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.ActionBar
@@ -41,6 +42,7 @@ class FragmentHolderActivity : AppCompatActivity() {
         vendorViewModel = ViewModelProvider(this)[StoreViewModel::class.java]
         storeViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
         vendorManagementViewModel = ViewModelProvider(this)[VendorManagementViewModel::class.java]
+
 
         /** these get passed through on login */
         val isGuest = intent.getBooleanExtra("is_guest", false)
@@ -83,6 +85,7 @@ class FragmentHolderActivity : AppCompatActivity() {
             bottomNavigationView.menu.removeItem(R.id.managementFragment)
 
         }
+
     }
 
     /** set up the back button behavior*/

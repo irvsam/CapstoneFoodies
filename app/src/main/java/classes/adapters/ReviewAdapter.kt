@@ -149,8 +149,6 @@ class ReviewAdapter(private val reviews: MutableList<Entities.Review?>,
 
                     }
                 }
-
-
             }
         }
     }
@@ -164,7 +162,6 @@ class ReviewAdapter(private val reviews: MutableList<Entities.Review?>,
             }
         }
     }
-
 
     /** avatar map */
     private val avatarMap = mapOf(
