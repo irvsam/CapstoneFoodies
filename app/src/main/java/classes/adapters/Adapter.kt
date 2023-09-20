@@ -25,16 +25,26 @@ class Adapter(private val storeList: MutableList<Entities.Vendor?>, private val 
         return MyViewHolder(itemView)
     }
 
-    // This method returns the total
-    // number of items in the data set
+    /**
+     * Returns the total number of items in the data set
+     */
     override fun getItemCount(): Int {
         return storeList.size
     }
 
-    // This method binds the data to the ViewHolder object
-    // for each item in the RecyclerView
+    /** This method binds the data to the ViewHolder object
+    for each item in the RecyclerView */
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentStore = storeList[position]
+        assignStoresCardDetails(holder,currentStore)
+
+    }
+
+    /**
+     assignStoreCardDetails() is used to assign details(name, rating, store image) to the current store within the RecyclerViews ViewHolder.
+     It also allows sets up what must happen in the event that a user clicks on the store card
+     */
+    private fun assignStoresCardDetails(holder:MyViewHolder,currentStore: Entities.Vendor?){
         if (currentStore!= null) {
             holder.name.text = currentStore?.name
 
@@ -42,7 +52,6 @@ class Adapter(private val storeList: MutableList<Entities.Vendor?>, private val 
 
                 val rating = ApplicationCore.database.vendorDao().calculateAverageRating(currentStore.id)
                 val numReviews = ApplicationCore.database.vendorDao().getReviewCountForVendor(currentStore.id)
-
 
                 // Update the UI on the main thread
                 withContext(Dispatchers.Main) {
@@ -55,7 +64,6 @@ class Adapter(private val storeList: MutableList<Entities.Vendor?>, private val 
                 }
             }
 
-
             holder.image.setImageResource(currentStore.image)
             // Set a click listener for the store card
             holder.itemView.setOnClickListener {
@@ -65,13 +73,14 @@ class Adapter(private val storeList: MutableList<Entities.Vendor?>, private val 
     }
 
 
-    // This class defines the ViewHolder object for each item in the RecyclerView
+    /**
+     This class defines the ViewHolder object for each item in the RecyclerView
+      */
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.storeName)
         val rating: TextView = itemView.findViewById(R.id.rating)
         var image: ImageView=itemView.findViewById(R.id.imageView)
         var numRatings: TextView=itemView.findViewById(R.id.numReviewsTextView)
-
     }
 }
 
