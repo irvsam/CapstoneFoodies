@@ -156,6 +156,16 @@
                 android:textSize="20sp" />
 
             <TextView
+                android:id="@+id/replyHeading"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="4dp"
+                android:text="Vendors Reply:"
+                android:clickable="true"
+                android:textColor="@color/blue"
+                android:textSize="16sp" />
+            <TextView
                 android:id="@+id/replyTextView"
                 android:layout_width="320dp"
                 android:layout_height="wrap_content"

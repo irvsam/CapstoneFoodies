@@ -56,6 +56,7 @@ class ReviewAdapter(private val reviews: MutableList<Entities.Review?>,
         private val timestamp: TextView = itemView.findViewById(R.id.timestampTextView)
         private val avatar: ImageView = itemView.findViewById(R.id.avatarImageView)
         private val reply: TextView = itemView.findViewById(R.id.replyTextView)
+        private val replyHeading: TextView = itemView.findViewById(R.id.replyHeading)
         // Bind review data to the UI elements here
         fun bind(review: Entities.Review?) {
             if(review!=null){
@@ -123,6 +124,7 @@ class ReviewAdapter(private val reviews: MutableList<Entities.Review?>,
                 if(isVendor){
                     if(review.reply == null){
                         reply.text = "Reply"
+                        replyHeading.visibility = View.GONE
                         reply.setOnClickListener {view->
                             val replyFragment = ReplyReviewFragment(review)
                             val context = view.context
@@ -136,7 +138,9 @@ class ReviewAdapter(private val reviews: MutableList<Entities.Review?>,
                 else{
                     //just a user dont allow replying
                     if (review.reply ==null){
-                        reply.visibility = View.GONE}
+                        reply.visibility = View.GONE
+                        replyHeading.visibility = View.GONE
+                    }
                     else{
                         reply.text = review.reply
 

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.findFragment
 import androidx.lifecycle.ViewModel
@@ -43,6 +44,7 @@ class ReplyReviewFragment(private var review:Entities.Review):DialogFragment() {
             CoroutineScope(Dispatchers.IO).launch {
                 withContext(Dispatchers.Main){
                     ApplicationCore.database.reviewDao().updateReply(reply.text.toString(),review.id)
+                    Toast.makeText(requireContext(),"Your reply has been submitted!", Toast.LENGTH_SHORT).show()
                     //TODO Just need to make it live update here (will do in morning)
                     dismiss()
                 }
