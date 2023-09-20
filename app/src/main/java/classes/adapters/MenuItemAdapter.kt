@@ -28,7 +28,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MenuItemAdapter(private val fragmentManager:FragmentManager, private val vendorManagementViewModel: VendorManagementViewModel, var menuItemList: MutableList<Entities.MenuItem?>?, private val lifecycleOwner: LifecycleOwner): RecyclerView.Adapter<MenuItemAdapter.MyViewHolder>() {
+class MenuItemAdapter(private val fragmentManager:FragmentManager, var menuItemList: MutableList<Entities.MenuItem?>?, private val lifecycleOwner: LifecycleOwner): RecyclerView.Adapter<MenuItemAdapter.MyViewHolder>() {
 
     /** Returns a ViewHolder object for each menuItem in the Stores RecyclerView*/
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
