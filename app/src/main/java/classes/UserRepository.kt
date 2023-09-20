@@ -5,9 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import classes.daos.AccountDao
 import com.example.foodies.databaseManagement.ApplicationCore
 
+/** a repository to keep all user actions in one place and interact with the database effectively */
 class UserRepository() {
-    //organised way of getting user data from the database using the account dao
-    private val userLiveData = MutableLiveData<Entities.User?>()
     private val accountDao: AccountDao = ApplicationCore.database.accountDao()
 
     suspend fun updateUserRewardPoints(userId: Long, rewardPointsToAdd: Int) {
@@ -29,12 +28,6 @@ class UserRepository() {
         ApplicationCore.database.accountDao().updateUser(user)
     }
 
-
-    fun getUserLiveData(): LiveData<Entities.User?> {
-        return userLiveData
-    }
-
-    // Function to get user's reward points by user ID
     suspend fun getUserRewardPoints(userId: Long): Int {
         return accountDao.getUserRewardPoints(userId)
     }
@@ -47,6 +40,7 @@ class UserRepository() {
         return accountDao.getUserVoucher(userId)
     }
 
+    /** set to 0 when a user claims their voucher*/
     suspend fun resetPoints(userId: Long) {
         val user = ApplicationCore.database.accountDao().getUserById(userId)
         if (user != null) {
