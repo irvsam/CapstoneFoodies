@@ -3,9 +3,9 @@ package classes
 import androidx.lifecycle.MutableLiveData
 import classes.daos.VendorDao
 import com.example.foodies.databaseManagement.ApplicationCore
+
+/** keep track of vendor actions and interact with database safely*/
 class VendorRepository {
-    //getting vendor (store) data from database using dao
-    private val vendorLiveData = MutableLiveData<Entities.Vendor?>()
     private val vendorDao: VendorDao = ApplicationCore.database.vendorDao()
 
     fun getVendorRating(vendorId: Long): Float? {
