@@ -160,10 +160,11 @@ class RegisterActivity: AppCompatActivity() {
     }
 
     private fun isValidEmail(email: String): Boolean {
-        val targetSuffix = "@myuct.ac.za"
+        val targetSuffix1 = "@myuct.ac.za"
+        val targetSuffix2 = "@uct.ac.za"
         val emailLowerCase = email.lowercase()
 
-        return emailLowerCase.endsWith(targetSuffix)
+        return emailLowerCase.endsWith(targetSuffix1) || emailLowerCase.endsWith(targetSuffix2)
     }
 
     private fun showToast(message: String) {
