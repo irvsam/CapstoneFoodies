@@ -265,7 +265,7 @@ class ApplicationCore : Application() {
             //Campus Cafe store
             Entities.Vendor(
                 id = 6,
-                name = "Campus Coffee",
+                name = "Campus Cafe",
                 cuisine = "Beverages",
                 description = "Campus Coffee stocks all types of coffees and teas.",
                 menuId = 6,
