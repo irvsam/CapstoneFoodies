@@ -212,7 +212,7 @@ class ApplicationCore : Application() {
                 openTime = "9:00",
                 closeTime = "17:00",
                 dietaryReqId = 1,
-                image = R.drawable.curry
+                image = R.drawable.curry_platter
             ),
             //Varisty Fast Foods store
             Entities.Vendor(
@@ -248,7 +248,7 @@ class ApplicationCore : Application() {
                 openTime = "9:00",
                 closeTime = "17:00",
                 dietaryReqId = 1,
-                image = R.drawable.roll
+                image = R.drawable.rolls
             ),
             //Dans Health Shop store
             Entities.Vendor(
