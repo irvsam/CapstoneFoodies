@@ -21,9 +21,10 @@ import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Date
 
+/** this class acts as the adapter for the list of reviews*/
 class ReviewAdapter(private val reviews: MutableList<Entities.Review?>,
                     private val lifecycleOwner: LifecycleOwner,
-                    private val isVendor: Boolean) : RecyclerView.Adapter<ReviewAdapter.ViewHolder>() {
+                    private val isVendorFromManagement: Boolean) : RecyclerView.Adapter<ReviewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.list_item_reviews, parent, false)
@@ -31,7 +32,7 @@ class ReviewAdapter(private val reviews: MutableList<Entities.Review?>,
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        // Calculate the reverse position to display the latest review on top
+        /** set it to show reviews starting with the latest review at the top */
         val reversePosition = itemCount - 1 - position
         val review = reviews[reversePosition]
         holder.bind(review)
@@ -42,6 +43,7 @@ class ReviewAdapter(private val reviews: MutableList<Entities.Review?>,
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        /** all the UI items */
         private val userNameTextView: TextView = itemView.findViewById(R.id.userName)
         private val ratingBar: RatingBar = itemView.findViewById(R.id.ratingBar)
         private val quality: TextView = itemView.findViewById(R.id.stockRatingTextView)
@@ -57,31 +59,31 @@ class ReviewAdapter(private val reviews: MutableList<Entities.Review?>,
         private val avatar: ImageView = itemView.findViewById(R.id.avatarImageView)
         private val reply: TextView = itemView.findViewById(R.id.replyTextView)
         private val replyHeading: TextView = itemView.findViewById(R.id.replyHeading)
-        // Bind review data to the UI elements here
+
+
+        /** method to bind UI elements with the review data*/
         fun bind(review: Entities.Review?) {
             if(review!=null){
-                userNameTextView.text = "Loading..." // Show loading message while fetching username
+                userNameTextView.text = "Loading..." /** this is just if it takes time to retrieve */
 
-                // Start a coroutine to fetch the username
+                /** fetch the username on a thread*/
                 lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
                     val userName = ApplicationCore.database.accountDao().getUsernameById(review.userId)
 
-                    // Update the UI on the main thread
                     withContext(Dispatchers.Main) {
                         userNameTextView.text = userName
                     }
-                }// Start a coroutine to fetch the avatar
+                }/** fetch the avatar on a thread*/
                 lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
                     val user = ApplicationCore.database.accountDao().getUserById(review.userId)
 
-                    // Update the UI on the main thread
                     withContext(Dispatchers.Main) {
                         if (user != null) {
                             setAvatarImage(user.avatar, avatar)
                         }
                     }
                 }
-
+                /** timestamp format */
                 val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm")
                 val formattedDate = dateFormat.format(Date(review.timestamp))
                 ratingBar.rating = review.overAllRating
@@ -90,7 +92,8 @@ class ReviewAdapter(private val reviews: MutableList<Entities.Review?>,
 
                 if(comment.text.isEmpty()){comment.visibility = View.GONE}
 
-                // Check each rating and hide the corresponding TextView if it's 0.0
+                /** these are to decide which rating criteria to show, if the user didn't set a rating then remove it from
+                 * the view */
                 if (review.quality.toDouble() == 0.0) {
                     quality.visibility = View.GONE
                     qualityTitle.visibility  = View.GONE
@@ -120,8 +123,8 @@ class ReviewAdapter(private val reviews: MutableList<Entities.Review?>,
                     efficiency.text = review.efficiency.toString()
                 }
 
-                //reply logic
-                if(isVendor){
+                /** set the reply logic if it is a vendor viewing reviews from their management page */
+                if(isVendorFromManagement){
                     if(review.reply == null){
                         reply.text = "Reply"
                         replyHeading.visibility = View.GONE
@@ -136,7 +139,7 @@ class ReviewAdapter(private val reviews: MutableList<Entities.Review?>,
                 }
 
                 else{
-                    //just a user dont allow replying
+                    /** set reply logic if it is just someone there to view */
                     if (review.reply ==null){
                         reply.visibility = View.GONE
                         replyHeading.visibility = View.GONE
@@ -152,19 +155,18 @@ class ReviewAdapter(private val reviews: MutableList<Entities.Review?>,
         }
     }
 
-
-
-    // Function to set the avatar image based on the avatar name
+    /** setting the avatar image*/
     private fun setAvatarImage(avatarName: String?, avatarImageView: ImageView?) {
         avatarName?.let {
-            val resourceId = avatarMap[it] // Replace avatarMap with your actual map
+            val resourceId = avatarMap[it]
             if (resourceId != null) {
                 avatarImageView?.setImageResource(resourceId)
             }
         }
     }
 
-    // Define a map to map avatar names to drawable resources (you need to replace this with your actual map)
+    
+    /** avatar map */
     private val avatarMap = mapOf(
         "penguin" to R.drawable.penguin,
         "rabbit" to R.drawable.rabbit,
