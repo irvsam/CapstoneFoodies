@@ -1,6 +1,6 @@
 package classes
 
-//this holds all the shared view models needed
+/** this class holds all our shared view models*/
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,16 +10,18 @@ import com.example.foodies.databaseManagement.ApplicationCore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-//store list view model
+/** shared view model for the list of stores in vendor list*/
 class SharedViewModel : ViewModel() {
     var storeList = mutableListOf<Entities.Vendor?>()
 
+    /** set the storelist to all the stores in the database*/
     suspend fun getStores(){
         val allStores = ApplicationCore.database.vendorDao().getAllVendors()
         storeList = allStores.toMutableList()
     }
 }
 
+/** for searching vendors*/
 class SearchSharedViewModel : ViewModel(){
     private val _searchStoreList = MutableLiveData<MutableList<Entities.Vendor?>>()
     val searchStoreList: LiveData<MutableList<Entities.Vendor?>>
@@ -28,19 +30,6 @@ class SearchSharedViewModel : ViewModel(){
     init {
         _searchStoreList.value = mutableListOf()
     }
-    /*fun setMenuItems(menuItemsList:MutableList<Entities.MenuItem?> ){
-        val currentList = _menuItems.value ?: mutableListOf()
-        for(item in menuItemsList){
-            currentList.add(item)
-        }
-        _menuItems.value = currentList
-    }
-
-    fun addMenuItem(item:Entities.MenuItem?){
-        val currentList = _menuItems.value ?: mutableListOf()
-        currentList.add(item)
-        _menuItems.value = currentList
-    }*/
     fun addStoreToSearch(store: Entities.Vendor?){
         val currentList = _searchStoreList.value ?: mutableListOf()
         currentList.add(store)
@@ -49,11 +38,13 @@ class SearchSharedViewModel : ViewModel(){
 }
 
 
-// this is to store account details
+/** holds all information for currently logged in account */
 class AccountViewModel : ViewModel() {
 
     var user: Entities.User? = null
     private val userRepository: UserRepository = UserRepository()
+
+    /** for live data updates */
     private val _userRewardPoints = MutableLiveData<Int>()
     private val _userTotalPoints = MutableLiveData<Int>()
 
@@ -67,42 +58,40 @@ class AccountViewModel : ViewModel() {
     val userTotalPoints: LiveData<Int>
         get() = _userTotalPoints
 
+    /** set the user's voucher */
     fun updateUserVoucher(userId: Long, newVoucherCode: String) {
         viewModelScope.launch(Dispatchers.IO) {
             userRepository.updateUserVoucher(userId, newVoucherCode)
+            /** post to the live data and set this user*/
             _userVoucher.postValue(newVoucherCode)
-            //also set the users voucher
             user?.currentVoucher = newVoucherCode
         }
     }
 
     fun updateUserRewardPoints(userId: Long, rewardPointsToAdd: Int) {
         viewModelScope.launch(Dispatchers.IO) {
+            /** calculate the new reward points and set */
             userRepository.updateUserRewardPoints(userId, rewardPointsToAdd)
-
             val updatedRewardPoints = _userRewardPoints.value?.plus(rewardPointsToAdd) ?: rewardPointsToAdd
             val updatedTotalPoints = _userTotalPoints.value?.plus(rewardPointsToAdd) ?: rewardPointsToAdd
             _userRewardPoints.postValue(updatedRewardPoints)
             _userTotalPoints.postValue(updatedTotalPoints)
-
-            //also update their points
             user?.rewardPoints = updatedRewardPoints
             user?.totalOverAllPoints = updatedTotalPoints
         }
     }
 
+    /** set to 0 when they take out their voucher*/
     fun resetUserRewardPoints(userId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             userRepository.resetPoints(userId)
-
             val updatedRewardPoints = 0
             _userRewardPoints.postValue(updatedRewardPoints)
             user?.rewardPoints = 0
         }
     }
 
-
-    // Load the user's initial reward points from the database
+    /** load from database for initial live data value */
     fun loadUserInitialRewardPoints(userId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             val initialRewardPoints = userRepository.getUserRewardPoints(userId)
@@ -127,13 +116,13 @@ class AccountViewModel : ViewModel() {
 
 }
 
-//handling guest actions
+/** this keeps track of if the current user is a guest*/
 class GuestViewModel : ViewModel() {
     var isGuest: Boolean = false
 }
 
 
-//view model to handle all the stores for the vendor list
+/** keep track of the stores data */
 class StoreViewModel : ViewModel(){
     var vendor: Entities.Vendor? = null
     private val vendorRepository: VendorRepository = VendorRepository()
@@ -154,19 +143,20 @@ class StoreViewModel : ViewModel(){
     }
 }
 
+/** keep track of the reviews for the review list */
 class ReviewViewModel: ViewModel(){
     val reviewList = mutableListOf<Entities.Review?>()
     var fromVendorList: Boolean = false
     var fromManagementPage: Boolean = false
 }
 
-//this is for handling the logged on vendor
+/** keep track of a vendor account, if they are logged in as a vendor user */
 class VendorManagementViewModel: ViewModel(){
     private val vendorRepository: VendorRepository = VendorRepository()
     private val _ratingLiveData = MutableLiveData<Float?>()
-    private val _isLoading = MutableLiveData<Boolean>()
+    private val _isLoading = MutableLiveData<Boolean>() /** very useful: tells us if the data is still being retrieved from database*/
     var isVendor: Boolean = false
-    var user: Entities.User? = null //this will be the vendor user who is logged on
+    var user: Entities.User? = null
     var vendor: Entities.Vendor? = null
     val _menuItems = MutableLiveData<MutableList<Entities.MenuItem?>>()
 
@@ -188,18 +178,21 @@ class VendorManagementViewModel: ViewModel(){
         }
     }
 
+    /** user "vendor" account*/
     fun updateUserDetails(user: Entities.User) {
         viewModelScope.launch(Dispatchers.IO) {
             ApplicationCore.database.accountDao().updateUser(user)
         }
     }
 
+    /** vendor store account*/
     fun updateVendorDetails(vendor: Entities.Vendor) {
         viewModelScope.launch(Dispatchers.IO) {
             ApplicationCore.database.vendorDao().updateVendor(vendor)
         }
     }
 
+    /** set the menu items from database */
     fun setMenuItems(menuItemsList:MutableList<Entities.MenuItem?> ){
         val currentList = _menuItems.value ?: mutableListOf()
         for(item in menuItemsList){
@@ -207,7 +200,7 @@ class VendorManagementViewModel: ViewModel(){
         }
         _menuItems.value = currentList
     }
-
+    /** the following methods are for menu management*/
     fun addMenuItem(item:Entities.MenuItem?){
         val currentList = _menuItems.value ?: mutableListOf()
         currentList.add(item)
@@ -224,10 +217,6 @@ class VendorManagementViewModel: ViewModel(){
         val currentList = _menuItems.value ?: mutableListOf()
         currentList.remove(item)
         _menuItems.postValue(currentList)
-    }
-
-    fun updateRating(rating: Float?) {
-        _ratingLiveData.postValue(rating)
     }
 
     suspend fun setVendor() {
