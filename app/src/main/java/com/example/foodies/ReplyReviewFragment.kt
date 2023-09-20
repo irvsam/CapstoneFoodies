@@ -38,7 +38,6 @@ class ReplyReviewFragment(private var review:Entities.Review):DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         val reply = view.findViewById<EditText>(R.id.replyEditText)
         val submitButton = view.findViewById<Button>(R.id.submitReplyButton)
-        val cancelButton = view.findViewById<Button>(R.id.cancelReplyButton)
 
         submitButton.setOnClickListener{
             CoroutineScope(Dispatchers.IO).launch {
