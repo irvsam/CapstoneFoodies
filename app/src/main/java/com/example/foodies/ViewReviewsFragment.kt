@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,6 +27,7 @@ class ViewReviewsFragment : Fragment() {
     private lateinit var storeViewModel: StoreViewModel
     private lateinit var vendorManagementViewModel: VendorManagementViewModel
     private lateinit var reviewViewModel: ReviewViewModel
+    private lateinit var reply: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,11 +39,13 @@ class ViewReviewsFragment : Fragment() {
 
         val vendorId:Long
         if(vendorManagementViewModel.isVendor && reviewViewModel.fromManagementPage){
-            Log.d(TAG, "view reviews oncreate called for vendor")
+            //it is a vendor viewing the reviews for their store
             vendorId = vendorManagementViewModel.vendor!!.id
         }
-        else {vendorId = storeViewModel.vendor!!.id
-            Log.d(TAG, "view reviews oncreate called for user")}
+        else { //it is a user viewing the stores reviews
+            vendorId = storeViewModel.vendor!!.id
+
+        }
 
         //get all reviews from database and populate the review list
         populateReviews(vendorId)
@@ -58,7 +62,7 @@ class ViewReviewsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         // Sort the reviews list by timestamp in descending order (latest first)
         reviewViewModel.reviewList.sortByDescending { it?.timestamp }
-        val itemAdapter= ReviewAdapter(reviewViewModel.reviewList, this)
+        val itemAdapter= ReviewAdapter(reviewViewModel.reviewList, this, reviewViewModel.fromManagementPage)
         val recyclerView:RecyclerView=view.findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = itemAdapter

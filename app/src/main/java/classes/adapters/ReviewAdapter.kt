@@ -6,11 +6,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.foodies.R // Replace with the appropriate resource import
-import classes.Entities // Import your entity package
+import com.example.foodies.R
+import classes.Entities
+import com.example.foodies.ReplyReviewFragment
 import com.example.foodies.databaseManagement.ApplicationCore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,7 +21,9 @@ import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Date
 
-class ReviewAdapter(private val reviews: MutableList<Entities.Review?>, private val lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<ReviewAdapter.ViewHolder>() {
+class ReviewAdapter(private val reviews: MutableList<Entities.Review?>,
+                    private val lifecycleOwner: LifecycleOwner,
+                    private val isVendor: Boolean) : RecyclerView.Adapter<ReviewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.list_item_reviews, parent, false)
@@ -50,6 +55,8 @@ class ReviewAdapter(private val reviews: MutableList<Entities.Review?>, private 
         private val comment: TextView = itemView.findViewById(R.id.commentTextView)
         private val timestamp: TextView = itemView.findViewById(R.id.timestampTextView)
         private val avatar: ImageView = itemView.findViewById(R.id.avatarImageView)
+        private val reply: TextView = itemView.findViewById(R.id.replyTextView)
+        private val replyHeading: TextView = itemView.findViewById(R.id.replyHeading)
         // Bind review data to the UI elements here
         fun bind(review: Entities.Review?) {
             if(review!=null){
@@ -113,10 +120,39 @@ class ReviewAdapter(private val reviews: MutableList<Entities.Review?>, private 
                     efficiency.text = review.efficiency.toString()
                 }
 
+                //reply logic
+                if(isVendor){
+                    if(review.reply == null){
+                        reply.text = "Reply"
+                        replyHeading.visibility = View.GONE
+                        reply.setOnClickListener {view->
+                            val replyFragment = ReplyReviewFragment(review)
+                            val context = view.context
+                            val fragmentManager = (context as AppCompatActivity).supportFragmentManager
+                            replyFragment.show(fragmentManager,"ReplyReviewDialog")
+                        }
+                    }
+                    else{reply.text = review.reply}
+                }
+
+                else{
+                    //just a user dont allow replying
+                    if (review.reply ==null){
+                        reply.visibility = View.GONE
+                        replyHeading.visibility = View.GONE
+                    }
+                    else{
+                        reply.text = review.reply
+
+                    }
+                }
+
 
             }
         }
     }
+
+
 
     // Function to set the avatar image based on the avatar name
     private fun setAvatarImage(avatarName: String?, avatarImageView: ImageView?) {

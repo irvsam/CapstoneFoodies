@@ -123,6 +123,7 @@ class Entities {
         val cleanliness: Float,
         val friendliness: Float,
         val efficiency: Float,
+        val reply: String? = null
     )
 
     @Entity(
