@@ -68,7 +68,7 @@ class QRFragment : Fragment() {
                     val navController = findNavController()
                     navController.popBackStack()
                     navController.navigate(R.id.leaveReviewFragment)
-                    // Create scan object
+
                     val vendorId = storeViewModel.vendor!!.id
                     val currentTime = Calendar.getInstance()
                     val currentHour = currentTime.get(Calendar.HOUR_OF_DAY)
@@ -79,17 +79,17 @@ class QRFragment : Fragment() {
                 }
 
                  else {
-                    Log.d(TAG, "incorrect QR")
                     showToast("Incorrect code. Please scan the code for $vendorName")
                     val navController = findNavController()
+                    navController.popBackStack()
                     navController.navigate(R.id.storeDetailsFragment)
                 }
 
             } else {
-                Log.d(TAG, "issue")
                 // The scan was successful, but the scanned contents are empty.
-                showToast("unsuccessful scan")
+                showToast("empty scan contents")
                 val navController = findNavController()
+                navController.popBackStack()
                 navController.navigate(R.id.storeDetailsFragment)
         }
 
