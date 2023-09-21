@@ -18,4 +18,8 @@ class VendorRepository {
         for(item in list){vendorlist.add(item)}
         return vendorlist
     }
+
+    suspend fun getDescription(vendorId: Long): String{
+        return vendorDao.getDescription(vendorId)
+    }
 }

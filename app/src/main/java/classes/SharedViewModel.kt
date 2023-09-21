@@ -2,6 +2,8 @@ package classes
 
 /** this class holds all our shared view models*/
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -135,6 +137,14 @@ class StoreViewModel : ViewModel(){
         viewModelScope.launch(Dispatchers.IO) {
             val initialVendorRating = vendorRepository.getVendorRating(vendorId)
             _ratingLiveData.postValue(initialVendorRating)
+        }
+    }
+
+    fun loadDescription(vendorId: Long){
+        viewModelScope.launch(Dispatchers.IO) {
+            val description = vendorRepository.getDescription(vendorId)
+            Log.d(TAG, "vendors deescription loaded ${description}")
+            vendor?.description  = description
         }
     }
 

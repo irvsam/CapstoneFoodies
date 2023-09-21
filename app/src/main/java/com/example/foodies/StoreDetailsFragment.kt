@@ -1,8 +1,10 @@
 package com.example.foodies
 
+import android.content.ContentValues.TAG
 import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -87,7 +89,7 @@ class StoreDetailsFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 if (store != null) {
                     imageView.setImageResource(store.image)
-                    description.text = store.description
+                    storeViewModel.loadDescription(store.id)
                     storeName.text = store.name
                     if (menu.length != 0) {
                         menuTextView.text = menu
@@ -132,6 +134,10 @@ class StoreDetailsFragment : Fragment() {
                         }
                     }
                 }
+
+                val d = storeViewModel.vendor?.description
+                Log.d(TAG, "description setting to ${d}")
+                description.text = d
             }
 
             val actionBar: ActionBar? = (activity as AppCompatActivity).supportActionBar

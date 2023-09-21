@@ -50,9 +50,14 @@ interface VendorDao {
     /** Returns the amount of reviews a vendor, with a corresponding vendorID, has*/
     @Query("SELECT COUNT(*) FROM review WHERE vendor_id = :vendorId")
     suspend fun getReviewCountForVendor(vendorId: Long): Int
+    @Query("SELECT description FROM vendor WHERE id = :vendorId")
+    suspend fun getDescription(vendorId: Long): String
+
 
     /** Returns the name of a vendor*/
     @Query("SELECT name FROM vendor")
     suspend fun getAllVendorNames(): List<String>
+
+
 
 }
