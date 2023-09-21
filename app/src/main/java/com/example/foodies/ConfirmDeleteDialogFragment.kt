@@ -21,11 +21,14 @@ import kotlinx.coroutines.launch
 class ConfirmDeleteDialogFragment(private val item: Entities.MenuItem,private val lifecycleOwner: LifecycleOwner):DialogFragment() {
 
     private lateinit var vendorManagementViewModel: VendorManagementViewModel
+
+    /** Called on dialog creation. Initialises view models*/
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         vendorManagementViewModel = ViewModelProvider(requireActivity())[VendorManagementViewModel::class.java]
     }
 
+    /** Called when dialog UI is created. Inflates the ConfirmDeleteDialog layout*/
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,6 +37,7 @@ class ConfirmDeleteDialogFragment(private val item: Entities.MenuItem,private va
         return inflater.inflate(R.layout.dailog_confirm_delete, container, false)
     }
 
+    /** Indicates what the confirm and cancel button must do, when interacted with*/
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val confirmDeleteButton = view.findViewById<Button>(R.id.confirmDeleteButton)
