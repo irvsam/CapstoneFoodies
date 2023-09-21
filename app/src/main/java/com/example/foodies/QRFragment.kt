@@ -1,7 +1,9 @@
 package com.example.foodies
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -59,14 +61,13 @@ class QRFragment : Fragment() {
                 // scannedResult should be the name of a vendor
                 val scannedResult = result.contents
 
-
                 // if the QR is for the right vendor
                 if(scannedResult==vendorName) {
                 // Display success signal
                 showToast("$scannedResult code scanned successfully")
-                val navController = findNavController()
+                    val navController = findNavController()
                     navController.popBackStack()
-                navController.navigate(R.id.leaveReviewFragment)
+                    navController.navigate(R.id.leaveReviewFragment)
                     // Create scan object
                     val vendorId = storeViewModel.vendor!!.id
                     val currentTime = Calendar.getInstance()
@@ -76,16 +77,22 @@ class QRFragment : Fragment() {
                         insertScanInBackground(scan)
                     }
                 }
-                //
-                } else {
+
+                 else {
+                    Log.d(TAG, "incorrect QR")
                     showToast("Incorrect code. Please scan the code for $vendorName")
                     val navController = findNavController()
                     navController.navigate(R.id.storeDetailsFragment)
                 }
 
             } else {
+                Log.d(TAG, "issue")
                 // The scan was successful, but the scanned contents are empty.
-                // This can happen if the user cancels the scan or if there was an issue with the QR code.
+                showToast("unsuccessful scan")
+                val navController = findNavController()
+                navController.navigate(R.id.storeDetailsFragment)
+        }
+
         }
     }
 
