@@ -18,7 +18,7 @@ import kotlinx.coroutines.withContext
 
 class Adapter(private val storeList: MutableList<Entities.Vendor?>, private val clickListener: StoreClickListener, private val lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<Adapter.MyViewHolder>() {
 
-    // This method creates a new ViewHolder object for each item in the RecyclerView
+    /**This method creates a new ViewHolder object for each item in the RecyclerView*/
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         // Inflate the layout for each item and return a new ViewHolder object
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.store_card_cell, parent, false)

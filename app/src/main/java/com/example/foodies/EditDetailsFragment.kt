@@ -41,7 +41,7 @@ class EditDetailsFragment : Fragment() {
         descriptionEditText = view.findViewById(R.id.edit_description)
         saveButton = view.findViewById(R.id.save_button)
 
-        /** if the current user is a vendor */
+        // if the current user is a vendor
         if(vendorManagementViewModel.isVendor){
             user = vendorManagementViewModel.user
             vendor = vendorManagementViewModel.vendor
@@ -55,13 +55,13 @@ class EditDetailsFragment : Fragment() {
                 val newDescription = descriptionEditText.text.toString()
 
                 if (user != null) {
-                    /** set new details and update */
+                    //set new details and update
                     user!!.username = newUsername
                     user!!.phone = newPhone
                     vendor!!.description = newDescription
                     vendorManagementViewModel.updateUserDetails(user!!)
                     vendorManagementViewModel.updateVendorDetails(vendor!!)
-                    /** navigate back when done */
+                    // Navigate back when done
                     val navController = findNavController()
                     navController.navigate(R.id.accountFragment)
                 }
@@ -69,7 +69,7 @@ class EditDetailsFragment : Fragment() {
 
 
         }
-        else{ /** user is not a vendor account*/
+        else{ // User is not a vendor account
             user = accountViewModel.user
             descriptionEditText.visibility = View.GONE
             usernameEditText.setText(user?.username)
@@ -80,12 +80,12 @@ class EditDetailsFragment : Fragment() {
                 val newPhone = phoneEditText.text.toString()
 
                 if (user != null) {
-                    /**  set the new details and update */
+                    //Set the new details and update
                     user!!.username = newUsername
                     user!!.phone = newPhone
                     accountViewModel.updateUserDetails(user!!)
 
-                    /** navigate back when done */
+                    // Navigate back when done
                     val navController = findNavController()
                     navController.navigate(R.id.accountFragment)
                 }
