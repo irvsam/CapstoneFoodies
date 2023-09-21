@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -53,18 +54,21 @@ class EditDetailsFragment : Fragment() {
                 val newUsername = usernameEditText.text.toString()
                 val newPhone = phoneEditText.text.toString()
                 val newDescription = descriptionEditText.text.toString()
+                if (newDescription.isNotEmpty() && newPhone.isNotEmpty() && newUsername.isNotEmpty()) {
 
-                if (user != null) {
-                    //set new details and update
-                    user!!.username = newUsername
-                    user!!.phone = newPhone
-                    vendor!!.description = newDescription
-                    vendorManagementViewModel.updateUserDetails(user!!)
-                    vendorManagementViewModel.updateVendorDetails(vendor!!)
-                    // Navigate back when done
-                    val navController = findNavController()
-                    navController.navigate(R.id.accountFragment)
+                    if (user != null) {
+                        //set new details and update
+                        user!!.username = newUsername
+                        user!!.phone = newPhone
+                        vendor!!.description = newDescription
+                        vendorManagementViewModel.updateUserDetails(user!!)
+                        vendorManagementViewModel.updateVendorDetails(vendor!!)
+                        // Navigate back when done
+                        val navController = findNavController()
+                        navController.navigate(R.id.accountFragment)
+                    }
                 }
+                else{Toast.makeText(requireContext(),"details can't be empty",Toast.LENGTH_SHORT).show()}
             }
 
 
@@ -80,14 +84,17 @@ class EditDetailsFragment : Fragment() {
                 val newPhone = phoneEditText.text.toString()
 
                 if (user != null) {
-                    //Set the new details and update
-                    user!!.username = newUsername
-                    user!!.phone = newPhone
-                    accountViewModel.updateUserDetails(user!!)
+                    if (newPhone.isNotEmpty() && newUsername.isNotEmpty()) {
+                        //Set the new details and update
+                        user!!.username = newUsername
+                        user!!.phone = newPhone
+                        accountViewModel.updateUserDetails(user!!)
 
-                    // Navigate back when done
-                    val navController = findNavController()
-                    navController.navigate(R.id.accountFragment)
+                        // Navigate back when done
+                        val navController = findNavController()
+                        navController.navigate(R.id.accountFragment)
+                    }
+                    else{Toast.makeText(requireContext(),"details can't be empty",Toast.LENGTH_SHORT).show()}
                 }
                 }
             }

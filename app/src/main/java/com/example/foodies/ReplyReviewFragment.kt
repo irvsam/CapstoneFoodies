@@ -43,10 +43,19 @@ class ReplyReviewFragment(private var review:Entities.Review):DialogFragment() {
         submitButton.setOnClickListener{
             CoroutineScope(Dispatchers.IO).launch {
                 withContext(Dispatchers.Main){
-                    ApplicationCore.database.reviewDao().updateReply(reply.text.toString(),review.id)
-                    Toast.makeText(requireContext(),"Your reply has been submitted!", Toast.LENGTH_SHORT).show()
-                    //TODO Just need to make it live update here (will do in morning)
-                    dismiss()
+
+                    val VendorsReply = reply.text.toString()
+                    if(VendorsReply!="") {
+                        ApplicationCore.database.reviewDao()
+                            .updateReply(reply.text.toString(), review.id)
+                        Toast.makeText(
+                            requireContext(),
+                            "Your reply has been submitted!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        dismiss()
+                    }
+                    else{Toast.makeText(requireContext(),"Reply cannot be empty",Toast.LENGTH_SHORT).show()}
                 }
             }
         }
