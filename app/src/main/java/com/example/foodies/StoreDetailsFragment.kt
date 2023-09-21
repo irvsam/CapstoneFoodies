@@ -197,7 +197,7 @@ class StoreDetailsFragment : Fragment() {
             val averages = MutableList(9) { 0f } // Initialize with 0 for each hour
 
             // Calculate average scans for each hour
-            for (hour in 9..16) { // Hours from 9 am to 5 pm
+            for (hour in 9..16) { // Hours from 9 am to 4:59 pm
                 val scansForHour = groupedData[hour] ?: emptyList()
                 val average = if (scansForHour.isNotEmpty()) {
                     (scansForHour.size / 7.0).toFloat() // Average without rounding
