@@ -36,6 +36,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.LocalTime
 
 /** Storefront page displaying the relevant details regarding the store*/
 class StoreDetailsFragment : Fragment() {
@@ -52,6 +53,8 @@ class StoreDetailsFragment : Fragment() {
     private lateinit var vendorManagementViewModel: VendorManagementViewModel
     private lateinit var reviewViewModel: ReviewViewModel
     private lateinit var numRatings: TextView
+    private lateinit var openClosed: TextView
+    private lateinit var hours: TextView
     private val averageScansData = MutableLiveData<List<Float>>()
 
     override fun onCreateView(
@@ -66,6 +69,8 @@ class StoreDetailsFragment : Fragment() {
 
         imageView = view.findViewById(R.id.imageView)
         storeName = view.findViewById(R.id.storeName)
+        openClosed = view.findViewById(R.id.OpenClosedTextView)
+        hours = view.findViewById(R.id.HoursTextView)
         menuTextView = view.findViewById(R.id.menu)
         reviewTextView = view.findViewById(R.id.reviewTextView)
         reviewButton = view.findViewById(R.id.reviewButton)
@@ -74,6 +79,8 @@ class StoreDetailsFragment : Fragment() {
         storeViewModel = ViewModelProvider(requireActivity())[StoreViewModel::class.java]
         vendorManagementViewModel = ViewModelProvider(requireActivity())[VendorManagementViewModel::class.java]
         reviewViewModel = ViewModelProvider(requireActivity())[ReviewViewModel::class.java]
+
+
 
         //Vendor can't leave a review
         if(vendorManagementViewModel.user?.type=="Vendor"){
@@ -137,6 +144,21 @@ class StoreDetailsFragment : Fragment() {
 
                 val d = storeViewModel.vendor?.description
                 description.text = d
+                val storeHours = "${store?.openTime} - ${store?.closeTime}"
+                hours.text = storeHours
+                val openTime = LocalTime.parse(store?.openTime)
+                val closeTime = LocalTime.parse(store?.closeTime)
+                val currentTime = LocalTime.now()
+                val isOpen = currentTime.isAfter(openTime) && currentTime.isBefore(closeTime)
+
+                if(isOpen){
+                    openClosed.text = "Open"
+                    //set the text colour to green
+                    openClosed.setTextColor(Color.GREEN)
+                }
+
+
+
             }
 
             val actionBar: ActionBar? = (activity as AppCompatActivity).supportActionBar

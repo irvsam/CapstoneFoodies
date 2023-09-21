@@ -209,7 +209,7 @@ class ApplicationCore : Application() {
                 cuisine = "Meat",
                 description = "Afriquezeen has a selection of curries and stews - both vegetarian and meat options. It is also Halaal.",
                 menuId = 1,
-                openTime = "9:00",
+                openTime = "09:00",
                 closeTime = "17:00",
                 dietaryReqId = 1,
                 image = R.drawable.capemalay
@@ -221,7 +221,7 @@ class ApplicationCore : Application() {
                 cuisine = "Meat",
                 description = "Varsity Fast Foods has a selection of sandwiches, wraps and burgers. It is also Halaal.",
                 menuId = 2,
-                openTime = "9:00",
+                openTime = "09:00",
                 closeTime = "17:00",
                 dietaryReqId = 1,
                 image = R.drawable.burger
@@ -233,7 +233,7 @@ class ApplicationCore : Application() {
                 cuisine = "Meat",
                 description = "Best Quality has a wide range of sandwiches, wraps, burgers, pies... They do have vegetarian options.",
                 menuId = 3,
-                openTime = "9:00",
+                openTime = "09:00",
                 closeTime = "17:00",
                 dietaryReqId = 1,
                 image = R.drawable.chips
@@ -245,7 +245,7 @@ class ApplicationCore : Application() {
                 cuisine = "Meat",
                 description = "Budget Rolls offers rolls with all types of fillings. They also have hot chocolate and coffee.",
                 menuId = 4,
-                openTime = "9:00",
+                openTime = "09:00",
                 closeTime = "17:00",
                 dietaryReqId = 1,
                 image = R.drawable.rolls
@@ -257,7 +257,7 @@ class ApplicationCore : Application() {
                 cuisine = "Meat",
                 description = "Dan's Health Shop offers drinks, snacks and sandwiches.",
                 menuId = 5,
-                openTime = "9:00",
+                openTime = "09:00",
                 closeTime = "17:00",
                 dietaryReqId = 1,
                 image = R.drawable.juices
@@ -269,7 +269,7 @@ class ApplicationCore : Application() {
                 cuisine = "Beverages",
                 description = "Campus Cafe stocks all types of coffees and teas.",
                 menuId = 6,
-                openTime = "9:00",
+                openTime = "09:00",
                 closeTime = "17:00",
                 dietaryReqId = 1,
                 image = R.drawable.coffees
@@ -281,7 +281,7 @@ class ApplicationCore : Application() {
                 cuisine = "Meat",
                 description = "Prashad stocks samoosas, curries, snacks and desserts.",
                 menuId = 7,
-                openTime = "9:00",
+                openTime = "09:00",
                 closeTime = "17:00",
                 dietaryReqId = 1,
                 image = R.drawable.samoosa
