@@ -31,6 +31,7 @@ class RegisterActivity: AppCompatActivity() {
     private lateinit var adapterItems:ArrayAdapter<String>
     private val accountDao: AccountDao = ApplicationCore.database.accountDao()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
@@ -81,10 +82,6 @@ class RegisterActivity: AppCompatActivity() {
                 vendorID = (vendorIdText.text.toString()).toLong()
             }
 
-
-            //TODO: validate passwords, username, and email (no duplicates, passwords match, etc)
-
-
             //Insert the user data into the Room database using the DAO
             val user = Entities.User(username = username,
                 email = email,
@@ -113,6 +110,8 @@ class RegisterActivity: AppCompatActivity() {
 
     }
 
+    // Method to ensure the information entered in the registration fields is valid
+    // (Confirmed passwords; in-use usernames/emails/phone)
     private fun validateRegistrationInput(
         username: String,
         email: String,
@@ -120,7 +119,6 @@ class RegisterActivity: AppCompatActivity() {
         password: String,
         passwordRepeat: String
     ): Boolean {
-        // TODO: Perform your validation checks here (username/email/phone already exists, passwords don't match)
         if (username.isEmpty()
             || email.isEmpty()
             || phone.isEmpty()
@@ -145,12 +143,12 @@ class RegisterActivity: AppCompatActivity() {
             showToast("One or more of the fields you have entered is already in use!")
             return false
         }
-
+        // If the email is not valid
         if (!isValidEmail(email)) {
             showToast("Enter a valid UCT e-mail")
             return false
         }
-
+        // If the passwords entered do not match
         if (password != passwordRepeat) {
             showToast("Passwords do not match")
             return false
@@ -158,17 +156,13 @@ class RegisterActivity: AppCompatActivity() {
 
         return true
     }
-
+    // Checks the emails entered are UCT-affiliated emails
     private fun isValidEmail(email: String): Boolean {
         val targetSuffix1 = "@myuct.ac.za"
         val targetSuffix2 = "@uct.ac.za"
         val emailLowerCase = email.lowercase()
 
         return emailLowerCase.endsWith(targetSuffix1) || emailLowerCase.endsWith(targetSuffix2)
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
     private suspend fun insertUserInBackground(user: Entities.User) {
@@ -187,7 +181,7 @@ class RegisterActivity: AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
+    /** Method to check the entered information against the database to see if any of the fields already exist */
     private suspend fun isDuplicateEntry(email: String?, phone: String?, username: String?, userDao: AccountDao): Boolean {
         return withContext(Dispatchers.IO) {
             if (!email.isNullOrBlank()) {
@@ -213,6 +207,9 @@ class RegisterActivity: AppCompatActivity() {
 
             return@withContext false
         }
+    }
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
 }

@@ -42,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
         registerLinkTextView.text = spannableString
         registerLinkTextView.movementMethod = LinkMovementMethod.getInstance()
 
-        /** login button logic*/
+        /** login button logic */
         val loginButton = findViewById<Button>(R.id.login_btn)
         loginButton.setOnClickListener {
 

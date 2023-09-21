@@ -39,15 +39,16 @@ class QRFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize the ZXing scanner
+        // Initialize the ZXing scanner (Library to read QR codes)
         val integrator = IntentIntegrator.forSupportFragment(this)
         integrator.setPrompt("Scan the store's QR Code")
         integrator.setCameraId(0)  // Use the rear camera (0 by default)
-        integrator.setBeepEnabled(false)  // Beep on successful scan
+        integrator.setBeepEnabled(false)  // No beep on successful scan
         integrator.initiateScan()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
         val result: IntentResult? = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
 
         storeViewModel = ViewModelProvider(requireActivity())[StoreViewModel::class.java]
@@ -61,10 +62,10 @@ class QRFragment : Fragment() {
                 // scannedResult should be the name of a vendor
                 val scannedResult = result.contents
 
-                // if the QR is for the right vendor
-                if(scannedResult==vendorName) {
+                if(scannedResult==vendorName) { // If the QR is for the right vendor
                 // Display success signal
                 showToast("$scannedResult code scanned successfully")
+
                     val navController = findNavController()
                     navController.popBackStack()
                     navController.navigate(R.id.leaveReviewFragment)
@@ -76,28 +77,30 @@ class QRFragment : Fragment() {
                     lifecycleScope.launch {
                         insertScanInBackground(scan)
                     }
-                }
+                } else { // the scanned contents are for the incorrect vendor
 
-                 else {
                     showToast("Incorrect code. Please scan the code for $vendorName")
                     val navController = findNavController()
                     navController.popBackStack()
                     navController.navigate(R.id.storeDetailsFragment)
+
                 }
 
-            } else {
-                // The scan was successful, but the scanned contents are empty.
+            } else { // the scanned contents are empty.
+
                 showToast("empty scan contents")
                 val navController = findNavController()
                 navController.popBackStack()
                 navController.navigate(R.id.storeDetailsFragment)
+
         }
 
         }
     }
 
-
+    // Creates a new scan entry in the Scans table in the DB
     private suspend fun insertScanInBackground(scan: Entities.Scan) {
+
         withContext(Dispatchers.IO) {
 
             ApplicationCore.database.scanDao().insert(scan)
