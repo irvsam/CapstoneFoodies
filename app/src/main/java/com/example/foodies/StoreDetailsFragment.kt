@@ -168,7 +168,6 @@ class StoreDetailsFragment : Fragment() {
 
         observeAverageScansData(store!!.id)
     }
-
     private fun calculateAverageScansForVendor(vendorId: Long) {
         CoroutineScope(Dispatchers.IO).launch {
             val scanDataForVendor = getScansForVendor(vendorId)
@@ -186,7 +185,7 @@ class StoreDetailsFragment : Fragment() {
                 }
                 averages[hour - 9] = average
             }
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 // Update the LiveData with the calculated averages
                 averageScansData.postValue(averages)
             }
@@ -200,32 +199,37 @@ class StoreDetailsFragment : Fragment() {
         }
         return scans
     }
+
     private fun getAverageScansData(vendorId: Long): LiveData<List<Float>> {
         calculateAverageScansForVendor(vendorId)
         return averageScansData
     }
 
+    /** Creates the bar graph based on the scans read in from the database */
     private fun observeAverageScansData(vendorId: Long) {
         val barChart: BarChart = requireView().findViewById(R.id.barChart)
 
         getAverageScansData(vendorId).observe(viewLifecycleOwner) { averages ->
             // Update the graph using the 'averages' data
-            // You can replace the sampleData with 'averages' to use the calculated data
             val data = mutableListOf<BarEntry>()
             for ((index, average) in averages.withIndex()) {
                 data.add(BarEntry(index.toFloat(), average))
             }
 
+            // Set up labels for the x-axis
             val xLabels = listOf("9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00")
             val dataSet = BarDataSet(data, "Avg. number of reviews per day")
 
+            // Customize the appearance of the dataset
             dataSet.color = Color.BLUE
             dataSet.valueTextColor = Color.BLACK
             dataSet.valueTextSize = 12f
+
+            // Set the data for the BarChart
             val barData = BarData(dataSet)
             barChart.data = barData
 
-            // Get the x-axis and set a custom value formatter
+            // Customize the appearance of the x-axis
             val xAxis = barChart.xAxis
             xAxis.valueFormatter = IndexAxisValueFormatter(xLabels)
             xAxis.position = XAxis.XAxisPosition.BOTTOM
@@ -233,16 +237,15 @@ class StoreDetailsFragment : Fragment() {
             xAxis.setDrawAxisLine(true)
             xAxis.granularity = 1f // Set granularity to 1 to avoid displaying non-integer values
 
-            // Customize the left Y-axis
+            // Customize the left Y-axis (hide labels)
             val leftAxis = barChart.axisLeft
-            leftAxis.setDrawLabels(false) // Hide axis labels
+            leftAxis.setDrawLabels(false)
 
-            // Customize the right Y-axis
+            // Customize the right Y-axis (hide labels)
             val rightAxis = barChart.axisRight
-            rightAxis.setDrawLabels(false) // Hide axis labels
+            rightAxis.setDrawLabels(false)
 
-
-            // Rest of your code to set up the BarChart with sampleData
+            // Additional BarChart customization
             barChart.setDrawBarShadow(false)
             barChart.description = null
             barChart.setDrawValueAboveBar(true)
