@@ -143,7 +143,6 @@ class StoreViewModel : ViewModel(){
     fun loadDescription(vendorId: Long){
         viewModelScope.launch(Dispatchers.IO) {
             val description = vendorRepository.getDescription(vendorId)
-            Log.d(TAG, "vendors deescription loaded ${description}")
             vendor?.description  = description
         }
     }

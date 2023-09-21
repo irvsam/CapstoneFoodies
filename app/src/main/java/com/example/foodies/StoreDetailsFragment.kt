@@ -136,7 +136,6 @@ class StoreDetailsFragment : Fragment() {
                 }
 
                 val d = storeViewModel.vendor?.description
-                Log.d(TAG, "description setting to ${d}")
                 description.text = d
             }
 
