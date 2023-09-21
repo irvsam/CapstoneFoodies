@@ -41,7 +41,7 @@ class Adapter(private val storeList: MutableList<Entities.Vendor?>, private val 
     }
 
     /**
-     assignStoreCardDetails() is used to assign details(name, rating, store image) to the current store within the RecyclerViews ViewHolder.
+     Assigns the details(name, rating, store image) to the current store within the RecyclerViews ViewHolder.
      It also allows sets up what must happen in the event that a user clicks on the store card
      */
     private fun assignStoresCardDetails(holder:MyViewHolder,currentStore: Entities.Vendor?){
