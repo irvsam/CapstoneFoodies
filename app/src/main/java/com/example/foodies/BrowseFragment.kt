@@ -24,7 +24,7 @@ import classes.VendorManagementViewModel
 import classes.adapters.MenuItemAdapter
 import classes.adapters.SearchAdapter
 
-/** the browse page where a user can search the list of vendors*/
+/** The browse page where a user can search the list of vendors*/
 class BrowseFragment : Fragment(),StoreClickListener {
 
     private lateinit var searchEditText: EditText
@@ -33,12 +33,15 @@ class BrowseFragment : Fragment(),StoreClickListener {
     private lateinit var searchSharedViewModel: SearchSharedViewModel
     private lateinit var vendorViewModel: StoreViewModel
 
+    /** Called when BrowseFragment is first created and initialises the various view models*/
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedViewModel=ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         searchSharedViewModel = ViewModelProvider(requireActivity())[SearchSharedViewModel::class.java]
         vendorViewModel = ViewModelProvider(requireActivity())[StoreViewModel::class.java]
     }
+
+    /** Called when fragments UI is first created to inflate the Browse fragment*/
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,12 +52,19 @@ class BrowseFragment : Fragment(),StoreClickListener {
         return view
     }
 
+    /** Called when the BrowseFragment is displayed and ready to be interacted with. It initialises the
+     * RecyclerView and the SearchAdapter
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView: RecyclerView = view.findViewById(R.id.resultRecyclerView)
         val itemAdapter = SearchAdapter(sharedViewModel.storeList,this,this)
+        search(recyclerView,itemAdapter)
+    }
 
-        /** watch the text as the user types */
+    /** Returns search results that correspond to the current typed input*/
+    private fun search(recyclerView: RecyclerView,itemAdapter: SearchAdapter){
+        //Watch the text as the user types
         searchEditText.addTextChangedListener(object : TextWatcher{
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val filteredSuggestions = filterSuggestions(s)
@@ -65,6 +75,7 @@ class BrowseFragment : Fragment(),StoreClickListener {
                     }
                 }
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 // No changes required
             }
@@ -75,14 +86,9 @@ class BrowseFragment : Fragment(),StoreClickListener {
         })
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = itemAdapter
-
-        searchButton.setOnClickListener {
-            //perform the search
-            //check which filters are selected?
-
-        }
     }
 
+    /** Only returns stores that match the current search query*/
     private fun filterSuggestions(word: CharSequence?):MutableList<Entities.Vendor?>{
         val storeList = sharedViewModel.storeList
         val filteredList = mutableListOf<Entities.Vendor?>()
@@ -96,14 +102,17 @@ class BrowseFragment : Fragment(),StoreClickListener {
         return filteredList
     }
 
-    fun isCharSequenceInString(charSequence: CharSequence, inputString: String): Boolean {
-        val charSequenceLower = charSequence.toString().toLowerCase()
-        val inputStringLower = inputString.toLowerCase()
+    /** Compares the current query to the starting char sequence of all avaialable store.
+     * Returns a Boolean indicating whether its a match or not
+     */
+    private fun isCharSequenceInString(charSequence: CharSequence, inputString: String): Boolean {
+        val charSequenceLower = charSequence.toString().lowercase()
+        val inputStringLower = inputString.lowercase()
 
         return inputStringLower.startsWith(charSequenceLower)
     }
 
-    /** navigate to store details page when a store is clicked */
+    /** Navigate to store details page when a store is clicked */
     override fun onClick(store: Entities.Vendor?) {
         vendorViewModel.vendor = store
         val navController = findNavController()
