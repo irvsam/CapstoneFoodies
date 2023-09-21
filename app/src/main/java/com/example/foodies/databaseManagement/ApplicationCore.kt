@@ -267,7 +267,7 @@ class ApplicationCore : Application() {
                 id = 6,
                 name = "Campus Cafe",
                 cuisine = "Beverages",
-                description = "Campus Coffee stocks all types of coffees and teas.",
+                description = "Campus Cafe stocks all types of coffees and teas.",
                 menuId = 6,
                 openTime = "9:00",
                 closeTime = "17:00",
