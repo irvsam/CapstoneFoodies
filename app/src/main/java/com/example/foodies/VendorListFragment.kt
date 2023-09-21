@@ -20,7 +20,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-/** list of vendors */
+/** List of vendors */
 class VendorListFragment : Fragment(), StoreClickListener{
 
     private lateinit var storeViewModel: SharedViewModel
@@ -35,7 +35,7 @@ class VendorListFragment : Fragment(), StoreClickListener{
 
 
 
-        /** if the store list hasnt been populated yet get the stores from the database*/
+        //If the store list hasnt been populated yet get the stores from the database
         while(storeViewModel.storeList.isEmpty()){
         CoroutineScope(Dispatchers.IO).launch {
 
@@ -54,7 +54,7 @@ class VendorListFragment : Fragment(), StoreClickListener{
 
     }
 
-    /** set up the adapter*/
+    /** Set up the adapter*/
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val itemAdapter= Adapter(storeViewModel.storeList, this,this)

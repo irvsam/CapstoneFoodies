@@ -35,7 +35,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-/** storefront page*/
+/** Storefront page displaying the relevant details regarding the store*/
 class StoreDetailsFragment : Fragment() {
 
     private lateinit var guestViewModel: GuestViewModel
@@ -73,14 +73,14 @@ class StoreDetailsFragment : Fragment() {
         vendorManagementViewModel = ViewModelProvider(requireActivity())[VendorManagementViewModel::class.java]
         reviewViewModel = ViewModelProvider(requireActivity())[ReviewViewModel::class.java]
 
-        /** vendor can't leave a review */
+        //Vendor can't leave a review
         if(vendorManagementViewModel.user?.type=="Vendor"){
             reviewButton.visibility = View.GONE
         }
-        /** store whos page we are on*/
+        //Store whos page we are on
         val store = storeViewModel.vendor
 
-        /** set up the menu and other details*/
+        //Set up the menu and other details
         CoroutineScope(Dispatchers.IO).launch {
             storeMenu = ApplicationCore.database.vendorDao().getMenuItemsByMenuId(store?.menuId)
             val menu = displayMenuItems(storeMenu).toString()
@@ -115,7 +115,7 @@ class StoreDetailsFragment : Fragment() {
                     val vendorId = store.id
                     storeViewModel.loadVendorInitialRating(vendorId)
 
-                    /** click on rating to go to review list */
+                    //Click on rating to go to review list
                     reviewTextView.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                     reviewTextView.setOnClickListener {
                         if(numReviews!=0)
@@ -137,7 +137,7 @@ class StoreDetailsFragment : Fragment() {
             val actionBar: ActionBar? = (activity as AppCompatActivity).supportActionBar
             actionBar?.setDisplayHomeAsUpEnabled(true)
 
-            /** guest user cannot leave reviews, update UI */
+            //Guest user cannot leave reviews, update UI
             guestViewModel = ViewModelProvider(requireActivity())[GuestViewModel::class.java]
             if (guestViewModel.isGuest) {
                 reviewButton.setBackgroundColor(
@@ -149,11 +149,11 @@ class StoreDetailsFragment : Fragment() {
             }
             reviewButton.setOnClickListener {
                 if (!guestViewModel.isGuest) {
-                    /** logged on user can go to the QR scanner*/
+                    //Logged on user can go to the QR scanner
                     val navController = findNavController()
                     navController.navigate(R.id.QRFragment)
                 } else {
-                    /** guest cannot */
+                    //Guest cannot
                     Toast.makeText(requireContext(), "you are not logged in!", Toast.LENGTH_SHORT)
                         .show()
                 }
