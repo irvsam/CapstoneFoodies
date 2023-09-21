@@ -23,12 +23,14 @@ class EditItemFragment(private val menuItemID: Long) : DialogFragment() {
 
     private lateinit var vendorManagementViewModel: VendorManagementViewModel
 
+    /** Initialise view models on creation*/
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         vendorManagementViewModel = ViewModelProvider(requireActivity())[VendorManagementViewModel::class.java]
 
     }
 
+    /** Inflates EditItemFragment UI */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,12 +39,18 @@ class EditItemFragment(private val menuItemID: Long) : DialogFragment() {
         return inflater.inflate(R.layout.dialog_edit_item, container, false)
     }
 
+    /** Configures the behaviour of interactive controls*/
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val editName = view.findViewById<EditText>(R.id.editItemNameInput)
         val editPrice = view.findViewById<EditText>(R.id.editItemPriceInput)
         val confirmButton = view.findViewById<Button>(R.id.confirmEditButton)
 
+        editItemOnViewCreated(editName,editPrice,confirmButton)
+    }
+
+    /** Sets up the onClickListeners for EditText fields and Buttons*/
+    private fun editItemOnViewCreated(editName:EditText,editPrice:EditText,confirmButton: Button){
         confirmButton.setOnClickListener{
             val itemName = editName.text.toString()
             var itemPrice = 0.0F
