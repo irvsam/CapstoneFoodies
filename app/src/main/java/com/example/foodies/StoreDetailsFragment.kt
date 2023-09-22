@@ -153,8 +153,9 @@ class StoreDetailsFragment : Fragment() {
 
                 if(isOpen){
                     openClosed.text = "Open"
+                    val colorResource = R.color.nicegreen
                     //set the text colour to green
-                    openClosed.setTextColor(Color.GREEN)
+                    openClosed.setTextColor(ContextCompat.getColor(requireContext(), colorResource))
                 }
 
 
