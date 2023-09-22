@@ -24,7 +24,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.Calendar
 
-
 class QRFragment : Fragment() {
 
     private lateinit var storeViewModel: StoreViewModel
@@ -49,7 +48,8 @@ class QRFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
-        val result: IntentResult? = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+        val result: IntentResult? =
+            IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
 
         storeViewModel = ViewModelProvider(requireActivity())[StoreViewModel::class.java]
         val vendorName = storeViewModel.vendor?.name
@@ -62,9 +62,9 @@ class QRFragment : Fragment() {
                 // scannedResult should be the name of a vendor
                 val scannedResult = result.contents
 
-                if(scannedResult==vendorName) { // If the QR is for the right vendor
-                // Display success signal
-                showToast("$scannedResult code scanned successfully")
+                if (scannedResult == vendorName) { // If the QR is for the right vendor
+                    // Display success signal
+                    showToast("$scannedResult code scanned successfully")
 
                     val navController = findNavController()
                     navController.popBackStack()
@@ -74,16 +74,17 @@ class QRFragment : Fragment() {
                     val currentTime = Calendar.getInstance()
                     val currentHour = currentTime.get(Calendar.HOUR_OF_DAY)
                     val scan = Entities.Scan(vendorId = vendorId, hour = currentHour)
-                    lifecycleScope.launch {
-                        insertScanInBackground(scan)
-                    }
+
+                        lifecycleScope.launch {
+                            insertScanInBackground(scan)
+                        }
+
                 } else { // the scanned contents are for the incorrect vendor
 
                     showToast("Incorrect code. Please scan the code for $vendorName")
                     val navController = findNavController()
                     navController.popBackStack()
                     navController.navigate(R.id.storeDetailsFragment)
-
                 }
 
             } else { // the scanned contents are empty.
@@ -93,7 +94,7 @@ class QRFragment : Fragment() {
                 navController.popBackStack()
                 navController.navigate(R.id.storeDetailsFragment)
 
-        }
+            }
 
         }
     }
@@ -101,8 +102,8 @@ class QRFragment : Fragment() {
     // Creates a new scan entry in the Scans table in the DB
     private suspend fun insertScanInBackground(scan: Entities.Scan) {
 
+        // Inserts scan in
         withContext(Dispatchers.IO) {
-
             ApplicationCore.database.scanDao().insert(scan)
         }
     }
