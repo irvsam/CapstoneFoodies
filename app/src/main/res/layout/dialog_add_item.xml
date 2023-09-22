@@ -22,7 +22,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/itemNameLayout"
-        android:layout_width="390dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:layout_marginStart="5dp"
@@ -40,7 +40,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/itemPriceLayout"
-        android:layout_width="390dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:padding="5dp"
