@@ -120,42 +120,40 @@
             android:layout_width="31dp"
             android:layout_height="24dp"
             android:src="@drawable/star"
-            app:layout_constraintBottom_toBottomOf="@+id/storeName"
-            app:layout_constraintStart_toEndOf="@+id/storeName"
+            app:layout_constraintStart_toStartOf="@+id/storeName"
+            app:layout_constraintTop_toBottomOf="@+id/storeName"
             app:tint="#FFC107" />
 
         <TextView
             android:id="@+id/TradingHoursTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:layout_marginStart="26dp"
+            android:layout_marginTop="10dp"
             android:text="Trading Hours:"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/storeName" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
         <TextView
             android:id="@+id/HoursTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:layout_marginStart="12dp"
             android:text="9-5"
             android:textColor="@color/black"
-            app:layout_constraintStart_toEndOf="@+id/TradingHoursTextView"
-            app:layout_constraintTop_toBottomOf="@+id/storeName" />
+            app:layout_constraintBottom_toBottomOf="@+id/TradingHoursTextView"
+            app:layout_constraintStart_toEndOf="@+id/TradingHoursTextView" />
 
         <TextView
             android:id="@+id/OpenClosedTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:layout_marginStart="12dp"
             android:text="Closed"
             android:textColor="@color/dullred"
-            app:layout_constraintStart_toEndOf="@+id/HoursTextView"
-            app:layout_constraintTop_toBottomOf="@+id/storeName" />
+            app:layout_constraintBottom_toBottomOf="@+id/HoursTextView"
+            app:layout_constraintStart_toEndOf="@+id/HoursTextView" />
 
         <TextView
             android:id="@+id/storeDescriptionTextView"
