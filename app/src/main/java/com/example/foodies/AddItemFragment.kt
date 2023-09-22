@@ -47,39 +47,7 @@ class AddItemFragment : DialogFragment() {
 
         addButton.setOnClickListener{
             val itemName = itemNameInput.text.toString()
-            var itemPrice =0.0F
-
-            if (checkPrice(itemPriceInput.text.toString())) {
-                itemPrice = itemPriceInput.text.toString().toFloat()
-                if(itemName.isNotBlank() && itemPrice!=null) {
-                    CoroutineScope(Dispatchers.IO).launch {
-
-                        val lastMenuItem = latestItemId()
-                        val menuItem = Entities.MenuItem(
-                            id = lastMenuItem.id + 1,
-                            menuId = vendorManagementViewModel.vendor!!.menuId,
-                            name = itemName,
-                            price = itemPrice,
-                            inStock = true
-                        )
-                        withContext(Dispatchers.Main) {
-                            ApplicationCore.database.menuItemDao().insertMenuItem(menuItem)
-                            vendorManagementViewModel.addMenuItem(menuItem)
-                            dismiss()
-                        }
-                    }
-                }
-                else{
-                    activity?.runOnUiThread {
-                        Toast.makeText(context, "Please fill in both fields", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-            else{
-                activity?.runOnUiThread {
-                    Toast.makeText(context, "Please enter a valid price", Toast.LENGTH_SHORT).show()
-                }
-            }
+            addItem(itemName,itemPriceInput)
         }
     }
 
@@ -88,6 +56,40 @@ class AddItemFragment : DialogFragment() {
             val lastID = ApplicationCore.database.menuItemDao().getLastMenuItem()
             lastID
         }.await()
+    }
+
+    private fun addItem(itemName: String,itemPriceInput: EditText){
+        if (checkPrice(itemPriceInput.text.toString())) {
+            val itemPrice = itemPriceInput.text.toString().toFloat()
+            if(itemName.isNotBlank() && itemPrice!=null) {
+                CoroutineScope(Dispatchers.IO).launch {
+
+                    val lastMenuItem = latestItemId()
+                    val menuItem = Entities.MenuItem(
+                        id = lastMenuItem.id + 1,
+                        menuId = vendorManagementViewModel.vendor!!.menuId,
+                        name = itemName,
+                        price = itemPrice,
+                        inStock = true
+                    )
+                    withContext(Dispatchers.Main) {
+                        ApplicationCore.database.menuItemDao().insertMenuItem(menuItem)
+                        vendorManagementViewModel.addMenuItem(menuItem)
+                        dismiss()
+                    }
+                }
+            }
+            else{
+                activity?.runOnUiThread {
+                    Toast.makeText(context, "Please fill in both fields", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        else{
+            activity?.runOnUiThread {
+                Toast.makeText(context, "Please enter a valid price", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
 fun checkPrice(input:String):Boolean{
