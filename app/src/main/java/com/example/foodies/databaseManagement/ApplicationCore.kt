@@ -224,7 +224,7 @@ class ApplicationCore : Application() {
                 openTime = "09:00",
                 closeTime = "17:00",
                 dietaryReqId = 1,
-                image = R.drawable.burger
+                image = R.drawable.burgersss
             ),
             //Best Quality store
             Entities.Vendor(
@@ -236,7 +236,7 @@ class ApplicationCore : Application() {
                 openTime = "09:00",
                 closeTime = "17:00",
                 dietaryReqId = 1,
-                image = R.drawable.chips
+                image = R.drawable.friesss
             ),
             //Budget Rolls store
             Entities.Vendor(
