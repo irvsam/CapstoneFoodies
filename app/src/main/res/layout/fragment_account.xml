@@ -10,7 +10,7 @@
         android:id="@+id/accLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="100dp"
         android:text="@string/your_account_details"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,9 +20,11 @@
 
     <TableLayout
         android:id="@+id/tableLayout"
-        android:layout_width="378dp"
-        android:layout_height="263dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.407"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,23 +33,29 @@
         <TableRow>
 
             <TextView
-                android:layout_width="74dp"
-                android:layout_height="31dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
                 android:text="Username"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/nameTextView"
-                android:layout_width="258dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
                 android:text="@string/users_name" />
         </TableRow>
 
         <TableRow>
 
             <TextView
-                android:layout_width="124dp"
-                android:layout_height="31dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
                 android:text="@string/email_address"
                 android:textStyle="bold" />
 
@@ -55,14 +63,18 @@
                 android:id="@+id/emailTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
                 android:text="@string/users_email" />
         </TableRow>
 
         <TableRow>
 
             <TextView
-                android:layout_width="124dp"
-                android:layout_height="31dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
                 android:text="Phone number"
                 android:textStyle="bold" />
 
@@ -70,6 +82,8 @@
                 android:id="@+id/phoneTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
                 android:text="users phone number" />
         </TableRow>
 
@@ -77,8 +91,10 @@
 
             <TextView
                 android:id="@+id/rewardRowTitle"
-                android:layout_width="124dp"
-                android:layout_height="48dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
                 android:text="Reward point history"
                 android:textStyle="bold" />
 
@@ -86,6 +102,8 @@
                 android:id="@+id/rewardTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
                 android:text="users reward points" />
         </TableRow>
 
@@ -93,8 +111,10 @@
 
             <TextView
                 android:id="@+id/voucherRowTitle"
-                android:layout_width="124dp"
-                android:layout_height="48dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
                 android:text="Active voucher code"
                 android:textStyle="bold" />
 
@@ -102,6 +122,8 @@
                 android:id="@+id/voucherTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
                 android:text="currently no code to show" />
         </TableRow>
 
@@ -109,30 +131,36 @@
 
             <TextView
                 android:id="@+id/descriptionRowTitle"
-                android:layout_width="124dp"
-                android:layout_height="48dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
                 android:text="Your store's description"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/descriptionTextView"
-                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:text="description" />
+                android:layout_width="180dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:text="description lets make this very long do andnjababfduwbfwibfiwvienvwsfwefw" />
         </TableRow>
 
     </TableLayout>
 
     <Button
         android:id="@+id/signout_button"
-        android:layout_width="124dp"
-        android:layout_height="59dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:backgroundTint="@color/white"
         android:text="@string/sign_out"
         android:textColor="@color/nicegreen"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tableLayout"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayout"
-        app:layout_constraintVertical_bias="0.072" />
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
 
     <ImageButton
         android:id="@+id/edit_button"

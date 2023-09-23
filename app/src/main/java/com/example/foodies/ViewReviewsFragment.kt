@@ -70,11 +70,12 @@ class ViewReviewsFragment : Fragment() {
 
     /** get the reviews from the database and populate */
     private fun populateReviews(id: Long){
+        /** nb to clear the list first */
+        reviewViewModel.reviewList.clear()
             CoroutineScope(Dispatchers.IO).launch {
                 val allReviews = ApplicationCore.database.reviewDao().getReviewsByVendorId(id)
                 withContext(Dispatchers.Main) {
-                        /** nb to clear the list first */
-                        reviewViewModel.reviewList.clear()
+
                         if (allReviews.isNotEmpty()) {
                             for (review in allReviews) {
                                reviewViewModel.reviewList.add(review)

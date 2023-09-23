@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/addItemHeading"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Item +"
         android:textSize="20dp"
@@ -22,7 +22,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/itemNameLayout"
-        android:layout_width="390dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:layout_marginStart="5dp"
@@ -40,9 +40,10 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/itemPriceLayout"
-        android:layout_width="390dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,8 +61,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:layout_marginStart="5dp"
         android:text="Add Item"
+        app:layout_constraintEnd_toEndOf="@+id/itemPriceLayout"
         app:layout_constraintStart_toStartOf="@id/itemPriceLayout"
         app:layout_constraintTop_toBottomOf="@+id/itemPriceLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>
