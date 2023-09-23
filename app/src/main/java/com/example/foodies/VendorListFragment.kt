@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import classes.adapters.Adapter
+import classes.adapters.StoreAdapter
 import classes.Entities
 import classes.SharedViewModel
 import classes.StoreClickListener
@@ -57,7 +57,7 @@ class VendorListFragment : Fragment(), StoreClickListener{
     /** Set up the adapter*/
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val itemAdapter= Adapter(storeViewModel.storeList, this,this)
+        val itemAdapter= StoreAdapter(storeViewModel.storeList, this,this)
         val recyclerView:RecyclerView=view.findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = itemAdapter

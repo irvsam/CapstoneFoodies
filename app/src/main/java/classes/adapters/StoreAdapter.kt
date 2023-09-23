@@ -16,7 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class Adapter(private val storeList: MutableList<Entities.Vendor?>, private val clickListener: StoreClickListener, private val lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<Adapter.MyViewHolder>() {
+class StoreAdapter(private val storeList: MutableList<Entities.Vendor?>, private val clickListener: StoreClickListener, private val lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<StoreAdapter.MyViewHolder>() {
 
     /**This method creates a new ViewHolder object for each item in the RecyclerView*/
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
