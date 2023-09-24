@@ -58,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:layout_marginEnd="5dp"
+                    android:layout_marginEnd="15dp"
                     android:text="Timestamp"
                     android:textColor="@color/grey"
                     android:textSize="14sp" />
