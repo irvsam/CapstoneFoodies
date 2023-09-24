@@ -75,9 +75,9 @@ class QRFragment : Fragment() {
                     val currentHour = currentTime.get(Calendar.HOUR_OF_DAY)
                     val scan = Entities.Scan(vendorId = vendorId, hour = currentHour)
 
-                        lifecycleScope.launch {
-                            insertScanInBackground(scan)
-                        }
+                    lifecycleScope.launch {
+                        insertScanInBackground(scan)
+                    }
 
                 } else { // the scanned contents are for the incorrect vendor
 

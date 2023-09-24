@@ -1,7 +1,6 @@
 package com.example.foodies
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import classes.Entities
 import classes.VendorManagementViewModel
 import com.example.foodies.databaseManagement.ApplicationCore
-import com.example.foodies.AddItemFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -46,11 +44,11 @@ class EditItemFragment(private val menuItemID: Long) : DialogFragment() {
         val editPrice = view.findViewById<EditText>(R.id.editItemPriceInput)
         val confirmButton = view.findViewById<Button>(R.id.confirmEditButton)
 
-        editItemOnViewCreated(editName,editPrice,confirmButton)
+        editItem(editName,editPrice,confirmButton)
     }
 
     /** Sets up the onClickListeners for EditText fields and Buttons*/
-    private fun editItemOnViewCreated(editName:EditText,editPrice:EditText,confirmButton: Button){
+    private fun editItem(editName:EditText, editPrice:EditText, confirmButton: Button){
         confirmButton.setOnClickListener{
             val itemName = editName.text.toString()
             var itemPrice = 0.0F
