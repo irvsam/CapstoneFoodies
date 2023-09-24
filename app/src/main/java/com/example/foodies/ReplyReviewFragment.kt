@@ -46,8 +46,10 @@ class ReplyReviewFragment(private var review:Entities.Review):DialogFragment() {
 
                     val VendorsReply = reply.text.toString()
                     if(VendorsReply!="") {
-                        ApplicationCore.database.reviewDao()
-                            .updateReply(reply.text.toString(), review.id)
+                        val reviewToUpdate = ApplicationCore.database.reviewDao().getReviewById(review.id)
+                        ApplicationCore.database.reviewDao().updateReply(reply.text.toString(), review.id)
+                        val updatedReview = ApplicationCore.database.reviewDao().getReviewById(review.id)
+                        reviewViewModel.updateReviewList(reviewToUpdate,updatedReview)
                         Toast.makeText(
                             requireContext(),
                             "Your reply has been submitted!",
