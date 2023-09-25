@@ -50,7 +50,9 @@ class ManagementFragment: Fragment() {
         return view
     }
 
-    /** Configures the behaviour of the various interactive fields*/
+    /**
+     * Configures the behaviour of the various interactive fields
+     * */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //Load store details
