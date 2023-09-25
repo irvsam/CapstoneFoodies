@@ -58,9 +58,16 @@ class ViewReviewsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         /** set up the adapter */
-        reviewViewModel.reviewList.sortByDescending { it?.timestamp }
-        val itemAdapter= ReviewAdapter(reviewViewModel.reviewList, this, reviewViewModel.fromManagementPage)
+        reviewViewModel.reviewList.value!!.sortByDescending { it?.timestamp }
+        val itemAdapter= ReviewAdapter(reviewViewModel.reviewList.value!!, this, reviewViewModel.fromManagementPage)
         val recyclerView:RecyclerView=view.findViewById(R.id.recycler_view)
+        reviewViewModel.reviewList.observe(viewLifecycleOwner){ newReviewReply ->
+            newReviewReply?.let {
+                itemAdapter.reviews = it
+                Log.d("OBSERVED","Observed a change in review list")
+                itemAdapter.notifyDataSetChanged()
+            }
+        }
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = itemAdapter
     }
@@ -71,14 +78,14 @@ class ViewReviewsFragment : Fragment() {
     /** get the reviews from the database and populate */
     private fun populateReviews(id: Long){
         /** nb to clear the list first */
-        reviewViewModel.reviewList.clear()
+        reviewViewModel.clearReviews()
             CoroutineScope(Dispatchers.IO).launch {
                 val allReviews = ApplicationCore.database.reviewDao().getReviewsByVendorId(id)
                 withContext(Dispatchers.Main) {
 
                         if (allReviews.isNotEmpty()) {
                             for (review in allReviews) {
-                               reviewViewModel.reviewList.add(review)
+                               reviewViewModel.addReview(review)
                             }
                         }
                 }

@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 
 /** this class acts as the adapter for the list of reviews*/
-class ReviewAdapter(private val reviews: MutableList<Entities.Review?>,
+class ReviewAdapter(var reviews: MutableList<Entities.Review?>,
                     private val lifecycleOwner: LifecycleOwner,
                     private val isVendorFromManagement: Boolean) : RecyclerView.Adapter<ReviewAdapter.ViewHolder>() {
 

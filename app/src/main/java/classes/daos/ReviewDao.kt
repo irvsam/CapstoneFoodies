@@ -29,5 +29,8 @@ interface ReviewDao {
     @Query("UPDATE review SET reply =:replyString WHERE id =:reviewId")
     suspend fun updateReply(replyString:String,reviewId:Long)
 
+    @Query("SELECT * FROM review WHERE id=:reviewID")
+    suspend fun getReviewById(reviewID: Long): Entities.Review?
+
     // Add other query methods as needed
 }

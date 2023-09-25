@@ -154,9 +154,33 @@ class StoreViewModel : ViewModel(){
 
 /** keep track of the reviews for the review list */
 class ReviewViewModel: ViewModel(){
-    val reviewList = mutableListOf<Entities.Review?>()
     var fromVendorList: Boolean = false
     var fromManagementPage: Boolean = false
+    val _reviewList = MutableLiveData<MutableList<Entities.Review?>>()
+
+    val reviewList: LiveData<MutableList<Entities.Review?>>
+        get() = _reviewList
+
+    init {
+        _reviewList.value = mutableListOf()
+    }
+
+    fun addReview(review: Entities.Review) {
+        val currentList = _reviewList.value ?: mutableListOf()
+        currentList.add(review)
+        _reviewList.value = currentList
+    }
+
+    fun clearReviews() {
+        _reviewList.value = mutableListOf()
+    }
+
+    fun updateReviewList(reviewOutdated: Entities.Review?,reviewUpdated: Entities.Review?){
+        val currentList = _reviewList.value ?: mutableListOf()
+        val newList:MutableList<Entities.Review?>? = currentList.map{if (it==reviewOutdated) reviewUpdated else it}.toMutableList()
+        _reviewList.value = newList
+    }
+
 }
 
 /** keep track of a vendor account, if they are logged in as a vendor user */

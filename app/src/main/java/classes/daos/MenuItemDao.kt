@@ -26,6 +26,13 @@ interface MenuItemDao {
     @Query("SELECT * FROM menuitem ORDER BY id DESC LIMIT 1")
     suspend fun getLastMenuItem(): Entities.MenuItem
 
+    /** Return menu items name*/
+    @Query("SELECT name FROM menuitem WHERE id = :menuItemID")
+    suspend fun getName(menuItemID:Long):String
+
+    @Query("SELECT price FROM menuitem WHERE id = :menuItemID")
+    suspend fun getPrice(menuItemID: Long):Float
+
     /** Removes the menu item from the database*/
     @Delete
     suspend fun deleteItem(menuItem:Entities.MenuItem?)

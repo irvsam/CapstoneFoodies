@@ -1,6 +1,7 @@
 package com.example.foodies
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,7 +44,16 @@ class EditItemFragment(private val menuItemID: Long) : DialogFragment() {
         val editName = view.findViewById<EditText>(R.id.editItemNameInput)
         val editPrice = view.findViewById<EditText>(R.id.editItemPriceInput)
         val confirmButton = view.findViewById<Button>(R.id.confirmEditButton)
+        //Set the name and price fields to what the item currently is
+        CoroutineScope(Dispatchers.IO).launch {
+            val itemName = ApplicationCore.database.menuItemDao().getName(menuItemID)
+            val itemPrice = ApplicationCore.database.menuItemDao().getPrice(menuItemID).toString()
+            withContext(Dispatchers.Main){
+                editName.setText(itemName)
+                editPrice.setText(itemPrice)
+            }
 
+        }
         editItem(editName,editPrice,confirmButton)
     }
 
@@ -51,9 +61,10 @@ class EditItemFragment(private val menuItemID: Long) : DialogFragment() {
     private fun editItem(editName:EditText, editPrice:EditText, confirmButton: Button){
         confirmButton.setOnClickListener{
             val itemName = editName.text.toString()
-            var itemPrice = 0.0F
+            Log.d("Edit price",editPrice.text.toString())
+            //var itemPrice = editPrice.text.toString()
             if(checkPrice(editPrice.text.toString())) {
-                itemPrice = editPrice.text.toString().toFloat()
+                val itemPrice = editPrice.text.toString().toFloat()
                 if (itemName.isNotBlank() && itemPrice != null) {
                     CoroutineScope(Dispatchers.IO).launch {
 
