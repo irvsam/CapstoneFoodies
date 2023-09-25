@@ -20,6 +20,7 @@ import com.example.foodies.databaseManagement.ApplicationCore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.zip.Inflater
 
 /** this fragment shows up when a user wants to leave a review */
 class LeaveReviewFragment : Fragment() {
@@ -40,7 +41,11 @@ class LeaveReviewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_leave_review, container, false)
+        createReview(rootView)
+        return rootView
+    }
 
+    private fun createReview(rootView:View){
         qualityRatingBar = rootView.findViewById(R.id.stockRatingBar)
         cleanlinessRatingBar = rootView.findViewById(R.id.cleanlinessRatingBar)
         friendlinessRatingBar = rootView.findViewById(R.id.friendlinessRatingBar)
@@ -118,8 +123,6 @@ class LeaveReviewFragment : Fragment() {
                 Toast.makeText(requireContext(), "Please rate at least two aspects.", Toast.LENGTH_SHORT).show()
             }
         }
-
-        return rootView
     }
 
     private suspend fun insertReviewIntoDatabase(review: Entities.Review) {
