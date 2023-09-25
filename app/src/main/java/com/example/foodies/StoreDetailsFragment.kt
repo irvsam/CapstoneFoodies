@@ -46,6 +46,7 @@ class StoreDetailsFragment : Fragment() {
     private lateinit var imageView: ImageView
     private lateinit var storeName: TextView
     private lateinit var menuTextView: TextView
+    private lateinit var priceTextView: TextView
     private lateinit var reviewTextView: TextView
     private lateinit var reviewButton: Button
     private lateinit var description: TextView
@@ -72,6 +73,7 @@ class StoreDetailsFragment : Fragment() {
         openClosed = view.findViewById(R.id.OpenClosedTextView)
         hours = view.findViewById(R.id.HoursTextView)
         menuTextView = view.findViewById(R.id.menu)
+        priceTextView = view.findViewById(R.id.price)
         reviewTextView = view.findViewById(R.id.reviewTextView)
         reviewButton = view.findViewById(R.id.reviewButton)
         numRatings = view.findViewById(R.id.numReviewsTextView)
@@ -93,12 +95,14 @@ class StoreDetailsFragment : Fragment() {
         CoroutineScope(Dispatchers.IO).launch {
             storeMenu = ApplicationCore.database.vendorDao().getMenuItemsByMenuId(store?.menuId)
             val menu = displayMenuItems(storeMenu).toString()
+            val prices = displayPrice(storeMenu).toString()
             withContext(Dispatchers.Main) {
                 if (store != null) {
                     imageView.setImageResource(store.image)
                     storeViewModel.loadDescription(store.id)
                     storeName.text = store.name
                     if (menu.length != 0) {
+                        priceTextView.text = prices
                         menuTextView.text = menu
                     } else {
                         menuTextView.text = getString(R.string.currently_no_menu_to_display)
@@ -283,13 +287,28 @@ class StoreDetailsFragment : Fragment() {
 
         if (menuItems != null) {
             for (item in menuItems) { // Loop through the items taking their name and price
-                val price = String.format("%.2f", item?.price)
-                menuItemsString.append("R$price   ")
                 menuItemsString.append(item?.name.toString())
                 if (item?.inStock == false) {
                     menuItemsString.append(" (Out of stock)")
                 }
                 menuItemsString.append("\n")
+            }
+        }
+        return menuItemsString
+    }
+
+    private fun displayPrice(menuItems: List<Entities.MenuItem?>?): StringBuilder {
+        val menuItemsString = StringBuilder()
+
+        if (menuItems != null) {
+            for (item in menuItems) { // Loop through the items taking their name and price
+                val price = String.format("%.2f", item?.price)
+                menuItemsString.append("R$price   ")
+                menuItemsString.append("\n")
+                val occurences = item.toString().split("\n").size-1
+                for (i in 1..occurences){
+                    menuItemsString.append("\n")
+                }
             }
         }
         return menuItemsString
