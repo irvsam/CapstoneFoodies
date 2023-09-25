@@ -35,8 +35,8 @@
 
                 <ImageView
                     android:id="@+id/avatarImageView"
-                    android:layout_width="0dp"
-                    android:layout_height="97dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:layout_marginStart="16dp"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/camel" />
@@ -77,6 +77,7 @@
                 android:id="@+id/ratingsLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
                 android:orientation="horizontal"
                 android:layout_marginBottom="24dp">
 
@@ -85,8 +86,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text=""
-                    android:textSize="11sp" />
+                    android:textSize="11sp"
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/stockTextView"
@@ -94,55 +95,56 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:text="Stock availability"
-                    android:textSize="11sp" />
+                    android:textSize="11sp"
+                     />
 
                 <TextView
                     android:id="@+id/cleanlinessRatingTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text=""
-                    android:textSize="11sp" />
+                    android:textSize="11sp"
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/cleanlinessTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="Cleanliness"
-                    android:textSize="11sp" />
+                    android:textSize="11sp"
+                    android:text="Cleanliness" />
 
                 <TextView
                     android:id="@+id/friendlinessRatingTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text=""
-                    android:textSize="11sp" />
+                    android:textSize="11sp"
+                    android:text=""/>
 
                 <TextView
                     android:id="@+id/friendlinessTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="Friendliness"
-                    android:textSize="11sp" />
+                    android:textSize="11sp"
+                    android:text="Friendliness" />
 
                 <TextView
                     android:id="@+id/efficiencyRatingTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text=""
-                    android:textSize="11sp" />
+                    android:textSize="11sp"
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/efficiencyTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="Efficiency"
-                    android:textSize="11sp" />
+                    android:textSize="11sp"
+                    android:text="Efficiency" />
 
             </LinearLayout>
 
