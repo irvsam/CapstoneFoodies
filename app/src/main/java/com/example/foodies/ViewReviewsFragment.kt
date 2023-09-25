@@ -35,12 +35,12 @@ class ViewReviewsFragment : Fragment() {
         vendorManagementViewModel = ViewModelProvider(requireActivity())[VendorManagementViewModel::class.java]
 
         val vendorId:Long
-        /** it is a vendor viewing the reviews for their store*/
+        //it is a vendor viewing the reviews for their store*/
         if(vendorManagementViewModel.isVendor && reviewViewModel.fromManagementPage){
             vendorId = vendorManagementViewModel.vendor!!.id
         }
         else {
-            /** viewing reviews for the store clicked on from the vendor list */
+            //viewing reviews for the store clicked on from the vendor list */
             vendorId = storeViewModel.vendor!!.id
 
         }
@@ -57,7 +57,7 @@ class ViewReviewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /** set up the adapter */
+        //set up the adapter */
         reviewViewModel.reviewList.value!!.sortByDescending { it?.timestamp }
         val itemAdapter= ReviewAdapter(reviewViewModel.reviewList.value!!, this, reviewViewModel.fromManagementPage)
         val recyclerView:RecyclerView=view.findViewById(R.id.recycler_view)
@@ -77,7 +77,7 @@ class ViewReviewsFragment : Fragment() {
 
     /** get the reviews from the database and populate */
     private fun populateReviews(id: Long){
-        /** nb to clear the list first */
+        //to clear the list first */
         reviewViewModel.clearReviews()
             CoroutineScope(Dispatchers.IO).launch {
                 val allReviews = ApplicationCore.database.reviewDao().getReviewsByVendorId(id)

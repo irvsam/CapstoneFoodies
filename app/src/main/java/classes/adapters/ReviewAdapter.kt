@@ -32,7 +32,7 @@ class ReviewAdapter(var reviews: MutableList<Entities.Review?>,
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        /** set it to show reviews starting with the latest review at the top */
+        //set it to show reviews starting with the latest review at the top
         val reversePosition = itemCount - 1 - position
         val review = reviews[reversePosition]
         holder.bind(review)
@@ -43,7 +43,7 @@ class ReviewAdapter(var reviews: MutableList<Entities.Review?>,
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        /** all the UI items */
+        //UI elements
         private val userNameTextView: TextView = itemView.findViewById(R.id.userName)
         private val ratingBar: RatingBar = itemView.findViewById(R.id.ratingBar)
         private val quality: TextView = itemView.findViewById(R.id.stockRatingTextView)
@@ -64,16 +64,16 @@ class ReviewAdapter(var reviews: MutableList<Entities.Review?>,
         /** method to bind UI elements with the review data*/
         fun bind(review: Entities.Review?) {
             if(review!=null){
-                userNameTextView.text = "Loading..." /** this is just if it takes time to retrieve */
+                userNameTextView.text = "Loading..." // this is just if it takes time to retrieve
 
-                /** fetch the username on a thread*/
+                // fetch the username on a thread
                 lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
                     val userName = ApplicationCore.database.accountDao().getUsernameById(review.userId)
 
                     withContext(Dispatchers.Main) {
                         userNameTextView.text = userName
                     }
-                }/** fetch the avatar on a thread*/
+                }// fetch the avatar on a thread
                 lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
                     val user = ApplicationCore.database.accountDao().getUserById(review.userId)
 
@@ -83,7 +83,7 @@ class ReviewAdapter(var reviews: MutableList<Entities.Review?>,
                         }
                     }
                 }
-                /** timestamp format */
+                // timestamp format
                 val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm")
                 val formattedDate = dateFormat.format(Date(review.timestamp))
                 ratingBar.rating = review.overAllRating
@@ -92,8 +92,7 @@ class ReviewAdapter(var reviews: MutableList<Entities.Review?>,
 
                 if(comment.text.isEmpty()){comment.visibility = View.GONE}
 
-                /** these are to decide which rating criteria to show, if the user didn't set a rating then remove it from
-                 * the view */
+                // these are to decide which rating criteria to show, if the user didn't set a rating then remove it from the view
                 if (review.quality.toDouble() == 0.0) {
                     quality.visibility = View.GONE
                     qualityTitle.visibility  = View.GONE
@@ -123,7 +122,7 @@ class ReviewAdapter(var reviews: MutableList<Entities.Review?>,
                     efficiency.text = review.efficiency.toString()
                 }
 
-                /** set the reply logic if it is a vendor viewing reviews from their management page */
+                // set the reply logic if it is a vendor viewing reviews from their management page */
                 if(isVendorFromManagement){
                     if(review.reply == null){
                         reply.text = "Reply"
@@ -139,7 +138,7 @@ class ReviewAdapter(var reviews: MutableList<Entities.Review?>,
                 }
 
                 else{
-                    /** set reply logic if it is just someone there to view */
+                    // set reply logic if it is just someone there to view */
                     if (review.reply ==null){
                         reply.visibility = View.GONE
                         replyHeading.visibility = View.GONE

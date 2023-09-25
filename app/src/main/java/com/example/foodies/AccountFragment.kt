@@ -54,9 +54,9 @@ class AccountFragment : Fragment() {
         accountViewModel = ViewModelProvider(requireActivity())[AccountViewModel::class.java]
         vendorManagementViewModel = ViewModelProvider(requireActivity())[VendorManagementViewModel::class.java]
 
-        /** if a general user is logged in*/
+        //if a general user is logged in*/
         user = accountViewModel.user
-        /** if a vendor account is logged in*/
+        // if a vendor account is logged in*/
         vendor = vendorManagementViewModel.user
 
 
@@ -73,7 +73,7 @@ class AccountFragment : Fragment() {
             val descriptionTextView = view?.findViewById<TextView>(R.id.descriptionTextView)
             val avatar = view?.findViewById<ImageView>(R.id.avatarImageView)
 
-            /** first check if a vendor account has been logged in*/
+            // first check if a vendor account has been logged in*/
             if (vendor?.type == "Vendor") {
                 avatar?.visibility = View.GONE
                 rewardRowTitle?.visibility = View.GONE
@@ -85,7 +85,7 @@ class AccountFragment : Fragment() {
                 phoneTextView?.text = vendor?.phone
                 descriptionTextView?.text = vendorManagementViewModel.vendor?.description
 
-                /** otherwise it is a general user */
+                // otherwise it is a general user */
             } else {
                 nameTextView?.text = user?.username
                 emailTextView?.text = user?.email
@@ -96,7 +96,7 @@ class AccountFragment : Fragment() {
                 }
                 descriptionRowTitle?.visibility = View.GONE
                 descriptionTextView?.visibility = View.GONE
-                /** observe live data for voucher codes */
+                //observe live data for voucher codes */
                 accountViewModel.userVoucher.observe(viewLifecycleOwner) { voucherCode ->
                     if (voucherTextView != null) {
                         if (voucherCode != null) {
@@ -108,7 +108,7 @@ class AccountFragment : Fragment() {
                 if (userId != null) {
                     accountViewModel.loadUserInitialVoucher(userId)
                 }
-                /** observe live data for reward points*/
+                //observe live data for reward points*/
                 accountViewModel.userTotalPoints.observe(viewLifecycleOwner) { totalPoints ->
                     if (rewardTextView != null) {
                         rewardTextView.text = totalPoints.toString()
@@ -118,14 +118,14 @@ class AccountFragment : Fragment() {
                     accountViewModel.loadUserInitialRewardPoints(userId)
                 }
 
-                /** edit avatar */
+                //edit avatar */
                 avatar?.setOnClickListener {
                     showAvatarSelectionDialog()
                 }
 
             }
 
-            /** edit account details */
+            //edit account details */
             editButton?.setOnClickListener {
                 val navController = findNavController()
                 navController.navigate(R.id.editDetailsFragment)

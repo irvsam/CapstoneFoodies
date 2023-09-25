@@ -54,14 +54,14 @@ class LeaveReviewFragment : Fragment() {
         submitReviewButton = rootView.findViewById(R.id.submitReviewButton)
 
 
-        /** when a user submits their review */
+        //when a user submits their review */
         submitReviewButton.setOnClickListener {
             val qualityRating = qualityRatingBar.rating
             val cleanlinessRating = cleanlinessRatingBar.rating
             val friendlinessRating = friendlinessRatingBar.rating
             val efficiencyRating = efficiencyRatingBar.rating
 
-            /** make sure the user has rated at least 2*/
+            //make sure the user has rated at least 2*/
             val filledRatings = listOf(
                 qualityRating,
                 cleanlinessRating,
@@ -74,7 +74,7 @@ class LeaveReviewFragment : Fragment() {
                 val total = filledRatings.sum()
                 val average = total / numberOfRatings
 
-                /** set the review data*/
+                //set the review data*/
                 val userReview = reviewText.text.toString()
                 accountViewModel = ViewModelProvider(requireActivity())[AccountViewModel::class.java]
                 storeViewModel = ViewModelProvider(requireActivity())[StoreViewModel::class.java]
@@ -94,7 +94,7 @@ class LeaveReviewFragment : Fragment() {
 
                     )
 
-                    /** insert review into database */
+                    //insert review into database */
                     lifecycleScope.launch {
                         insertReviewIntoDatabase(review)
                         Toast.makeText(requireContext(), "review submitted", Toast.LENGTH_SHORT)
@@ -108,8 +108,7 @@ class LeaveReviewFragment : Fragment() {
                             val newRating = ApplicationCore.database.vendorDao().calculateAverageRating(storeViewModel.vendor!!.id)
                             storeViewModel.updateRating(newRating)
                         }
-                        /** navigate back to store details and forget
-                         * this fragment so back button cannot return to it*/
+                        //navigate back to store details and forget this fragment so back button cannot return to it*/
                         val navController = findNavController()
                         navController.popBackStack()
                         navController.navigate(R.id.storeDetailsFragment)
@@ -117,8 +116,7 @@ class LeaveReviewFragment : Fragment() {
                 }
 
             } else {
-                /** if the user did not fill in enough rating
-                 * aspects then send them a prompt*/
+                //if the user did not fill in enough rating aspects then send them a prompt*/
 
                 Toast.makeText(requireContext(), "Please rate at least two aspects.", Toast.LENGTH_SHORT).show()
             }

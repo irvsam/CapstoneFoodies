@@ -36,7 +36,7 @@ class FragmentHolderActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_fragment_holder)
-        /** set up all the shared view models we need */
+        //set up all the shared view models we need */
         accountViewModel = ViewModelProvider(this)[AccountViewModel::class.java]
         guestViewModel = ViewModelProvider(this)[GuestViewModel::class.java]
         vendorViewModel = ViewModelProvider(this)[StoreViewModel::class.java]
@@ -44,7 +44,7 @@ class FragmentHolderActivity : AppCompatActivity() {
         vendorManagementViewModel = ViewModelProvider(this)[VendorManagementViewModel::class.java]
 
 
-        /** these get passed through on login */
+        //these get passed through on login */
         val isGuest = intent.getBooleanExtra("is_guest", false)
         val isVendor = intent.getBooleanExtra("is_vendor",false)
         guestViewModel.isGuest = isGuest
@@ -54,20 +54,20 @@ class FragmentHolderActivity : AppCompatActivity() {
         val actionBar: ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
-        /** set up the bottom navigation*/
+        //set up the bottom navigation*/
         val bottomNavigationView = findViewById<BottomNavigationView
                 >(R.id.bottomNavigationView)
         val navController = findNavController(R.id.nav_fragment)
         bottomNavigationView.setupWithNavController(navController)
 
-        /** this is a general user account logged in*/
+        //this is a general user account logged in*/
         if(!isGuest && !isVendor) {
             bottomNavigationView.menu.removeItem(R.id.managementFragment)
             setUser()
             Log.d(ContentValues.TAG, "not guest or vendor")
         }
 
-        /** this is a vendor user */
+        //this is a vendor user */
         else if (vendorManagementViewModel.isVendor){
             setVendor()
             Log.d("Vendor","Entered vendor statement")
@@ -76,7 +76,7 @@ class FragmentHolderActivity : AppCompatActivity() {
             bottomNavigationView.menu.removeItem(R.id.rewardsFragment)
             bottomNavigationView.menu.removeItem(R.id.browseFragment)
         }
-        /** this is a guest user */
+        //this is a guest user */
         else if (guestViewModel.isGuest) {
             Log.d(ContentValues.TAG, "guest")
             val navGraph = navController.navInflater.inflate(R.navigation.nav_graph_guest)

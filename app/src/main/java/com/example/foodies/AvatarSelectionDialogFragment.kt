@@ -35,7 +35,7 @@ class AvatarSelectionDialogFragment : DialogFragment() {
             "secret"
         )
 
-        /** notify when one is selected */
+        // notify when one is selected */
         builder.setItems(avatarOptionNames) { dialog: DialogInterface, which: Int ->
             avatarSelectedListener?.onAvatarSelected(avatarOptions[which])
             dialog.dismiss()

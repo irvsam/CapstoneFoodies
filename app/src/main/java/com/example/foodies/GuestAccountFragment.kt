@@ -22,7 +22,7 @@ class GuestAccountFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_guest_account, container, false)
 
-        /** set the link logic to navigate back to the login page */
+        //set the link logic to navigate back to the login page */
         val guestRegisterLink = view.findViewById<TextView>(R.id.guestRegisterLink)
         val spannableString = SpannableString(guestRegisterLink.text)
         spannableString.setSpan(object : ClickableSpan() {

@@ -28,7 +28,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         val registerLinkTextView = findViewById<TextView>(R.id.registerLink)
 
-        /** registration link */
+        //registration link */
         val spannableString = SpannableString(registerLinkTextView.text)
         spannableString.setSpan(object : ClickableSpan() {
 
@@ -42,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
         registerLinkTextView.text = spannableString
         registerLinkTextView.movementMethod = LinkMovementMethod.getInstance()
 
-        /** login button logic */
+        //login button logic */
         val loginButton = findViewById<Button>(R.id.login_btn)
         loginButton.setOnClickListener {
 
@@ -57,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
                     if (user != null) {
                         showToast("Login Successful")
 
-                        /** send user data in the intent and open fragment holder activity*/
+                        // send user data in the intent and open fragment holder activity*/
                         val intent = Intent(this@LoginActivity, FragmentHolderActivity::class.java)
                         intent.putExtra("user", user.id)
                         intent.putExtra("user_name", user.username)
@@ -75,7 +75,7 @@ class LoginActivity : AppCompatActivity() {
             }
 
         }
-        /** continue as guest */
+        //continue as guest */
         val guestButton = findViewById<Button>(R.id.guestCont_btn)
         guestButton.setOnClickListener {
             val guestIntent = Intent(this@LoginActivity, FragmentHolderActivity::class.java)

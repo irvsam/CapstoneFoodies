@@ -46,7 +46,7 @@ class AccountViewModel : ViewModel() {
     var user: Entities.User? = null
     private val userRepository: UserRepository = UserRepository()
 
-    /** for live data updates */
+    // for live data updates */
     private val _userRewardPoints = MutableLiveData<Int>()
     private val _userTotalPoints = MutableLiveData<Int>()
 
@@ -64,7 +64,7 @@ class AccountViewModel : ViewModel() {
     fun updateUserVoucher(userId: Long, newVoucherCode: String) {
         viewModelScope.launch(Dispatchers.IO) {
             userRepository.updateUserVoucher(userId, newVoucherCode)
-            /** post to the live data and set this user*/
+            // post to the live data and set this user*/
             _userVoucher.postValue(newVoucherCode)
             user?.currentVoucher = newVoucherCode
         }
@@ -72,7 +72,7 @@ class AccountViewModel : ViewModel() {
 
     fun updateUserRewardPoints(userId: Long, rewardPointsToAdd: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            /** calculate the new reward points and set */
+            //calculate the new reward points and set */
             userRepository.updateUserRewardPoints(userId, rewardPointsToAdd)
             val updatedRewardPoints = _userRewardPoints.value?.plus(rewardPointsToAdd) ?: rewardPointsToAdd
             val updatedTotalPoints = _userTotalPoints.value?.plus(rewardPointsToAdd) ?: rewardPointsToAdd
@@ -187,7 +187,7 @@ class ReviewViewModel: ViewModel(){
 class VendorManagementViewModel: ViewModel(){
     private val vendorRepository: VendorRepository = VendorRepository()
     private val _ratingLiveData = MutableLiveData<Float?>()
-    private val _isLoading = MutableLiveData<Boolean>() /** very useful: tells us if the data is still being retrieved from database*/
+    private val _isLoading = MutableLiveData<Boolean>() // very useful: tells us if the data is still being retrieved from database*/
     var isVendor: Boolean = false
     var user: Entities.User? = null
     var vendor: Entities.Vendor? = null
@@ -233,7 +233,7 @@ class VendorManagementViewModel: ViewModel(){
         }
         _menuItems.value = currentList
     }
-    /** the following methods are for menu management*/
+    // the following methods are for menu management*/
     fun addMenuItem(item:Entities.MenuItem?){
         val currentList = _menuItems.value ?: mutableListOf()
         currentList.add(item)

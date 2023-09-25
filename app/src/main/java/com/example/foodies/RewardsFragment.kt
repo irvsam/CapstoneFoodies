@@ -47,7 +47,7 @@ class RewardsFragment: Fragment()  {
         autoCompleteUserTextView.setAdapter(adapterItems)
         autoCompleteUserTextView.threshold = 1
 
-        /** fetch the vendor list for the dropdown menu*/
+        //fetch the vendor list for the dropdown menu*/
         viewLifecycleOwner.lifecycleScope.launch {
             try {
                 val fetchedVendorList = vendorRepository.getVendorList()
@@ -58,12 +58,12 @@ class RewardsFragment: Fragment()  {
                 Log.e(TAG, "Error fetching vendor list: ${e.message}", e)
             }
         }
-        /** vendor selection */
+        //vendor selection */
         autoCompleteUserTextView.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
             val selectedItem = parent.getItemAtPosition(position) as String
         }
 
-        /** observe the live user rewards */
+        //observe the live user rewards */
             accountViewModel.userRewardPoints.observe(viewLifecycleOwner) { rewardPoints ->
             rewardAmtTextView.text = rewardPoints.toString()
             val claimButton = view.findViewById<Button>(R.id.claimButton)
@@ -71,7 +71,7 @@ class RewardsFragment: Fragment()  {
             val autoCompleteTextView = view.findViewById<AutoCompleteTextView>(R.id.vendor_input)
             val vendorTypeLayout = view.findViewById<TextInputLayout>(R.id.vendor_type_layout)
 
-                /** user does not have enough points yet  update UI accordingly */
+                //user does not have enough points yet  update UI accordingly */
             if (rewardPoints < 50) {
                 goodNewsText.text = "Earn 50 points to claim a voucher"
                 claimButton.isEnabled = false
@@ -82,7 +82,7 @@ class RewardsFragment: Fragment()  {
                 params.topToBottom = R.id.goodNewsText
                 claimButton.layoutParams = params
             } else {
-                /** user has enough points for a voucher, update UI */
+                //user has enough points for a voucher, update UI */
                 goodNewsText.text = "Good news! You have enough points for a voucher"
                 claimButton.isEnabled = true
                 claimButton.setBackgroundColor(resources.getColor(R.color.nicegreen))
@@ -93,13 +93,13 @@ class RewardsFragment: Fragment()  {
                 claimButton.layoutParams = params
             }
         }
-        /** load initial points from db */
+        //load initial points from db */
         val userId = accountViewModel.user?.id
         if (userId != null) {
             accountViewModel.loadUserInitialRewardPoints(userId)
 
         }
-        /** user selects claim so give them a voucher */
+        //user selects claim so give them a voucher */
         val claimButton = view.findViewById<Button>(R.id.claimButton)
         claimButton.setOnClickListener {
             val selectedVendor = autoCompleteUserTextView.text.toString()
