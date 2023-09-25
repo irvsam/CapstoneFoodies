@@ -614,8 +614,57 @@ class ApplicationCore : Application() {
             Entities.MenuItem(
                 id = 500,
                 menuId = 5,
+                name = "Cheese and Tomato Sandwich",
+                price = 25.00f,
+                inStock = true
+            ),
+            Entities.MenuItem(
+                id = 501,
+                menuId = 5,
+                name = "Cheese and Avo Sandwich",
+                price = 25.00f,
+                inStock = true
+            ),
+            Entities.MenuItem(
+                id = 502,
+                menuId = 5,
                 name = "Dried Fruit",
                 price = 10.00f,
+                inStock = true
+            ),
+            Entities.MenuItem(
+                id = 503,
+                menuId = 5,
+                name = "Smoothies",
+                price = 40.00f,
+                inStock = true
+            ),
+            Entities.MenuItem(
+                id = 504,
+                menuId = 5,
+                name = "Muesli Cups",
+                price = 30.00f,
+                inStock = true
+            ),
+            Entities.MenuItem(
+                id = 505,
+                menuId = 5,
+                name = "Espresso (Large)",
+                price = 25.00f,
+                inStock = true
+            ),
+            Entities.MenuItem(
+                id = 506,
+                menuId = 5,
+                name = "Cappuccino (Small)",
+                price = 25.00f,
+                inStock = true
+            ),
+            Entities.MenuItem(
+                id = 507,
+                menuId = 5,
+                name = "Cappuccino (Large)",
+                price = 30.00f,
                 inStock = true
             ),
 
@@ -623,8 +672,64 @@ class ApplicationCore : Application() {
             Entities.MenuItem(
                 id = 600,
                 menuId = 6,
-                name = "Filter Coffee",
+                name = "Filter Coffee (Large)",
                 price = 14.00f,
+                inStock = true
+            ),
+            Entities.MenuItem(
+                id = 601,
+                menuId = 6,
+                name = "Instant (Large)",
+                price = 10.00f,
+                inStock = true
+            ),
+            Entities.MenuItem(
+                id = 602,
+                menuId = 6,
+                name = "Jacobs (Large)",
+                price = 12.00f,
+                inStock = true
+            ),
+            Entities.MenuItem(
+                id = 603,
+                menuId = 6,
+                name = "Iced coffee (Large)",
+                price = 15.00f,
+                inStock = true
+            ),
+            Entities.MenuItem(
+                id = 604,
+                menuId = 6,
+                name = "Mocha (Large)",
+                price = 25.00f,
+                inStock = true
+            ),
+            Entities.MenuItem(
+                id = 605,
+                menuId = 6,
+                name = "Ginger tea",
+                price = 10.00f,
+                inStock = true
+            ),
+            Entities.MenuItem(
+                id = 606,
+                menuId = 6,
+                name = "Honey tea",
+                price = 10.00f,
+                inStock = true
+            ),
+            Entities.MenuItem(
+                id = 607,
+                menuId = 6,
+                name = "Rooibos",
+                price = 10.00f,
+                inStock = true
+            ),
+            Entities.MenuItem(
+                id = 608,
+                menuId = 6,
+                name = "Chai latte",
+                price = 25.00f,
                 inStock = true
             ),
 
